@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment';
+import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 
 @Component({
@@ -21,6 +23,15 @@ export class PhonenumberComponent implements OnInit {
   reCaptchaVerifier: any
   auth: any = getAuth(this.app)
 
+  separateDialCode = false;
+  SearchCountryField = SearchCountryField;
+  CountryISO = CountryISO;
+  PhoneNumberFormat = PhoneNumberFormat;
+  preferredCountries: CountryISO[] = [CountryISO.Uganda]
+	phoneForm = new FormGroup({
+		phone: new FormControl(undefined, [Validators.required])
+	});
+
   ngOnInit(): void {
   }
 
@@ -29,7 +40,7 @@ export class PhonenumberComponent implements OnInit {
     {size: 'invisible'},
     this.auth)
 
-    signInWithPhoneNumber(this.auth, this.phoneNumber, this.reCaptchaVerifier)
+    signInWithPhoneNumber(this.auth, this.phoneNumber.e164Number, this.reCaptchaVerifier)
     .then((confirmationResult) => {
       localStorage.setItem('verificationId', JSON.stringify(confirmationResult.verificationId))
       this.router.navigate(['/code'])

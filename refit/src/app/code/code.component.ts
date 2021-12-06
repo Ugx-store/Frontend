@@ -17,6 +17,7 @@ export class CodeComponent implements OnInit {
 
   app: any = initializeApp(environment.firebaseConfig);
   otp!: string;
+  form: any;
   verify: any;
   auth: any = getAuth(this.app);
 
@@ -50,6 +51,10 @@ export class CodeComponent implements OnInit {
     }).catch((error) =>{
       alert(error.message)
     })
+  }
+
+  returnToPhone(){
+    this.router.navigate(['/phone'])
   }
 
 }

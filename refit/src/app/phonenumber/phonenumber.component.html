@@ -1,7 +1,8 @@
-<div class="contain">
+<!-- <div class="contain">
     <div class="row d-flex align-items-center justify-content-center">
         <form class="col-md-6">
         <div class="card px-5 py-5">
+            
             <div class="form-input">
                 <input type="text" name="phoneNumber" placeholder="Phone Number" class="form-control"
                     placeholder="Enter Phone Number" [(ngModel)]="phoneNumber" min="10" max="15">
@@ -11,4 +12,63 @@
         </div>
         </form>
     </div>
-</div>
+</div> -->
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col vh-100 photo"></div>
+        <div class="col vh-100">
+            <div class="row d-flex align-items-center justify-content-center">
+                <div class="card" >
+                    <div class="card-body">
+                        <h5 class="card-title" style="font-weight: bolder;">SIGN UP</h5>
+                        <p class="card-text text-muted">We need to authenticate your phone number before we can create an account for you. Your number will never be publicly displayed.</p>
+                        <h6 class="card-text" style="font-weight: bolder;">Enter phone number</h6>
+                        <form #f="ngForm" style="margin-top: 15px;">
+                            <div>
+                                <ngx-intl-tel-input 
+                                [(ngModel)]="phoneNumber"
+                                name="number"
+                                #number = "ngModel"
+                                [cssClass]="'custom'"
+                                [preferredCountries] = "preferredCountries"
+                                [enableAutoCountrySelect] = "true"
+                                [enablePlaceholder] = "true"
+                                [searchCountryFlag] = "true"
+                                [searchCountryField] = "[
+                                    SearchCountryField.Iso2,
+                                    SearchCountryField.Name
+                                ]"
+                                [selectFirstCountry] = "false"
+                                [selectedCountryISO] = "CountryISO.Uganda"
+                                [separateDialCode] = "true"
+                                [onlyCountries] = "[
+                                    CountryISO.Uganda,
+                                    CountryISO.UnitedStates
+                                ]"
+                                [phoneValidation]="true"
+                                [maxLength]="'15'"
+                                required
+                                >
+                                </ngx-intl-tel-input>
+                                <div *ngIf="f.controls['number']?.invalid && f.controls['number'].touched">
+                                    <span *ngIf="f.controls['number'].errors?.required" class="form-text">Phone number is required</span>
+                                </div>
+                            </div>
+                            <div class="d-grid gap-2" *ngIf="f.controls['number']?.valid; else invalid">
+                                <button class="btn btn-dark btn-code" type="button" (click)="getOTP()">Send code</button>
+                            </div>
+                            <ng-template #invalid>
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-dark btn-code disabled" type="button">Send code</button>
+                                </div>
+                            </ng-template>
+                            <div id="sign-in-button"></div>
+                        </form>
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+    </div>
+</div> 

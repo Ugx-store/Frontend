@@ -1,35 +1,38 @@
 .card {
+    margin: 5rem 0 3rem 0;
     border: none;
-    padding: 20px;
-    background-color: #1c1e21;
-    color: #fff
-}
-  
-.contain{
-    margin: 10rem 0 3rem 0;
 }
 
-.form-input {
-    position: relative;
-    margin-bottom: 10px;
-    margin-top: 10px
+@media(max-width: 768px){
+    .photo{
+        display: none;
+    }
+    .card{
+        width: 100%;
+    }
 }
 
-.form-control {
-    height: 50px;
-    background-color: #dfe7f3;
-    text-indent: 24px;
-    font-size: 15px
+@media(min-width: 992px){
+    .card{
+        width: 70%;
+    }
 }
 
-.form-control:focus {
-    background-color: #25272a;
-    box-shadow: none;
-    color: #fff;
-    border-color: #4f63e7
+.photo{
+    background: url(../../assets/elyas-pasban-TKD0nf8nfIM-unsplash.jpg) center / cover no-repeat;
+    left: 0px;
+    top: 0px;
+    width: 100px;
+    height: 100px;
 }
 
-.signup {
-    height: 50px;
-    font-size: 14px
+.btn-code{
+    margin-top: 20px; 
+    height: 45px; 
+    background-color: #000;
+    font-weight: bolder;
+}
+
+.form-text {
+    color: #ee0000; 
 }

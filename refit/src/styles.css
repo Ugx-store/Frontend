@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+
+.iti {
+	width: 100%;
+    font-size: 18px;
+}
+
+.iti .search-container input {
+	font-size: 14px;
+	border-color: #c7cace;
+	border-radius: 0;
+	padding: 5px 10px;
+}
+
+.iti .search-container input:focus {
+	outline: none;
+}
+
+ngx-intl-tel-input input{
+    height: 44px;
+    width: 100%;
+    border: 1px solid #000;
+    
+}
