@@ -9,15 +9,15 @@
             <div class="row d-flex align-items-center justify-content-center">
                 <div class="card" >
                     <div class="card-body">
-                        <h5 class="card-title" style="font-weight: bolder;">CODE RECEIVED?</h5>
-                        <p class="card-text text-muted">Check your phone number for the code!</p>
+                        <h5 class="card-title" style="font-weight: 900;">CODE RECEIVED?</h5>
+                        <p class="card-text text-muted">Check {{phoneNumber}} for the verification code!</p>
                         <h6 class="card-text" style="font-weight: bolder;">Enter the code</h6>
                         <form #f="ngForm" style="margin-top: 15px;">
                             <div class="otp">
                                 <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" [config]="config" required></ng-otp-input>
                             </div>
                             <div class="d-grid gap-2" *ngIf="otp?.length === 6; else invalid">
-                                <button class="btn btn-dark btn-code" (click)="handleClick()">Verify OTP</button>
+                                <button class="btn btn-dark btn-code" (click)="handleClick()">Verify code</button>
                             </div>
                             <ng-template #invalid>
                                 <div class="d-grid gap-2">

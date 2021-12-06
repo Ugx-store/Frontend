@@ -43,6 +43,7 @@ export class PhonenumberComponent implements OnInit {
     signInWithPhoneNumber(this.auth, this.phoneNumber.e164Number, this.reCaptchaVerifier)
     .then((confirmationResult) => {
       localStorage.setItem('verificationId', JSON.stringify(confirmationResult.verificationId))
+      localStorage.setItem('phonenumber', this.phoneNumber.e164Number)
       this.router.navigate(['/code'])
     }).catch((error) => {
       alert(error.message)

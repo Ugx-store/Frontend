@@ -17,7 +17,7 @@ export class CodeComponent implements OnInit {
 
   app: any = initializeApp(environment.firebaseConfig);
   otp!: string;
-  form: any;
+  phoneNumber: any = localStorage.getItem('phonenumber' || '{}')
   verify: any;
   auth: any = getAuth(this.app);
 

@@ -16,6 +16,7 @@ import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/compat/f
 import { NgOtpInputModule } from 'ng-otp-input';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SignupNavbarComponent } from './signup-navbar/signup-navbar.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     PhonenumberComponent,
     CodeComponent,
-    SignupDetailsComponent
+    SignupDetailsComponent,
+    SignupNavbarComponent
   ],
   imports: [
     BrowserModule,
