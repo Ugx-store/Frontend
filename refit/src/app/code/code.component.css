@@ -1,9 +1,5 @@
-.otp{
-    width: 100%;
-}
-
 .card {
-    margin: -5rem 0 3rem 0;
+    margin: -7rem 0 3rem 0;
     border: none;
 }
 
@@ -17,11 +13,9 @@ form{
     }
     .card{
         width: 100%;
-        margin: -5rem 0 3rem 4rem;
     }
     form{
         width: 340px;
-        margin-right: 20px;
     }
 }
 
