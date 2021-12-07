@@ -1,0 +1,46 @@
+.card {
+    margin: 3rem 0 3rem 0;
+    border: none;
+}
+
+@media(max-width: 768px){
+    .photo{
+        display: none;
+    }
+    .card{
+        width: 100%;
+        margin-top: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media(min-width: 992px){
+    .card{
+        width: 70%;
+    }
+}
+
+.photo{
+    background: url(../../assets/charles-deluvio-_4K7BwaHUGc-unsplash.jpg) center / cover no-repeat;
+    left: 0px;
+    top: 0px;
+    width: 100px;
+    height: 100px;
+}
+
+.btn-code{
+    margin-top: 20px; 
+    height: 45px; 
+    background-color: #000;
+    font-weight: bolder;
+}
+
+.form-text {
+    color: #ee0000; 
+}
+
+.valid-text{
+    color: green;
+}

@@ -1,1 +1,85 @@
-<p>signup-details works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col vh-100 photo"></div>
+        <div class="col">
+            <div class="row d-flex align-items-center justify-content-center">
+                <div class="card" >
+                    <div class="card-body">
+                        <h5 class="card-title" style="font-weight: 900;">ALMOST THERE</h5>
+                        <p class="card-text text-muted">Add a few more details to join the community...</p>
+                        <form #f="ngForm" (ngSubmit)="OnSubmit(f)" style="margin-top: 15px;">
+                            <div class="form-group">
+                                <label for="name" style="font-weight: 900;">Personal Information</label>
+                                <input type="text" class="form-control" name="name" #name="ngModel" [(ngModel)]="user.name"
+                                placeholder="Name" required>
+                                <div *ngIf="f.controls['name']?.invalid && f.controls['name'].touched">
+                                    <span *ngIf="f.controls['name'].errors?.required" class="form-text">Name is required</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <input class="form-control" type="email" name="email" #email="ngModel" [(ngModel)]="user.email" 
+                                placeholder="Email Address" email required>
+                                <div *ngIf="f.controls['email']?.invalid && f.controls['email'].touched">
+                                    <span *ngIf="f.controls['email'].errors?.required" class="form-text">Email is required</span>
+                                </div>
+                                <div *ngIf="f.controls['email']?.invalid">
+                                    <span *ngIf="f.controls['email'].errors?.email" class="form-text">Please enter a correct email address</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name" style="font-weight: 900;">Add a username and password</label>
+                                <input type="text" class="form-control" name="username" #username="ngModel" [(ngModel)]="user.username"
+                                placeholder="Username" required>
+                                <div *ngIf="f.controls['username']?.invalid && f.controls['username'].touched">
+                                    <span *ngIf="f.controls['username'].errors?.required" class="form-text">Username is required</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <input class="form-control" type="password" name="password" #password="ngModel" [(ngModel)]="user.password" 
+                                placeholder="Password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&]).{8,}" 
+                                password required>
+                                <span class="text-muted" style="font-size: smaller;">Passwords must contain at least an uppercase 
+                                    letter, a lowercase letter, a symbol, a number and have at least 
+                                    8 characters.</span>
+                                <div *ngIf="f.controls['password']?.invalid && f.controls['password'].touched">
+                                    <span *ngIf="f.controls['password'].errors?.required" class="form-text">Password is required</span>
+                                </div>
+                                <div *ngIf="password.invalid && (password.dirty || password.touched)">
+                                    <span *ngIf="password.errors?.['pattern']" class="form-text">Password is not strong enough</span>
+                                </div>
+                                <div *ngIf="password.valid && (password.dirty || password.touched)">
+                                    <span class="form-text" style="color: green;">Password is strong enough</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <input class="form-control" type="password" name="passwordConfirm" #passwordConfirm="ngModel" [(ngModel)]="confirmPassword" 
+                                placeholder="Confirm Password"  required>
+                                <div *ngIf="f.controls['confirmPassword']?.invalid && f.controls['confirmPassword'].touched">
+                                    <span *ngIf="f.controls['password'].errors?.required" class="form-text">Please confirm your Password</span>
+                                </div>
+                                <div *ngIf="password.dirty && (confirmPassword !== user.password)">
+                                    <span class="form-text">Passwords are not equal</span>
+                                </div>
+                            </div>
+
+                            <div class="d-grid gap-2" *ngIf="f.controls['name']?.valid; else invalid">
+                                <button class="btn btn-dark btn-code" type="button">Submit</button>
+                            </div>
+                            <ng-template #invalid>
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-dark btn-code disabled" type="button">Submit</button>
+                                </div>
+                            </ng-template>
+                            <div id="sign-in-button"></div>
+                        </form>
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+    </div>
+</div> 

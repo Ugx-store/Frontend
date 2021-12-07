@@ -7,6 +7,7 @@ import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment';
 import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { app } from '../models/firebaseapp';
 
 
 @Component({
@@ -18,10 +19,9 @@ export class PhonenumberComponent implements OnInit {
 
   constructor(private router: Router) { }
 
-  app: any = initializeApp(environment.firebaseConfig)
-  phoneNumber: any;
+  phoneNumber: any; 
   reCaptchaVerifier: any
-  auth: any = getAuth(this.app)
+  auth: any = getAuth(app)
 
   separateDialCode = false;
   SearchCountryField = SearchCountryField;
