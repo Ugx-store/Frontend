@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,4 +15,25 @@ export class AppServiceService {
   checkUsername(username: string): Promise<number>{
     return this.http.get<number>(this.users_url + "/" + "user" + "/" + username).toPromise();
   }
+
+  checkUsername_1(username: string): Observable<number> {
+    return this.http.get<number>(this.users_url + "/" + "user" + "/" + username).pipe(
+        tap(data => console.log(data)),
+        catchError(this.handleError)
+    );
+}
+
+private handleError(err: HttpErrorResponse) {
+
+  let errorMessage = '';
+  if (err.error instanceof ErrorEvent) {
+
+      errorMessage = `An error occurred: ${err.error.message}`;
+  } else {
+
+      errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
+  }
+  console.error(errorMessage);
+  return throwError(errorMessage);
+}
 }
