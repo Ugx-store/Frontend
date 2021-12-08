@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, delay, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -36,4 +36,5 @@ private handleError(err: HttpErrorResponse) {
   console.error(errorMessage);
   return throwError(errorMessage);
 }
+
 }

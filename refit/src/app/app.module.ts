@@ -18,6 +18,7 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SignupNavbarComponent } from './signup-navbar/signup-navbar.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AsyncValidatorDirective } from './directives/async-validator.directive';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
     PhonenumberComponent,
     CodeComponent,
     SignupDetailsComponent,
-    SignupNavbarComponent
+    SignupNavbarComponent,
+    AsyncValidatorDirective
   ],
   imports: [
     BrowserModule,

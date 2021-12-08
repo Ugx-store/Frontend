@@ -25,7 +25,7 @@
                                 </div>
                                 <div *ngIf="f.controls['email']?.invalid">
                                     <span *ngIf="f.controls['email'].errors?.email" class="form-text">Please enter a correct email address</span>
-                                </div>
+                                </div> 
                             </div>
 
                             <div class="form-group">
@@ -38,8 +38,14 @@
                                 <div *ngIf="username.invalid && username.dirty">
                                     <span *ngIf="username.errors?.['pattern']" class="form-text">Username must contain 3 or more alphanumeric characters.</span>
                                 </div>
-                                <span *ngIf="username.errors?.uniqueUsername" class="form-text">Username is taken</span>
-                            </div>  
+                                <div *ngIf="username.invalid && (username.dirty || username.touched)">
+                                    <span *ngIf="username.errors?.uniqueUsername" class="form-text">Username is taken</span>
+                                </div> 
+                                <div *ngIf="username.valid && (username.dirty || username.touched)">
+                                    <span class="form-text" style="color: green;">Username is available</span>
+                                </div>
+                                
+                            </div>   
 
                             <div class="form-group">
                                 <input class="form-control" type="password" name="password" #password="ngModel" [(ngModel)]="user.password" 
