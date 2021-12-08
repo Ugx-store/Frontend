@@ -31,11 +31,17 @@
                             <div class="form-group">
                                 <label for="name" style="font-weight: 900;">Add a username and password</label>
                                 <input type="text" class="form-control" name="username" #username="ngModel" [(ngModel)]="user.username"
-                                placeholder="Username" required>
+                                pattern="[A-Za-z0-9_]{3,}" placeholder="Username" (change)="usernameCheckUnique()" required>
                                 <div *ngIf="f.controls['username']?.invalid && f.controls['username'].touched">
                                     <span *ngIf="f.controls['username'].errors?.required" class="form-text">Username is required</span>
                                 </div>
-                            </div>
+                                <div *ngIf="username.invalid && username.dirty">
+                                    <span *ngIf="username.errors?.['pattern']" class="form-text">Username must contain 3 or more alphanumeric characters.</span>
+                                </div>
+                                <div *ngIf="username.valid && username.dirty && (usernameChecker !== '')">
+                                    <span class="form-text">Username is taken</span>
+                                </div>
+                            </div> 
 
                             <div class="form-group">
                                 <input class="form-control" type="password" name="password" #password="ngModel" [(ngModel)]="user.password" 

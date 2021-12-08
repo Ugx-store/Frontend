@@ -17,6 +17,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SignupNavbarComponent } from './signup-navbar/signup-navbar.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { SignupNavbarComponent } from './signup-navbar/signup-navbar.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     RouterModule.forRoot([]),
     AngularFireAuthModule,
