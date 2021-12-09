@@ -1,5 +1,5 @@
 .card {
-    margin: 6rem 0 3rem 0;
+    margin: 3rem 0 3rem 0;
     border: none;
 }
 
@@ -8,7 +8,7 @@
         display: none;
     }
     .card{
-        width: 100%;
+        width: 340px;
         margin-top: 2rem;
         display: flex;
         align-items: center;
