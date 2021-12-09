@@ -48,7 +48,11 @@ export class CodeComponent implements OnInit {
       localStorage.setItem('user_data', JSON.stringify(response))
       this.router.navigate(['/signup'])
     }).catch((error) =>{
-      alert(error.message)
+      alert(error.message);
+
+      setTimeout(() => {
+        alert("Code has timedout!")
+      }, 1000)
     })
   }
 

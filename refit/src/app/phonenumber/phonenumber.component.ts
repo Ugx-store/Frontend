@@ -44,6 +44,9 @@ export class PhonenumberComponent implements OnInit {
     .then((confirmationResult) => {
       localStorage.setItem('verificationId', JSON.stringify(confirmationResult.verificationId))
       localStorage.setItem('phonenumber', this.phoneNumber.e164Number)
+
+      this.reCaptchaVerifier.clear();
+
       this.router.navigate(['/code'])
     }).catch((error) => {
       alert(error.message)
