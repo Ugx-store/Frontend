@@ -16,6 +16,7 @@ export class AsyncValidatorDirective implements AsyncValidator{
     ctrl: AbstractControl
     ): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
     console.log(ctrl.value)
+    
     return this.service.checkUsername_1(ctrl.value).pipe(
         map(isTaken => (isTaken ? { uniqueUsername: true } : null)),
         catchError(() => of(null))

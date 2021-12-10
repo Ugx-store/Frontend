@@ -37,7 +37,7 @@ export class SignupDetailsComponent implements OnInit {
   OnSubmit(f: NgForm){
     this.spinner = true
 
-    this.route.navigate(['/tcsdisplay']);
+    this.route.navigate([''])
   }
 
 }

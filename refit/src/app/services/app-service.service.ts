@@ -17,7 +17,7 @@ export class AppServiceService {
   }
 
   checkUsername_1(username: string): Observable<number> {
-    return this.http.get<number>(this.users_url + "/" + "user" + "/" + username).pipe(
+    return this.http.get<number>(this.users_url + "/" + "user" + "/" + username.toLocaleLowerCase()).pipe(
         tap(data => console.log(data)),
         catchError(this.handleError)
     );
