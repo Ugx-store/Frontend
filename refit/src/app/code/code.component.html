@@ -16,14 +16,20 @@
                             <div class="otp">
                                 <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" [config]="config" required></ng-otp-input>
                             </div>
-                            <div class="d-grid gap-2" *ngIf="otp?.length === 6; else invalid">
+                            <div class="d-grid gap-2" *ngIf="otp?.length === 6 && !spinner; else invalid">
                                 <button class="btn btn-dark btn-code" (click)="handleClick()">Verify code</button>
                             </div>
                             <ng-template #invalid>
-                                <div class="d-grid gap-2">
-                                    <button class="btn btn-dark btn-code disabled" type="button">Verify OTP</button>
+                                <div class="d-grid gap-2" *ngIf="!spinner">
+                                    <button class="btn btn-dark btn-code disabled" type="button">Verify code</button>
                                 </div>
                             </ng-template>
+                            <div class="d-grid gap-2" *ngIf="spinner">
+                                <button class="btn btn-dark btn-code disabled" type="button">
+                                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                    Verifying code...
+                                </button>
+                            </div>
                             <p class="card-text" style="text-align: center; margin-top: 15px; margin-bottom: 0px;">Didn't receive the code?</p>
                             <p class="card-text try-again" (click)="returnToPhone()" style="text-align: center; text-decoration: underline;">Try again</p>
                         </form>

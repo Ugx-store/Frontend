@@ -22,6 +22,7 @@ export class PhonenumberComponent implements OnInit {
   phoneNumber: any; 
   reCaptchaVerifier: any
   auth: any = getAuth(app)
+  spinner: boolean = false;
 
   separateDialCode = false;
   SearchCountryField = SearchCountryField;
@@ -36,6 +37,8 @@ export class PhonenumberComponent implements OnInit {
   }
 
   getOTP(){
+    this.spinner = true;
+
     this.reCaptchaVerifier = new RecaptchaVerifier('sign-in-button', 
     {size: 'invisible'},
     this.auth)
@@ -47,9 +50,12 @@ export class PhonenumberComponent implements OnInit {
 
       this.reCaptchaVerifier.clear();
 
+      this.spinner = false;
+
       this.router.navigate(['/code'])
     }).catch((error) => {
       alert(error.message)
+
       window.location.reload()
     })
   }

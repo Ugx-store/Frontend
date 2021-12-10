@@ -17,6 +17,7 @@ export class CodeComponent implements OnInit {
 
   app: any = initializeApp(environment.firebaseConfig);
   otp!: string;
+  spinner: boolean = false;
   phoneNumber: any = localStorage.getItem('phonenumber' || '{}')
   verify: any;
   auth: any = getAuth(this.app);
@@ -43,16 +44,17 @@ export class CodeComponent implements OnInit {
   }
 
   handleClick() {
+    this.spinner = true
+
     var credentials = PhoneAuthProvider.credential(this.verify, this.otp);
     signInWithCredential(this.auth, credentials).then((response) => {
+
       localStorage.setItem('user_data', JSON.stringify(response))
+      this.spinner = false
       this.router.navigate(['/signup'])
+
     }).catch((error) =>{
       alert(error.message);
-
-      setTimeout(() => {
-        alert("Code has timedout!")
-      }, 1000)
     })
   }
 

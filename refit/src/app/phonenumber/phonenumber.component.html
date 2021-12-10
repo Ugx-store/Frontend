@@ -39,14 +39,20 @@
                                     <span *ngIf="f.controls['number'].errors?.required" class="form-text">Phone number is required</span>
                                 </div>
                             </div>
-                            <div class="d-grid gap-2" *ngIf="f.controls['number']?.valid; else invalid">
+                            <div class="d-grid gap-2" *ngIf="f.controls['number']?.valid && !spinner; else invalid">
                                 <button class="btn btn-dark btn-code" type="button" (click)="getOTP()">Send code</button>
                             </div>
                             <ng-template #invalid>
-                                <div class="d-grid gap-2">
+                                <div *ngIf="!spinner" class="d-grid gap-2">
                                     <button class="btn btn-dark btn-code disabled" type="button">Send code</button>
                                 </div>
                             </ng-template>
+                            <div class="d-grid gap-2" *ngIf="spinner">
+                                <button class="btn btn-dark btn-code disabled" type="button">
+                                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                    Sending code...
+                                </button>
+                            </div>
                             <div id="sign-in-button"></div>
                         </form>
                     </div>

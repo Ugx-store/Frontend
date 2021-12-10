@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SignupNavbarComponent } from './signup-navbar/signup-navbar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AsyncValidatorDirective } from './directives/async-validator.directive';
+import { TcsDisplayComponent } from './tcs-display/tcs-display.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { AsyncValidatorDirective } from './directives/async-validator.directive'
     CodeComponent,
     SignupDetailsComponent,
     SignupNavbarComponent,
-    AsyncValidatorDirective
+    AsyncValidatorDirective,
+    TcsDisplayComponent
   ],
   imports: [
     BrowserModule,

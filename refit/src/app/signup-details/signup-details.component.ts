@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { newUser } from '../models/newUser';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AppServiceService } from '../services/app-service.service';
 
 @Component({
@@ -11,11 +11,11 @@ import { AppServiceService } from '../services/app-service.service';
 })
 export class SignupDetailsComponent implements OnInit {
 
-  constructor(private service: AppServiceService) { }
+  constructor(private service: AppServiceService, public route: Router) { }
 
   form: any;
   confirmPassword: string = '';
-  usernameChecker: string = '';
+  spinner: boolean = false;
 
 
   user: newUser = {
@@ -32,31 +32,12 @@ export class SignupDetailsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.form = new FormGroup({
-      password: new FormControl(this.user.password, [
-        Validators.required,
-        Validators.pattern(/^(?=\D*\d)(?=[^a-z]*[a-z])(?=.*[$@$!%*?&])(?=[^A-Z]*[A-Z]).{8,30}$/)
-      ])
-    })
   }
 
-  onUsernameChange(username: any){
-    this.user.username = username;
-  }
+  OnSubmit(f: NgForm){
+    this.spinner = true
 
-  usernameCheckUnique(){
-    console.log(this.user.username)
-    this.service.checkUsername(this.user.username).then(res => {
-      console.log(res);
-      if(res === 1){
-        this.usernameChecker = "Username already taken";
-      }
-      else{
-        this.usernameChecker = '';
-      }
-    })
+    this.route.navigate(['/tcsdisplay']);
   }
-
-  OnSubmit(f: NgForm){}
 
 }

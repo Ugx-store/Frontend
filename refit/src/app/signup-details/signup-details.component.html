@@ -42,9 +42,13 @@
                                     <span *ngIf="username.errors?.uniqueUsername" class="form-text">Username is taken</span>
                                 </div> 
                                 <div *ngIf="username.valid && (username.dirty || username.touched)">
-                                    <span class="form-text" style="color: green;">Username is available</span>
+                                    <span *ngIf="!(username.errors?.uniqueUsername)" class="form-text" style="color: green;">Username is available</span>
+                                </div> 
+                                <div *ngIf="username.pending" class="form-text" style="color: orange;">
+                                    Checking username
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                                    style="width: 0.8rem; height: 0.8rem;"></span>
                                 </div>
-                                
                             </div>   
 
                             <div class="form-group">
@@ -69,9 +73,9 @@
                                 <input class="form-control" type="password" name="passwordConfirm" #passwordConfirm="ngModel" [(ngModel)]="confirmPassword" 
                                 placeholder="Confirm Password"  required>
                                 <div *ngIf="f.controls['confirmPassword']?.invalid && f.controls['confirmPassword'].touched">
-                                    <span *ngIf="f.controls['password'].errors?.required" class="form-text">Please confirm your Password</span>
+                                    <span *ngIf="f.controls['confirmPassword'].errors?.required" class="form-text">Please confirm your Password</span>
                                 </div>
-                                <div *ngIf="password.dirty && (confirmPassword !== user.password)">
+                                <div *ngIf="passwordConfirm.dirty && (confirmPassword !== user.password)">
                                     <span class="form-text">Passwords are not equal</span>
                                 </div>
                             </div>
@@ -91,14 +95,21 @@
                             && confirmPassword === user.password
                             && f.controls['username'].valid
                             && f.controls['password'].valid
-                            && f.controls['email'].valid; else invalid">
-                                <button class="btn btn-dark btn-code" type="button">Submit</button>
+                            && f.controls['email'].valid
+                            && !spinner; else invalid">
+                                <button class="btn btn-dark btn-code" type="submit">Submit</button>
                             </div>
                             <ng-template #invalid>
-                                <div class="d-grid gap-2">
+                                <div *ngIf="!spinner" class="d-grid gap-2">
                                     <button class="btn btn-dark btn-code disabled" type="button">Submit</button>
                                 </div>
                             </ng-template>
+                            <div class="d-grid gap-2" *ngIf="spinner">
+                                <button class="btn btn-dark btn-code disabled" type="button">
+                                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                    Submitting...
+                                </button>
+                            </div>
                             <div id="sign-in-button"></div>
                         </form>
                     </div>
