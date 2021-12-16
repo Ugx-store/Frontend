@@ -20,6 +20,10 @@ import { SignupNavbarComponent } from './signup-navbar/signup-navbar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AsyncValidatorDirective } from './directives/async-validator.directive';
 import { TcsDisplayComponent } from './tcs-display/tcs-display.component';
+import { AuthGuard } from './auth.guard';
+import { EmailValidatorDirective } from './directives/email-validator.directive';
+import { PromoCodeValidatorDirective } from './directives/promo-code-validator.directive';
+import { HomepageComponent } from './homepage/homepage.component';
 
 
 @NgModule({
@@ -30,7 +34,10 @@ import { TcsDisplayComponent } from './tcs-display/tcs-display.component';
     SignupDetailsComponent,
     SignupNavbarComponent,
     AsyncValidatorDirective,
-    TcsDisplayComponent
+    TcsDisplayComponent,
+    EmailValidatorDirective,
+    PromoCodeValidatorDirective,
+    HomepageComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +52,7 @@ import { TcsDisplayComponent } from './tcs-display/tcs-display.component';
     NgxIntlTelInputModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

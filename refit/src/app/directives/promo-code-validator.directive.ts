@@ -5,24 +5,21 @@ import { catchError, map } from 'rxjs/operators';
 import { AppServiceService } from '../services/app-service.service';
 
 @Directive({
-  selector: '[uniqueUsername]',
-  providers: [{ provide: NG_ASYNC_VALIDATORS, useExisting: AsyncValidatorDirective, multi: true }]
+  selector: '[uniqueCodeExists]',
+  providers: [{ provide: NG_ASYNC_VALIDATORS, useExisting: PromoCodeValidatorDirective, multi: true }]
 })
-export class AsyncValidatorDirective implements AsyncValidator{
+export class PromoCodeValidatorDirective implements AsyncValidator {
 
   constructor(private service: AppServiceService) {}
 
     validate(
     ctrl: AbstractControl
     ): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
-    console.log(ctrl.value)
     
-    return this.service.checkUsername(ctrl.value).pipe(
-        map(isTaken => (isTaken ? { uniqueUsername: true } : null)),
+    return this.service.checkPromoCode(ctrl.value).pipe(
+        map(isTaken => (isTaken ? null : { uniqueCodeExists: true })),
         catchError(() => of(null))
     );
     }
 
-
 }
-

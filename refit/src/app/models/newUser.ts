@@ -6,5 +6,9 @@ export interface newUser{
     email: string;
     phoneNumber: string;
     receiveEmailConsent: boolean;
+    promoCode: string;
+    FacebookLink: string;
+    TwitterLink: string;
+    InstagramLink: string;
     dateTimeJoined: Date;
 }

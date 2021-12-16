@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import "firebase/auth"
 import "firebase/firestore"
 import { Router } from '@angular/router';
-import { getAuth, RecaptchaVerifier, signInWithPhoneNumber, PhoneAuthProvider, signInWithCredential } from 'firebase/auth';
+import { getAuth, PhoneAuthProvider, signInWithCredential } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment';
+import { AppServiceService } from '../services/app-service.service';
+import { newUser } from '../models/newUser';
 
 @Component({
   selector: 'app-code',
@@ -13,14 +15,29 @@ import { environment } from 'src/environments/environment';
 })
 export class CodeComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private service: AppServiceService) { }
 
   app: any = initializeApp(environment.firebaseConfig);
   otp!: string;
   spinner: boolean = false;
-  phoneNumber: any = localStorage.getItem('phonenumber' || '{}')
+  phoneNumber: any = localStorage.getItem('refit_phoneNumber' || '{}')
   verify: any;
   auth: any = getAuth(this.app);
+
+  user: newUser = {
+    id: 0,
+    name: '', 
+    username: '',
+    password: '',
+    email: '',
+    phoneNumber: '',
+    receiveEmailConsent: false,
+    promoCode: '',
+    FacebookLink: '',
+    TwitterLink: '',
+    InstagramLink: '',
+    dateTimeJoined: new Date(0) 
+  }
 
   config = {
     allowNumbersOnly: true,
@@ -36,7 +53,6 @@ export class CodeComponent implements OnInit {
 
   ngOnInit(): void {
     this.verify = JSON.parse(localStorage.getItem('verificationId') || '{}')
-    console.log(this.verify)
   }
 
   onOtpChange(otpCode: any){
@@ -49,12 +65,13 @@ export class CodeComponent implements OnInit {
     var credentials = PhoneAuthProvider.credential(this.verify, this.otp);
     signInWithCredential(this.auth, credentials).then((response) => {
 
-      localStorage.setItem('user_data', JSON.stringify(response))
       this.spinner = false
+
       this.router.navigate(['/signup'])
 
     }).catch((error) =>{
       alert(error.message);
+      window.location.reload();
     })
   }
 

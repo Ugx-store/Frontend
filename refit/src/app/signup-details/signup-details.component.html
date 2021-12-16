@@ -19,19 +19,27 @@
 
                             <div class="form-group">
                                 <input class="form-control" type="email" name="email" #email="ngModel" [(ngModel)]="user.email" 
-                                placeholder="Email Address" email required>
+                                placeholder="Email Address" email uniqueEmail required>
                                 <div *ngIf="f.controls['email']?.invalid && f.controls['email'].touched">
                                     <span *ngIf="f.controls['email'].errors?.required" class="form-text">Email is required</span>
                                 </div>
                                 <div *ngIf="f.controls['email']?.invalid">
                                     <span *ngIf="f.controls['email'].errors?.email" class="form-text">Please enter a correct email address</span>
                                 </div> 
+                                <div *ngIf="email.invalid && (email.dirty || email.touched)">
+                                    <span *ngIf="email.errors?.uniqueEmail" class="form-text">Email already exists</span>
+                                </div> 
+                                <div *ngIf="email.pending" class="form-text" style="color: orange;">
+                                    Checking email
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                                    style="width: 0.8rem; height: 0.8rem;"></span>
+                                </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="username" style="font-weight: 900;">Add a username and password</label>
                                 <input type="text" class="form-control" name="username" #username="ngModel" [(ngModel)]="user.username"
-                                pattern="[a-zA-Z]{3,}" placeholder="Username"  uniqueUsername required>
+                                pattern="[a-zA-Z._]{3,}" placeholder="Username" autocomplete="username"  uniqueUsername required>
                                 <div *ngIf="f.controls['username']?.invalid && f.controls['username'].touched">
                                     <span *ngIf="f.controls['username'].errors?.required" class="form-text">Username is required</span>
                                 </div>
@@ -49,7 +57,7 @@
                                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
                                     style="width: 0.8rem; height: 0.8rem;"></span>
                                 </div>
-                            </div>   
+                            </div>    
 
                             <div class="form-group">
                                 <input class="form-control" type="password" name="password" #password="ngModel" [(ngModel)]="user.password" 
@@ -82,13 +90,30 @@
 
                             <div class="form-group">
                                 <label for="name" style="font-weight: 900;">Got a Promo code? Add one</label>
-                                <input type="text" class="form-control" name="promoCode" placeholder="Promo code">
+                                <input type="text" class="form-control" name="promoCode" #promoCode="ngModel"  [(ngModel)]="user.promoCode" 
+                                placeholder="Promo code" required uniqueCodeExists>
+                                <div *ngIf="f.controls['promoCode']?.dirty || f.controls['promoCode']?.touched">
+                                    <span *ngIf="f.controls['promoCode'].errors?.uniqueCodeExists" class="form-text">Invalid Promo Code</span>
+                                </div> 
+                                <div *ngIf="f.controls['promoCode']?.pending" class="form-text" style="color: orange;">
+                                    Checking Promo Code
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                                    style="width: 0.8rem; height: 0.8rem;"></span>
+                                </div>
                             </div> 
 
                             <div class="form-group form-check" style="margin-top: 25px;">
-                                <input class="form-check-input" type="checkbox" id="checkbox">
-                                <label class="form-check-label" for="checkbox" style="font-weight: smaller;">Get emails from refit, including promotions and selling tips.</label>
+                                <input class="form-check-input" type="checkbox" (click) = "checkBoxClicked()" id="checkbox">
+                                <label class="form-check-label" for="checkbox" style="font-size: 15px;">Get emails from refit, including promotions
+                                    and selling tips.</label>
                             </div>
+
+                            <div style="margin-top: 15px;">
+                                <span class="text-muted" style="font-size: smaller;">By Submitting, you agree to our 
+                                    <a routerLink="">Terms</a> and that you have read
+                                    our <a routerLink="">Data Use Policy</a>, including our <a routerLink="">Cookie Use</a>.
+                                You cannot use Refit if you do not agree.</span>
+                            </div>  
 
                             <div class="d-grid gap-2" 
                             *ngIf="f.controls['name']?.valid 
@@ -96,8 +121,9 @@
                             && f.controls['username'].valid
                             && f.controls['password'].valid
                             && f.controls['email'].valid
+                            && !(f.controls['promoCode'].errors?.uniqueCodeExists)
                             && !spinner; else invalid">
-                                <button class="btn btn-dark btn-code" type="submit">Submit</button>
+                                <button class="btn btn-dark btn-code" type="submit" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Submit</button>
                             </div>
                             <ng-template #invalid>
                                 <div *ngIf="!spinner" class="d-grid gap-2">
@@ -119,3 +145,21 @@
         </div>
     </div>
 </div> 
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" *ngIf="modalTrigger === 1">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Success</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="nextPage()"></button>
+            </div>
+            <div class="modal-body">
+                Woohoo... Account successfully created.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="nextPage()">Let's go</button>
+            </div>
+        </div>
+    </div>
+</div>
