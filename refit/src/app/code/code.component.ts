@@ -70,7 +70,17 @@ export class CodeComponent implements OnInit {
       this.router.navigate(['/signup'])
 
     }).catch((error) =>{
-      alert(error.message);
+      switch(error.message){
+        case "Firebase: Error (auth/code-expired).": 
+          alert("This code has expired. Please re-enter your phone number for a new code.")
+          break
+        case "Firebase: Error (auth/invalid-verification-code).":
+          alert("Invalid code. Please check your messages for a valid one.") 
+          break
+        default:
+          alert(error.message)
+          break
+      }
       window.location.reload();
     })
   }

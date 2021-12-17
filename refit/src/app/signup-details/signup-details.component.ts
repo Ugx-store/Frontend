@@ -69,11 +69,18 @@ export class SignupDetailsComponent implements OnInit {
         this.spinner = false
       })
     }).catch(error => {
-      alert(error);
+      switch(error.message){
+        case "Firebase: Error (auth/provider-already-linked).":
+          alert("The account already exists. Please login or use another phone number to create a new account.")
+          break
+        default:
+          alert(error.message)
+          break
+      }
 
       this.spinner = false;
 
-      window.location.reload();
+      window.location.reload();  
     })
   }
 
