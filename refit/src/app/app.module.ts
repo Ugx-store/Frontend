@@ -24,6 +24,8 @@ import { AuthGuard } from './auth.guard';
 import { EmailValidatorDirective } from './directives/email-validator.directive';
 import { PromoCodeValidatorDirective } from './directives/promo-code-validator.directive';
 import { HomepageComponent } from './homepage/homepage.component';
+import { LoginComponent } from './login/login.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 
 
 @NgModule({
@@ -38,6 +40,8 @@ import { HomepageComponent } from './homepage/homepage.component';
     EmailValidatorDirective,
     PromoCodeValidatorDirective,
     HomepageComponent,
+    LoginComponent,
+    PasswordResetComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,59 @@
+<div class="container-fluid">
+    <div class="row d-flex align-items-center justify-content-center">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title" style="font-weight: 900;">Login to continue</h5>
+                <span *ngIf="wrongCredentials === true" class="form-text" style="color: red;">Wrong email or password. Please try again!</span>
+                <form #f="ngForm" (ngSubmit)="OnSubmit(f)" style="margin-top: 15px;">
+                    <div class="form-group">
+                        <input class="form-control" type="email" name="email" #email="ngModel" [(ngModel)]="user.email" 
+                        placeholder="Email Address" email required>
+                        <div *ngIf="f.controls['email']?.invalid && f.controls['email'].touched">
+                            <span *ngIf="f.controls['email'].errors?.required" class="form-text">Email is required</span>
+                        </div>
+                        <div *ngIf="f.controls['email']?.invalid">
+                            <span *ngIf="f.controls['email'].errors?.email" class="form-text">Please enter a correct email address</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <input class="form-control" type="password" name="password" #password="ngModel" [(ngModel)]="user.password" 
+                        placeholder="Password" password required>
+                        <div *ngIf="f.controls['password']?.invalid && f.controls['password'].touched">
+                            <span *ngIf="f.controls['password'].errors?.required" class="form-text">Password is required</span>
+                        </div>
+                    </div>
+
+                    <span class="text-muted" style="font-size: smaller;"> 
+                        <p (click)="forgotPassword()" style="color: blue;">Forgot Password?</p>
+                    </span>
+
+                    <div class="d-grid gap-2" 
+                    *ngIf="f.controls['email']?.valid
+                    && f.controls['password'].valid
+                    && !spinner; else invalid">
+                        <button class="btn btn-dark btn-code" type="submit">Login</button>
+                    </div>
+                    <ng-template #invalid>
+                        <div *ngIf="!spinner" class="d-grid gap-2">
+                            <button class="btn btn-dark btn-code disabled" type="button">Login</button>
+                        </div>
+                    </ng-template>
+                    <div class="d-grid gap-2" *ngIf="spinner">
+                        <button class="btn btn-dark btn-code disabled" type="button">
+                            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                            Logging in...
+                        </button>
+                    </div>
+                    <h5 class="card-title" style="font-weight: 900; text-align: center; margin-top: 20px;">Got no Account?</h5>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-dark btn-code" (click)='gotoSignup()'>Sign up</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div> 
+
+
