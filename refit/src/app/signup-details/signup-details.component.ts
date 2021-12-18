@@ -42,11 +42,6 @@ export class SignupDetailsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onCodeChange(code: any){
-    this.user.promoCode = code;
-    console.log(this.user.promoCode)
-  }
-
   checkBoxClicked(){
     this.user.receiveEmailConsent = true;
   }
@@ -72,6 +67,18 @@ export class SignupDetailsComponent implements OnInit {
       switch(error.message){
         case "Firebase: Error (auth/provider-already-linked).":
           alert("The account already exists. Please login or use another phone number to create a new account.")
+          break
+        case "Firebase: Error (auth/code-expired).": 
+          alert("This code has expired. Please re-enter your phone number for a new code.")
+          break
+        case "Firebase: Error (auth/internal-error).":
+          alert("An error has occurred. Please refresh your page and try again.")
+          break
+        case "Firebase: Error (auth/invalid-email).":
+          alert("Please provide a valid email address.")
+          break
+        case "Firebase: Error (auth/requires-recent-login).":
+          alert("Please provide your phone number and a verification code before you can sign up")
           break
         default:
           alert(error.message)

@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { app } from '../models/firebaseapp';
 import { newUser } from '../models/newUser';
-import { AppServiceService } from '../services/app-service.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +12,7 @@ import { AppServiceService } from '../services/app-service.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private service: AppServiceService, public route: Router) { }
+  constructor(public route: Router) { }
 
   auth: any = getAuth(app);
   spinner: boolean = false;
@@ -46,7 +45,6 @@ export class LoginComponent implements OnInit {
       this.spinner = false;
 
       this.route.navigate(['/homepage'])
-      // ...
     })
     .catch((error) => {
       this.wrongCredentials = true;

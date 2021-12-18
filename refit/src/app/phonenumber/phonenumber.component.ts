@@ -73,8 +73,17 @@ export class PhonenumberComponent implements OnInit {
 
       this.router.navigate(['/code'])
     }).catch((error) => {
-      alert(error.message)
+      switch(error.message){
+        case "Firebase: Error (auth/internal-error).":
+          alert("An error has occurred. Please refresh your page and try again.")
+          break
+        default:
+          alert(error.message)
+          break
+      }
+
       this.spinner = false;
+      
       window.location.reload()
       })
 

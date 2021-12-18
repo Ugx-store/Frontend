@@ -32,15 +32,15 @@
                     *ngIf="f.controls['email']?.valid
                     && f.controls['password'].valid
                     && !spinner; else invalid">
-                        <button class="btn btn-dark btn-code" type="submit">Login</button>
+                        <button class="btn btn-dark btn-code" type="submit" style="margin-top: 0rem;">Login</button>
                     </div>
                     <ng-template #invalid>
                         <div *ngIf="!spinner" class="d-grid gap-2">
-                            <button class="btn btn-dark btn-code disabled" type="button">Login</button>
+                            <button class="btn btn-dark btn-code disabled" type="button" style="margin-top: 0rem;">Login</button>
                         </div>
                     </ng-template>
                     <div class="d-grid gap-2" *ngIf="spinner">
-                        <button class="btn btn-dark btn-code disabled" type="button">
+                        <button class="btn btn-dark btn-code disabled" type="button" style="margin-top: 0rem;">
                             <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
                             Logging in...
                         </button>

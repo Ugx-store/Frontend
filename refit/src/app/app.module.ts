@@ -26,6 +26,8 @@ import { PromoCodeValidatorDirective } from './directives/promo-code-validator.d
 import { HomepageComponent } from './homepage/homepage.component';
 import { LoginComponent } from './login/login.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { PasswordResetMessageComponent } from './password-reset-message/password-reset-message.component';
+import { PasswordResetInputComponent } from './password-reset-input/password-reset-input.component';
 
 
 @NgModule({
@@ -42,6 +44,8 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
     HomepageComponent,
     LoginComponent,
     PasswordResetComponent,
+    PasswordResetMessageComponent,
+    PasswordResetInputComponent,
   ],
   imports: [
     BrowserModule,
