@@ -32,12 +32,38 @@ export class PasswordResetInputComponent implements OnInit {
     verifyPasswordResetCode(this.auth, this.code).then(email => {
       confirmPasswordReset(this.auth, this.code, this.userPassword).then(res =>{
         alert("Password successfully changed. Now you can login with the new password")
+        this.spinner = false
         this.route.navigate(['/login'])
       }).catch(error => {
-        alert(error.message)
+        switch(error.message){
+          case "Firebase: Error (auth/invalid-action-code).":
+            alert("You are using an invalid link. Please check your email for a valid one or request for a new link")
+            break
+          case "Firebase: Error (auth/internal-error).":
+            alert("An error has occurred. Please refresh your page and try again.")
+            break
+          default:
+            alert(error.message)
+            break
+        }
+
+        this.spinner = false
+        
       })
     }).catch(error => {
-      alert(error.message)
+      switch(error.message){
+          case "Firebase: Error (auth/invalid-action-code).":
+            alert("You are using an invalid link. Please check your email for a valid one or request for a new link")
+            break
+          case "Firebase: Error (auth/internal-error).":
+            alert("An error has occurred. Please refresh your page and try again.")
+            break
+          default:
+            alert(error.message)
+            break
+        }
+        
+        this.spinner = false
     })
   }
 
