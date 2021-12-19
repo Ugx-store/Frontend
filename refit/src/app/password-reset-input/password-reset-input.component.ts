@@ -53,7 +53,7 @@ export class PasswordResetInputComponent implements OnInit {
     }).catch(error => {
       switch(error.message){
           case "Firebase: Error (auth/invalid-action-code).":
-            alert("You are using an invalid link. Please check your email for a valid one or request for a new link")
+            alert("You are using an invalid link. Please check your email for a valid one or request for a new link.")
             break
           case "Firebase: Error (auth/internal-error).":
             alert("An error has occurred. Please refresh your page and try again.")
