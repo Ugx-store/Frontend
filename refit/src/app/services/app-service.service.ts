@@ -11,6 +11,7 @@ export class AppServiceService {
 
   private users_url: string = "https://users-db.azurewebsites.net/api/Users"
   private promocode_url: string = "https://users-db.azurewebsites.net/api/PromoCodes"
+  private email_url: string = "https://users-db.azurewebsites.net/api/EmailSender/"
 
   constructor(private http: HttpClient) { }
 
