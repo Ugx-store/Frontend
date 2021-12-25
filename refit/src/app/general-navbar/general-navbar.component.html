@@ -1,0 +1,64 @@
+<div>
+    <div class="row row-one">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand nav-one" href="#" style="font-size: 25px; font-weight: 900;">REFIT</a>
+                <form class="form-one">
+                    <input class="form-control me-2 search-input" type="search" placeholder="Search for brands, sizes, items, sellers..." aria-label="Search">
+                </form>
+                <div class="auth-buttons">
+                    <span class="material-icons">search</span>
+                    <button class="btn btn-dark btn-signUp me-2" type="button">Sign up</button>
+                    <button class="btn btn-login" type="button">Login</button>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="row row-two">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <button class="btn btn-login-collapse" type="button">Login</button>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="justify-content: space-evenly;">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link drop-btn" href="#">Ladies'</a>
+                            <div class="dropdown-content">
+                                <ul class="no-bullets" *ngFor="let cat of ladyCats">
+                                    <li><a href="#">{{cat}}</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link drop-btn" href="#">Men's</a>
+                            <div class="dropdown-content">
+                                <ul class="no-bullets" *ngFor="let cat of menCats">
+                                    <li><a href="#">{{cat}}</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link drop-btn" href="#" role="button">Jewelry</a>
+                            <div class="dropdown-content">
+                                <ul class="no-bullets" *ngFor="let cat of jewelry">
+                                    <li><a href="#">{{cat}}</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link drop-btn">Beauty</a>
+                            <div class="dropdown-content">
+                                <ul class="no-bullets" *ngFor="let cat of beauty">
+                                    <li><a href="#">{{cat}}</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+

@@ -28,6 +28,7 @@ import { LoginComponent } from './login/login.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { PasswordResetMessageComponent } from './password-reset-message/password-reset-message.component';
 import { PasswordResetInputComponent } from './password-reset-input/password-reset-input.component';
+import { GeneralNavbarComponent } from './general-navbar/general-navbar.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { PasswordResetInputComponent } from './password-reset-input/password-res
     PasswordResetComponent,
     PasswordResetMessageComponent,
     PasswordResetInputComponent,
+    GeneralNavbarComponent,
   ],
   imports: [
     BrowserModule,

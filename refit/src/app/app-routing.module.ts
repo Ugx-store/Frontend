@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
 import { CodeComponent } from './code/code.component';
+import { GeneralNavbarComponent } from './general-navbar/general-navbar.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { LoginComponent } from './login/login.component';
 import { PasswordResetInputComponent } from './password-reset-input/password-reset-input.component';
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path: 'passwordReset', component: PasswordResetComponent},
   {path: 'passwordResetMessage', component: PasswordResetMessageComponent},
   {path: 'passwordResetInput', component: PasswordResetInputComponent},
+  {path: 'navbar', component: GeneralNavbarComponent},
   {path: '', redirectTo:'/homepage', pathMatch: 'full'}
 ];
 
