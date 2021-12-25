@@ -19,7 +19,7 @@
     "@angular/platform-browser": "~12.2.0",
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
-    "bootstrap": "^4.5.3",
+    "bootstrap": "^4.6.1",
     "firebase": "^9.6.0",
     "google-libphonenumber": "^3.2.25",
     "intl-tel-input": "^17.0.3",
