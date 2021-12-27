@@ -145,3 +145,50 @@
     margin: 0;
     padding: 0;
 }
+
+.offcanvas-header{
+    border-bottom-color: rgb(215, 215, 215); 
+    border-bottom-style: solid;
+    border-bottom-width: 0.0625rem; 
+}
+
+.btn-offCanvas{
+    background-color: black;
+    width: 7rem;
+    font-weight: bolder;
+    border-radius: 2px;
+    height: 2.3rem;
+    text-align: center;
+}
+
+.offCanvas-item{
+    border-bottom-color: rgb(215, 215, 215); 
+    border-bottom-style: solid;
+    border-bottom-width: 0.0625rem;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.offCanvas-link{
+    color:black !important;
+    margin: 0 0.8rem 0 0.8rem;
+    font-size: 18px;
+}
+
+.offCanvas-link:hover{
+    text-decoration: none;
+}
+
+.offCanvas-subItems a{
+    font-family: 'Open Sans', sans-serif;
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    border-bottom-color: rgb(215, 215, 215); 
+    border-bottom-style: solid;
+    border-bottom-width: 0.0625rem; 
+}
+
