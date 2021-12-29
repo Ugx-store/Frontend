@@ -5,6 +5,13 @@
     justify-content: center;
 }
 
+.form-two{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .search-input{
     height: 2.5rem;
 }
@@ -25,11 +32,13 @@
 .nav-one{
     margin-left: 20px;
     margin-right: 0rem;
-    font-family: 'Public Sans', sans-serif;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
 }
 
 .nav-item{
-    font-family: 'Public Sans', sans-serif;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
 }
 
 .nav-link{
@@ -50,7 +59,7 @@
 }
 
 .material-icons{
-    padding-right: 2rem;
+    padding-right: 1rem;
 }
 
 .btn-signUp{
@@ -67,6 +76,14 @@
 
 .navbar-toggler{
     border-style: none;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.btn-search:focus {
+    box-shadow: none;
 }
 
 @media(max-width: 768px){
@@ -101,7 +118,7 @@
 }
 
 @media(min-width: 992px){
-    .material-icons{
+    .btn-search{
         display: none;
     }
     .btn-login-collapse{
@@ -120,6 +137,7 @@
 
 .dropdown-content a {
     font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
     float: none;
     color: black;
     padding: 12px 16px;
@@ -165,8 +183,8 @@
     border-bottom-color: rgb(215, 215, 215); 
     border-bottom-style: solid;
     border-bottom-width: 0.0625rem;
-    padding-bottom: 10px;
-    padding-top: 10px;
+    padding-bottom: 30px;
+    padding-top: 30px;
 }
 
 .offCanvas-link{
