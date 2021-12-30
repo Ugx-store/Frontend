@@ -1,0 +1,12 @@
+@media(max-width: 768px){
+    .fixed-top{
+        position: relative;
+    }
+
+    .navbar-brand{
+        transform: translate(-50%);
+        left: 50%;
+        position: absolute;
+        margin-top: 2rem;
+    }
+}
