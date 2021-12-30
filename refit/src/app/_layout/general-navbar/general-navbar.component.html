@@ -73,6 +73,22 @@
                             </div>
                         </li>
                     </ul>
+ 
+                    <ul class="navbar-nav mb-2 mb-lg-0" style="float: right;">
+                        <li class="nav-item">
+                            <img src="../../../assets/5305170_bird_social media_social network_tweet_twitter_icon.ico" 
+                            alt="twitter" width="20px" style="margin-right: 10px;">
+                        </li>
+                        <li class="nav-item">
+                            <img src="../../../assets/5335781_camera_instagram_social media_instagram logo_icon.ico"
+                            alt="Instagram" width="20px" style="margin-right: 10px;">
+                        </li>
+                        <li class="nav-item">
+                            <img src="../../../assets/5305153_fb_facebook_facebook logo_icon.ico"
+                            alt="Facebook" width="20px">
+                        </li>
+                    </ul>
+
                 </div>
             </div>
         </nav>
@@ -93,55 +109,72 @@
 </div>
 
 <!-- -----OffCanvas main menu items------ -->
-<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" style="width: 85%; transition: 0.5s;" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
-    <div class="offcanvas-header" style="padding-bottom: 10px;">
-        <button class="btn btn-secondary btn-offCanvas" type="button" (click)="goToLogin()" style="margin-left: 10px;">Login</button>
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="true" style="width: 85%; transition: 0.5s;" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+    <div style="display: inline-block;">
+        <ul class="navbar-nav mb-2 mb-lg-0 social-media-icons">
+            <li class="nav-item">
+                <img src="../../../assets/5305170_bird_social media_social network_tweet_twitter_icon.ico" 
+                alt="twitter" width="20px" style="margin-right: 10px;">
+            </li>
+            <li class="nav-item">
+                <img src="../../../assets/5335781_camera_instagram_social media_instagram logo_icon.ico"
+                alt="Instagram" width="20px" style="margin-right: 10px;">
+            </li>
+            <li class="nav-item">
+                <img src="../../../assets/5305153_fb_facebook_facebook logo_icon.ico"
+                alt="Facebook" width="20px">
+            </li>
+        </ul>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    
+    <div class="offcanvas-header" style="padding-bottom: 10px;">
+        <button class="btn btn-secondary btn-offCanvas" type="button" data-bs-dismiss="offcanvas" (click)="goToLogin()" style="margin-left: 10px;">Login</button>
     </div>
     <div class="offcanvas-body" style="padding-top: 10px;">
         <div>
             <h5 class="offcanvas-title" id="offcanvasMenuLabel" style="margin-left: 13px; margin-bottom: 10px;">Browse away...</h5>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="justify-content: space-evenly;">
                 <li class="nav-item offCanvas-item">
-                    <a class="offCanvas-link" data-bs-toggle="offcanvas" href="#offcanvasLadies" role="button" aria-controls="offcanvasLadies">
+                    <button class="btn offCanvas-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasLadies" role="button" aria-controls="offcanvasLadies">
                         Ladies'
                         <span class="material-icons" style="float: right; padding-right: 0;">arrow_forward</span>
-                    </a>
+                    </button>
                 </li>
 
                 <li class="nav-item offCanvas-item dropdown">
-                    <a class="offCanvas-link" data-bs-toggle="offcanvas" href="#offcanvasMen" role="button" aria-controls="offcanvasMen">
+                    <button class="btn offCanvas-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMen" role="button" aria-controls="offcanvasMen">
                         Men's
                         <span class="material-icons" style="float: right; padding-right: 0;">arrow_forward</span>
-                    </a>
+                    </button>
                 </li>
 
                 <li class="nav-item offCanvas-item dropdown">
-                    <a class="offCanvas-link" data-bs-toggle="offcanvas" href="#offcanvasJewelry" role="button" aria-controls="offcanvasJewelry">
+                    <button class="btn offCanvas-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasJewelry" role="button" aria-controls="offcanvasJewelry">
                         Jewelry
                         <span class="material-icons" style="float: right; padding-right: 0;">arrow_forward</span>
-                    </a>
+                    </button>
                 </li>
 
                 <li class="nav-item offCanvas-item dropdown">
-                    <a class="offCanvas-link" data-bs-toggle="offcanvas" href="#offcanvasBeauty" role="button" aria-controls="offcanvasBeauty">
+                    <button class="btn offCanvas-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBeauty" role="button" aria-controls="offcanvasBeauty">
                         Beauty
                         <span class="material-icons" style="float: right; padding-right: 0;">arrow_forward</span>
-                    </a>
+                    </button>
                 </li>
 
                 <li class="nav-item offCanvas-item dropdown">
-                    <a class="offCanvas-link" data-bs-toggle="offcanvas" href="#offcanvasKids" role="button" aria-controls="offcanvasKids">
+                    <button class="btn offCanvas-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasKids" role="button" aria-controls="offcanvasKids">
                         Kids'
                         <span class="material-icons" style="float: right; padding-right: 0;">arrow_forward</span>
-                    </a>
+                    </button>
                 </li>
 
                 <li class="nav-item offCanvas-item dropdown">
-                    <a class="offCanvas-link" data-bs-toggle="offcanvas" href="#offcanvasRentals" role="button" aria-controls="offcanvasRentals">
+                    <button class="btn offCanvas-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRentals" role="button" aria-controls="offcanvasRentals">
                         Rentals
                         <span class="material-icons" style="float: right; padding-right: 0;">arrow_forward</span>
-                    </a>
+                    </button>
                 </li>
             </ul>
         </div>
@@ -149,7 +182,7 @@
 </div>
 
 <!-- -----OffCanvas sub-menu items------ -->
-<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" style="width: 85%; transition: 0.5s;" tabindex="-1" id="offcanvasLadies" aria-labelledby="offcanvasLadiesLabel">
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="true" style="width: 85%; transition: 0.5s;" tabindex="-1" id="offcanvasLadies" aria-labelledby="offcanvasLadiesLabel">
     <div class="offcanvas-header">
         <span class="material-icons" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">arrow_back</span>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
