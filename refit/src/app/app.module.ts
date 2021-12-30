@@ -16,7 +16,7 @@ import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/compat/f
 import { NgOtpInputModule } from 'ng-otp-input';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SignupNavbarComponent } from './signup-navbar/signup-navbar.component';
+import { SignupNavbarComponent } from './_layout/signup-navbar/signup-navbar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AsyncValidatorDirective } from './directives/async-validator.directive';
 import { TcsDisplayComponent } from './tcs-display/tcs-display.component';
@@ -28,7 +28,9 @@ import { LoginComponent } from './login/login.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { PasswordResetMessageComponent } from './password-reset-message/password-reset-message.component';
 import { PasswordResetInputComponent } from './password-reset-input/password-reset-input.component';
-import { GeneralNavbarComponent } from './general-navbar/general-navbar.component';
+import { GeneralNavbarComponent } from './_layout/general-navbar/general-navbar.component';
+import { GeneralLayoutComponent } from './_layout/general-layout/general-layout.component';
+import { SignupLayoutComponent } from './_layout/signup-layout/signup-layout.component';
 
 
 @NgModule({
@@ -48,6 +50,8 @@ import { GeneralNavbarComponent } from './general-navbar/general-navbar.componen
     PasswordResetMessageComponent,
     PasswordResetInputComponent,
     GeneralNavbarComponent,
+    GeneralLayoutComponent,
+    SignupLayoutComponent
   ],
   imports: [
     BrowserModule,

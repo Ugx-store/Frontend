@@ -1,12 +1,12 @@
 .card {
-    margin: 8rem 0 3rem 0;
+    margin: 5rem 0 3rem 0;
     border: none;
 }
 
 @media(max-width: 768px){
     .card{
         width: 100%;
-        margin-top: 6rem;
+        margin-top: 0rem;
         display: flex;
         align-items: center;
         justify-content: center;
