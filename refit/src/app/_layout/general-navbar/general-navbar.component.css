@@ -251,6 +251,12 @@
     font-size: 15px;
 }
 
+.footer-list a:hover{
+    color: rgb(255, 255, 255) !important;
+    background-color: rgb(0, 0, 0);
+    height: 2.5rem;
+}
+
 .offcanvas-footer h2{
     margin-left: 13px;
     margin-bottom: 1rem;
@@ -268,5 +274,18 @@
     transition: 0.5s;
     max-height: 100%; 
     overflow-y: auto;
+}
+
+.offCanvas-search{
+    padding-left: 0; 
+    font-weight: 600; 
+    margin-top: 0px; 
+    font-size: 20px;
+}
+
+.btn-close-search{
+    margin-right: 1.5rem; 
+    margin-bottom: 1rem; 
+    margin-top: 3px;
 }
 
