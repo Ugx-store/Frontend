@@ -1,0 +1,40 @@
+.navbar{
+    border-top-color: rgb(215, 215, 215); 
+    border-top-style: solid;
+    border-top-width: 0.0625rem; 
+    height: 6rem;
+}
+
+.footer-list{
+    display: inline-block;
+    margin-bottom: 20rem;
+}
+
+.footer-list li{
+    display: inline-block;
+}
+
+.nav-link{
+    color:black !important;
+    margin: 0 1.5rem 0 1.5rem;
+    font-size: 18px;
+    height: 2.5rem;
+    width: 100%;
+    text-align: center;
+}
+
+.nav-link:hover{
+    color: rgb(255, 255, 255) !important;
+    background-color: rgb(0, 0, 0);
+}
+
+.footer-p{
+    font-size: 13px; 
+    margin-bottom: -1rem;
+}
+
+@media(max-width: 768px) {
+    .navbar{
+        display: none;
+    } 
+}

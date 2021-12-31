@@ -73,7 +73,7 @@
                             </div>
                         </li>
                     </ul>
- 
+
                     <ul class="navbar-nav mb-2 mb-lg-0" style="float: right;">
                         <li class="nav-item">
                             <img src="../../../assets/5305170_bird_social media_social network_tweet_twitter_icon.ico" 
@@ -98,8 +98,8 @@
 <!-- -----OffCanvas search input------ -->
 <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" style="width: 100%; transition: 0.5s;" tabindex="-1" id="offcanvasSearch" aria-labelledby="offcanvasSearchLabel">
     <div class="offcanvas-header" style="border-bottom-style: none; margin-top: 3rem; height: 10px;">
-        <h5 class="offcanvas-title" id="offcanvasRentalsLabel" style="padding-left: 1rem; font-weight: 600;">Search</h5>
-        <button type="button" class="btn-close text-reset" style="margin-right: 1.5rem; margin-bottom: 1rem;" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <h5 class="offcanvas-title" id="offcanvasRentalsLabel" style="padding-left: 1rem; font-weight: 600; margin-top: 0px;">Search</h5>
+        <button type="button" class="btn-close text-reset" style="margin-right: 1.5rem; margin-bottom: 1rem; margin-top: 3px;" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body offCanvas-subItems">
         <form class="form-two">
@@ -109,7 +109,7 @@
 </div>
 
 <!-- -----OffCanvas main menu items------ -->
-<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="true" style="width: 85%; transition: 0.5s;" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+<div class="offcanvas offcanvas-start first-offcanvas" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
     <div style="display: inline-block;">
         <ul class="navbar-nav mb-2 mb-lg-0 social-media-icons">
             <li class="nav-item">
@@ -131,9 +131,9 @@
     <div class="offcanvas-header" style="padding-bottom: 10px;">
         <button class="btn btn-secondary btn-offCanvas" type="button" data-bs-dismiss="offcanvas" (click)="goToLogin()" style="margin-left: 10px;">Login</button>
     </div>
-    <div class="offcanvas-body" style="padding-top: 10px;">
+    <div style="padding-top: 15px; margin-left: 13px;">
         <div>
-            <h5 class="offcanvas-title" id="offcanvasMenuLabel" style="margin-left: 13px; margin-bottom: 10px;">Browse away...</h5>
+            <h2 class="offcanvas-title" id="offcanvasMenuLabel">Browse away...</h2>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="justify-content: space-evenly;">
                 <li class="nav-item offCanvas-item">
                     <button class="btn offCanvas-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasLadies" role="button" aria-controls="offcanvasLadies">
@@ -178,14 +178,43 @@
                 </li>
             </ul>
         </div>
+
+        <nav class="offcanvas-footer" style="margin-top: 2rem;">
+            <div style="padding-left: 0px; margin-bottom: 4rem;">
+                <h2>Explore more...</h2>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 footer-list">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Terms</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Privacy</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Sellers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Buyers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Contact Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" role="button">Rules</a>
+                    </li>
+                </ul>
+            </div>
+            <p class="footer-p" style="text-align: center;">ⒸREFIT 2022</p>
+        </nav>
     </div>
+
+    
 </div>
 
 <!-- -----OffCanvas sub-menu items------ -->
 <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="true" style="width: 85%; transition: 0.5s;" tabindex="-1" id="offcanvasLadies" aria-labelledby="offcanvasLadiesLabel">
     <div class="offcanvas-header">
         <span class="material-icons" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">arrow_back</span>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" style="margin-bottom: 1rem;" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body offCanvas-subItems">
         <h5 class="offcanvas-title" id="offcanvasLadiesLabel" 
@@ -199,7 +228,7 @@
 <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" style="width: 85%; transition: 0.5s;" tabindex="-1" id="offcanvasMen" aria-labelledby="offcanvasMenLabel">
     <div class="offcanvas-header">
         <span class="material-icons" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">arrow_back</span>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" style="margin-bottom: 1rem;" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body offCanvas-subItems">
         <h5 class="offcanvas-title" id="offcanvasMenLabel" 
@@ -213,7 +242,7 @@
 <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" style="width: 85%; transition: 0.5s;" tabindex="-1" id="offcanvasJewelry" aria-labelledby="offcanvasJewelryLabel">
     <div class="offcanvas-header">
         <span class="material-icons" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">arrow_back</span>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" style="margin-bottom: 1rem;" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body offCanvas-subItems">
         <h5 class="offcanvas-title" id="offcanvasJewelryLabel" 
@@ -227,7 +256,7 @@
 <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" style="width: 85%; transition: 0.5s;" tabindex="-1" id="offcanvasBeauty" aria-labelledby="offcanvasBeautyLabel">
     <div class="offcanvas-header">
         <span class="material-icons" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">arrow_back</span>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" style="margin-bottom: 1rem;" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body offCanvas-subItems">
         <h5 class="offcanvas-title" id="offcanvasBeautyLabel" 
@@ -241,7 +270,7 @@
 <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" style="width: 85%; transition: 0.5s;" tabindex="-1" id="offcanvasKids" aria-labelledby="offcanvasKidsLabel">
     <div class="offcanvas-header">
         <span class="material-icons" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">arrow_back</span>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" style="margin-bottom: 1rem;" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body offCanvas-subItems">
         <h5 class="offcanvas-title" id="offcanvasKidsLabel" 
@@ -255,7 +284,7 @@
 <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" style="width: 85%; transition: 0.5s;" tabindex="-1" id="offcanvasRentals" aria-labelledby="offcanvasRentalsLabel">
     <div class="offcanvas-header">
         <span class="material-icons" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">arrow_back</span>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" style="margin-bottom: 1rem;" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body offCanvas-subItems">
         <h5 class="offcanvas-title" id="offcanvasRentalsLabel" 
@@ -265,4 +294,5 @@
         </ul>
     </div>
 </div>
+
 

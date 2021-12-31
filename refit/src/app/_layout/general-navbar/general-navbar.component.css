@@ -50,6 +50,7 @@
 .nav-link:hover{
     color: rgb(255, 255, 255) !important;
     background-color: rgb(0, 0, 0);
+    height: 2.5rem;
 }
 
 .auth-buttons{
@@ -235,5 +236,37 @@
     border-bottom-color: rgb(215, 215, 215); 
     border-bottom-style: solid;
     border-bottom-width: 0.0625rem; 
+}
+
+.footer-list{
+    display: inline-block;
+    margin-bottom: 20rem;
+}
+
+.footer-list li{
+    display: inline-block;
+}
+
+.footer-list a{
+    font-size: 15px;
+}
+
+.offcanvas-footer h2{
+    margin-left: 13px;
+    margin-bottom: 1rem;
+    font-size: 20px;
+}
+
+.offcanvas-title{
+    margin-left: 13px;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.first-offcanvas{
+    width: 85%;
+    transition: 0.5s;
+    max-height: 100%; 
+    overflow-y: auto;
 }
 

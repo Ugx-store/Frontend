@@ -31,6 +31,7 @@ import { PasswordResetInputComponent } from './password-reset-input/password-res
 import { GeneralNavbarComponent } from './_layout/general-navbar/general-navbar.component';
 import { GeneralLayoutComponent } from './_layout/general-layout/general-layout.component';
 import { SignupLayoutComponent } from './_layout/signup-layout/signup-layout.component';
+import { GeneralFooterComponent } from './_layout/general-footer/general-footer.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { SignupLayoutComponent } from './_layout/signup-layout/signup-layout.com
     PasswordResetInputComponent,
     GeneralNavbarComponent,
     GeneralLayoutComponent,
-    SignupLayoutComponent
+    SignupLayoutComponent,
+    GeneralFooterComponent
   ],
   imports: [
     BrowserModule,
