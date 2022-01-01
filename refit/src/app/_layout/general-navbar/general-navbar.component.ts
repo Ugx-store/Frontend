@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import { app } from 'src/app/models/firebaseapp';
 
 @Component({
   selector: 'app-general-navbar',
@@ -17,8 +19,32 @@ export class GeneralNavbarComponent implements OnInit {
   kids: string[] = ["Girls", "Boys"]
   rentals: string[] = ["Ladies", "Men"]
 
+  authStatus: boolean = false;
+
+  auth: any = getAuth(app);
+  user: any = this.auth.currentUser;
+  userName: string = "";
+
   ngOnInit(): void {
+    onAuthStateChanged(this.auth, (user) =>{
+      if(user !== null){
+        this.authStatus = true;
+        console.log("signed in")
+        const userId = user.phoneNumber
+        console.log(userId)
+      }
+      else{
+        this.authStatus = false;
+        console.log("Not signed in")
+      }
+    })
+  
   }
+
+  checkAuthStatus(): boolean{
+    return this.authStatus;
+  }
+  
 
   goToLogin(){
     this.route.navigate(["/login"])
@@ -26,6 +52,14 @@ export class GeneralNavbarComponent implements OnInit {
 
   goToSignup(){
     this.route.navigate(["/phone"])
+  }
+
+  signOut(){
+    signOut(this.auth).then(() => {
+      this.authStatus = false;
+    }).catch((error) => {
+      alert(error.message);
+    });
   }
 
 }

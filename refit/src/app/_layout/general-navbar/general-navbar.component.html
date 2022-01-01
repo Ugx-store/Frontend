@@ -13,8 +13,21 @@
                     <button class="btn btn-search" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSearch" aria-controls="offcanvasSearch">
                         <span class="material-icons">search</span>
                     </button>
-                    <button class="btn btn-dark btn-signUp me-2" type="button" (click)="goToSignup()">Sign up</button>
-                    <button class="btn btn-login" type="button" (click)="goToLogin()">Login</button>
+
+                    <div *ngIf="authStatus; else notLoggedIn">
+                        <button class="btn btn-dark btn-signUp me-2" type="button" style="font-weight: 600; margin-right: 15px; margin-bottom: 5px;">Sell</button>
+                        <button class="btn btn-login" style=" text-align: center; margin-right: 0px;">
+                            <span class="material-icons-outlined" style="font-size: 30px;  margin-top: 0.15rem; width: 0;">local_mall</span>
+                        </button>
+                        <button class="btn btn-login" type="button" (click)="signOut()" style=" text-align: start; margin-left: 40px; width: 5rem; padding: 0;">
+                            <span class="material-icons" style="margin-top: 0.15rem; font-size: 36px;  padding: 0;">account_circle</span>
+                            <span class="material-icons" style="margin-top: 0.15rem; font-size: 36px;  padding: 0;">arrow_drop_down</span>
+                        </button>
+                    </div>
+                    <ng-template #notLoggedIn>
+                        <button class="btn btn-dark btn-signUp me-2" type="button" (click)="goToSignup()">Sign up</button>
+                        <button class="btn btn-login" type="button" (click)="goToLogin()">Login</button>
+                    </ng-template>
                 </div>
             </div>
         </nav>
@@ -109,7 +122,7 @@
 </div>
 
 <!-- -----OffCanvas main menu items------ -->
-<div class="offcanvas offcanvas-start first-offcanvas" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+<div class="offcanvas offcanvas-start first-offcanvas" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
     <div style="display: inline-block;">
         <ul class="navbar-nav mb-2 mb-lg-0 social-media-icons">
             <li class="nav-item">
@@ -211,7 +224,7 @@
 </div>
 
 <!-- -----OffCanvas sub-menu items------ -->
-<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="true" style="width: 85%; transition: 0.5s;" tabindex="-1" id="offcanvasLadies" aria-labelledby="offcanvasLadiesLabel">
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" style="width: 85%; transition: 0.5s;" tabindex="-1" id="offcanvasLadies" aria-labelledby="offcanvasLadiesLabel">
     <div class="offcanvas-header">
         <span class="material-icons" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">arrow_back</span>
         <button type="button" style="margin-bottom: 1rem;" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
