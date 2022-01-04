@@ -1,5 +1,5 @@
-<div>
-    <div class="row row-one">
+<div class="sticky-top" style="background: white">
+    <div class="row row-one ">
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">
@@ -15,13 +15,19 @@
                     </button>
 
                     <div *ngIf="authStatus; else notLoggedIn">
-                        <button class="btn btn-dark btn-signUp me-2" type="button" style="font-weight: 600; margin-right: 15px; margin-bottom: 5px;">Sell</button>
-                        <button class="btn btn-login" style=" text-align: center; margin-right: 0px;">
-                            <span class="material-icons-outlined" style="font-size: 30px;  margin-top: 0.15rem; width: 0;">local_mall</span>
+                        <button class="btn btn-dark btn-signUp me-2 btn-sell" type="button">Sell</button>
+                        <button class="btn btn-cart">
+                            <span class="material-icons-outlined local-mall-icon">local_mall</span>
                         </button>
-                        <button class="btn btn-login" type="button" (click)="signOut()" style=" text-align: start; margin-left: 40px; width: 5rem; padding: 0;">
-                            <span class="material-icons" style="margin-top: 0.15rem; font-size: 36px;  padding: 0;">account_circle</span>
-                            <span class="material-icons" style="margin-top: 0.15rem; font-size: 36px;  padding: 0;">arrow_drop_down</span>
+                        <button class="btn btn-login dropdown profile-icons" type="button">
+                            <span class="material-icons account-circle-icon">account_circle</span>
+                            <span class="material-icons arrow-drop-icon">arrow_drop_down</span>
+                            <div class="dropdown-content-profile">
+                                <ul class="no-bullets">
+                                    <li><button class="btn btn-login">Profile</button></li>
+                                    <li><button class="btn btn-login" (click)="signOut()">Logout</button></li>
+                                </ul>
+                            </div>
                         </button>
                     </div>
                     <ng-template #notLoggedIn>
@@ -140,10 +146,22 @@
         </ul>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    
-    <div class="offcanvas-header" style="padding-bottom: 10px;">
-        <button class="btn btn-secondary btn-offCanvas" type="button" data-bs-dismiss="offcanvas" (click)="goToLogin()" style="margin-left: 10px;">Login</button>
+
+    <div *ngIf="authStatus; else notLoggedInOffCanvas">
+        <button class="btn btn-off-canvas" type="button">
+            <span class="material-icons" style="font-size: 36px;">account_circle</span>
+            <span class="profile-off-canvas">Profile</span>
+        </button>
+        <div class="offcanvas-header Logout-off-canvas">
+            <button class="btn btn-secondary btn-offCanvas-logout" type="button" data-bs-dismiss="offcanvas" (click)="signOut()">Logout</button>
+        </div>
     </div>
+    <ng-template #notLoggedInOffCanvas>
+        <div class="offcanvas-header" style="padding-bottom: 10px;">
+            <button class="btn btn-secondary btn-offCanvas" type="button" data-bs-dismiss="offcanvas" (click)="goToLogin()" style="margin-left: 10px;">Login</button>
+        </div>
+    </ng-template>
+
     <div style="padding-top: 15px; margin-left: 13px;">
         <div>
             <h2 class="offcanvas-title" id="offcanvasMenuLabel">Browse away...</h2>
@@ -151,42 +169,42 @@
                 <li class="nav-item offCanvas-item">
                     <button class="btn offCanvas-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasLadies" role="button" aria-controls="offcanvasLadies">
                         Ladies'
-                        <span class="material-icons" style="float: right; padding-right: 0;">arrow_forward</span>
+                        <span class="material-icons arrow-forward">arrow_forward</span>
                     </button>
                 </li>
 
-                <li class="nav-item offCanvas-item dropdown">
+                <li class="nav-item offCanvas-item">
                     <button class="btn offCanvas-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMen" role="button" aria-controls="offcanvasMen">
                         Men's
-                        <span class="material-icons" style="float: right; padding-right: 0;">arrow_forward</span>
+                        <span class="material-icons arrow-forward">arrow_forward</span>
                     </button>
                 </li>
 
-                <li class="nav-item offCanvas-item dropdown">
+                <li class="nav-item offCanvas-item">
                     <button class="btn offCanvas-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasJewelry" role="button" aria-controls="offcanvasJewelry">
                         Jewelry
-                        <span class="material-icons" style="float: right; padding-right: 0;">arrow_forward</span>
+                        <span class="material-icons arrow-forward">arrow_forward</span>
                     </button>
                 </li>
 
-                <li class="nav-item offCanvas-item dropdown">
+                <li class="nav-item offCanvas-item">
                     <button class="btn offCanvas-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBeauty" role="button" aria-controls="offcanvasBeauty">
                         Beauty
-                        <span class="material-icons" style="float: right; padding-right: 0;">arrow_forward</span>
+                        <span class="material-icons arrow-forward">arrow_forward</span>
                     </button>
                 </li>
 
-                <li class="nav-item offCanvas-item dropdown">
+                <li class="nav-item offCanvas-item">
                     <button class="btn offCanvas-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasKids" role="button" aria-controls="offcanvasKids">
                         Kids'
-                        <span class="material-icons" style="float: right; padding-right: 0;">arrow_forward</span>
+                        <span class="material-icons arrow-forward">arrow_forward</span>
                     </button>
                 </li>
 
-                <li class="nav-item offCanvas-item dropdown">
+                <li class="nav-item offCanvas-item">
                     <button class="btn offCanvas-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRentals" role="button" aria-controls="offcanvasRentals">
                         Rentals
-                        <span class="material-icons" style="float: right; padding-right: 0;">arrow_forward</span>
+                        <span class="material-icons arrow-forward">arrow_forward</span>
                     </button>
                 </li>
             </ul>

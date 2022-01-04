@@ -1,5 +1,5 @@
 .card {
-    margin: 5rem 0 3rem 0;
+    margin: 2rem 0 3rem 0;
     border: none;
 }
 
@@ -19,7 +19,7 @@
 @media(min-width: 992px){
     .card{
         width: 35%;
-        height: 500px;
+        height: 400px;
         border-width: 0.1px;
         border-style: solid;
         border-radius: 4px;

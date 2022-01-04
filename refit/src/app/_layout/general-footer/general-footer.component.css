@@ -1,8 +1,16 @@
+nav{
+    margin-top: 5rem;
+}
 .navbar{
     border-top-color: rgb(215, 215, 215); 
     border-top-style: solid;
     border-top-width: 0.0625rem; 
-    height: 6rem;
+    height: 5rem;
+    background: rgb(255, 255, 255);
+    /* position: fixed;
+    z-index: 2;
+    bottom: 0px;
+    width: 100%; */
 }
 
 .footer-list{

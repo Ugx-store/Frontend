@@ -60,7 +60,7 @@
 }
 
 .material-icons{
-    padding-right: 1rem;
+    padding-right: 0.5rem;
 }
 
 .btn-signUp{
@@ -76,6 +76,16 @@
 }
 
 .btn-login:focus{
+    box-shadow: none;
+}
+
+.btn-cart{
+    font-weight: 900;
+    text-align: center;
+    margin-right: 0px;
+}
+
+.btn-cart:focus{
     box-shadow: none;
 }
 
@@ -167,6 +177,40 @@
     display: block;
 }
 
+.dropdown-content-profile {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    background-color: #f9f9f9;
+    width: 150px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    margin-left: -4rem;
+}
+
+.dropdown-content-profile button {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    border-bottom-color: rgb(215, 215, 215); 
+    border-bottom-style: solid;
+    border-bottom-width: 0.0625rem; 
+    width: 100%;
+}
+
+.dropdown-content-profile button:hover {
+    color: rgb(255, 255, 255);
+    background-color: #000;
+}
+
+.dropdown:hover .dropdown-content-profile {
+    display: block;
+}
+
 .no-bullets{
     list-style-type: none;
     margin: 0;
@@ -202,6 +246,20 @@
     border-radius: 2px;
     height: 2.3rem;
     text-align: center;
+}
+
+.btn-offCanvas-logout{
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    width: 5rem;
+    font-weight: bolder;
+    border-radius: 2px;
+    height: 2.3rem;
+    text-align: start;
+    border-style: none;
+    font-family: 'Public Sans', sans-serif;
+    font-size: 18px;
+    padding-left: 4px;
 }
 
 .offCanvas-item{
@@ -282,9 +340,67 @@
     font-size: 20px;
 }
 
+.btn-sell{
+    font-weight: 600; 
+    margin-right: 15px; 
+    margin-bottom: 5px;
+}
+
+.local-mall-icon{
+    font-size: 30px; 
+    margin-top: 0.15rem; 
+    width: 0;
+}
+
+.profile-icons{
+    text-align: start; 
+    margin-left: 40px; 
+    width: 5rem; 
+    padding: 0;
+}
+
+.account-circle-icon{
+    margin-top: 0.15rem; 
+    font-size: 36px;  
+    padding: 0;
+} 
+
+.arrow-drop-icon{
+    margin-top: 0.15rem; 
+    font-size: 36px;  
+    padding: 0;
+}
+
 .btn-close-search{
     margin-right: 1.5rem; 
     margin-bottom: 1rem; 
     margin-top: 3px;
+}
+
+.btn-off-canvas{
+    text-align: start; 
+    display:flex; 
+    align-items: center; 
+    margin-left: 18px; 
+    margin-top: 10px; 
+    width: 10rem; 
+    padding: 0;
+} 
+
+.profile-off-canvas{
+    margin-left: 8px; 
+    font-size: 20px;
+    font-family: 'Public Sans', sans-serif;
+}
+
+.Logout-off-canvas{
+    padding-bottom: 10px; 
+    margin-top: 0; 
+    height: 45px;
+}
+
+.arrow-forward{
+    float: right; 
+    padding-right: 0;
 }
 
