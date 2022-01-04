@@ -126,7 +126,9 @@
     }
 
     .btn-cart{
-        margin-right: 1rem;
+        width: 30px;
+        text-align: start;
+        padding: 0;
     }
 }
 
