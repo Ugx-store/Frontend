@@ -79,12 +79,6 @@
     box-shadow: none;
 }
 
-.btn-cart{
-    font-weight: 900;
-    text-align: center;
-    margin-right: 0px;
-}
-
 .btn-cart:focus{
     box-shadow: none;
 }
