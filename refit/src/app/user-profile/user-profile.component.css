@@ -1,0 +1,67 @@
+.row-one{
+    margin-top: 2rem;
+}
+
+.profile-pic-div{
+    height: 8rem; 
+    width: 6rem; 
+    margin-left: 2rem; 
+    float: left;
+}
+
+.edit-profile-button{
+    padding: 0; 
+    width: 5rem; 
+    margin-left: -0.3rem;
+    color: blue;
+}
+
+.profile-img{
+    margin-left: -0.75rem; 
+    height: 6rem; 
+    width: 6rem; 
+    border-radius: 50%;
+}
+
+.name-div{
+    float: right; 
+    margin-left: 1.7rem; 
+    width: 50%; 
+    padding-left: 0;
+    padding-top: 0.5rem;
+}
+
+.user-name{
+    font-family: 'Public Sans', sans-serif; 
+    height: 2rem; 
+    font-size: 25px; 
+    margin: 0; 
+    padding: 0;
+}
+
+.userName{
+    margin: 0; 
+    padding-top: 0;
+}
+
+.sold-items{ 
+    display:flex; 
+    align-items: center;
+}
+
+.ratings{
+    padding-top: 6px;
+    display:flex; 
+    align-items: center;
+}
+
+.following-div{
+    margin-left: 1.5rem;
+}
+
+@media(max-width: 768px) {
+    .row-one{
+        margin-top: 0.5rem;
+    }
+}
+

@@ -32,6 +32,7 @@ import { GeneralNavbarComponent } from './_layout/general-navbar/general-navbar.
 import { GeneralLayoutComponent } from './_layout/general-layout/general-layout.component';
 import { SignupLayoutComponent } from './_layout/signup-layout/signup-layout.component';
 import { GeneralFooterComponent } from './_layout/general-footer/general-footer.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { GeneralFooterComponent } from './_layout/general-footer/general-footer.
     GeneralNavbarComponent,
     GeneralLayoutComponent,
     SignupLayoutComponent,
-    GeneralFooterComponent
+    GeneralFooterComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

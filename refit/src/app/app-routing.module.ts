@@ -13,6 +13,7 @@ import { SignupDetailsComponent } from './signup-details/signup-details.componen
 import { TcsDisplayComponent } from './tcs-display/tcs-display.component';
 import { GeneralLayoutComponent } from './_layout/general-layout/general-layout.component';
 import { SignupLayoutComponent } from './_layout/signup-layout/signup-layout.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,7 @@ const routes: Routes = [
       {path: 'passwordReset', component: PasswordResetComponent},
       {path: 'passwordResetMessage', component: PasswordResetMessageComponent},
       {path: 'passwordResetInput', component: PasswordResetInputComponent},
+      {path: 'user-profile', component: UserProfileComponent}
     ]
   },
   {
