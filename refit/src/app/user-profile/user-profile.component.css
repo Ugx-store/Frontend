@@ -6,6 +6,12 @@
     margin-top: 1rem;
 }
 
+.row-three{
+    margin-left: 1.5rem;
+    margin-top: 1rem;
+    width: 50%;
+}
+
 .profile-pic-div{
     height: 8rem; 
     width: 6rem; 
@@ -92,6 +98,9 @@
 @media(max-width: 768px) {
     .row-one{
         margin-top: 0.5rem; 
+    }
+    .row-three{
+        width: 93%;
     }
     .user-name{
         font-size: 20px; 
