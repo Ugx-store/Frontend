@@ -95,6 +95,16 @@
     float: right;
 }
 
+.sold-number{
+    text-align: center;
+    font-family: 'Public Sans', sans-serif;
+}
+
+.rating-number{
+    text-align: center;
+    font-family: 'Public Sans', sans-serif;
+}
+
 @media(max-width: 768px) {
     .row-one{
         margin-top: 0.5rem; 
