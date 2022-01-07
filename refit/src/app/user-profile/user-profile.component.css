@@ -2,6 +2,10 @@
     margin-top: 2rem;
 }
 
+.row-two{
+    margin-top: 1rem;
+}
+
 .profile-pic-div{
     height: 8rem; 
     width: 6rem; 
@@ -14,6 +18,7 @@
     width: 5rem; 
     margin-left: -0.3rem;
     color: blue;
+    font-size: 15px;
 }
 
 .profile-img{
@@ -26,7 +31,7 @@
 .name-div{
     float: right; 
     margin-left: 1.7rem; 
-    width: 50%; 
+    width: 60%; 
     padding-left: 0;
     padding-top: 0.5rem;
 }
@@ -39,6 +44,17 @@
     padding: 0;
 }
 
+.name-and-follow{
+    display: flex; 
+    align-content: center;
+}
+
+.btn-follow-md{
+    margin-left: auto; 
+    height: 2rem; 
+    padding: 0.2rem 0.3rem 1.5rem 0.3rem;
+}
+
 .userName{
     margin: 0; 
     padding-top: 0;
@@ -49,8 +65,14 @@
     align-items: center;
 }
 
+.rating-stars{
+    display: flex;
+    align-items: center;
+    margin-left: 2rem;
+}
+
 .ratings{
-    padding-top: 6px;
+    margin-top: 20px;
     display:flex; 
     align-items: center;
 }
@@ -59,9 +81,48 @@
     margin-left: 1.5rem;
 }
 
+.follow-button{
+    margin-right: 2rem; 
+    margin-left:auto; 
+    width:6rem; 
+    height: 2.4rem; 
+    float: right;
+}
+
 @media(max-width: 768px) {
     .row-one{
-        margin-top: 0.5rem;
+        margin-top: 0.5rem; 
+    }
+    .user-name{
+        font-size: 20px; 
+    }
+    .ratings{
+        display:none; 
+    }
+    .ratings-md{
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+    }
+    .sold-item-md{
+        display: flex;
+        align-items: center;
+    }
+    .rating-stars-md{
+        display: flex;
+        align-items: center;
+    }
+    .follow-button{
+        display: none;
+    }
+}
+
+@media (min-width: 992px) {
+    .ratings-md{
+        display: none; 
+    }
+    .btn-follow-md{
+        display: none;
     }
 }
 
