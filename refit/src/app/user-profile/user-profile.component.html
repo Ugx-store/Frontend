@@ -5,10 +5,7 @@
         <button class="btn edit-profile-button">Edit Profile</button>
     </div>
     <div class="name-div">
-        <span class="name-and-follow">
-            <p class="user-name">User Name</p> 
-            <button class="btn btn-primary btn-follow-md">Following</button>
-        </span>
+        <p class="user-name">Kimuli Peterclaver</p>
         <span class="text-muted userName">@username</span>
         <p class="ratings">
             <span class="sold-items">
@@ -45,12 +42,27 @@
             </span>
         </p>
     </div>
-    <button class="btn btn-primary follow-button">Follow</button>
+    <button class="btn btn-outline-primary dropdown-toggle dropdown unfollow-button">
+        Following
+        <div class="dropdown-content">
+            <ul class="no-bullets">
+                <li><button class="btn btn-login">Unfollow</button></li>
+            </ul>
+        </div>
+    </button>
 </div>
 <div class="row row-two">
     <div class="following-div">
-        <span>20 Followers</span> 
-        <span style="margin-left: 3rem;">20 Following</span>
+        <span><span class="rating-number">20</span> Followers</span> 
+        <span class="following-number"><span class="rating-number">20</span> Following</span> 
+        <button class="btn btn-outline-primary dropdown-toggle btn-unfollow-md dropdown">
+            Following
+            <div class="dropdown-content">
+                <ul class="no-bullets">
+                    <li><button class="btn btn-login">Unfollow</button></li>
+                </ul>
+            </div>
+        </button>
     </div> 
 </div>
 <div class="row row-three">

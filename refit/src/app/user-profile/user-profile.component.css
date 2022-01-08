@@ -43,27 +43,24 @@
 }
 
 .user-name{
-    font-family: 'Public Sans', sans-serif; 
-    height: 2rem; 
+    font-family: 'Public Sans', sans-serif;  
     font-size: 25px; 
-    margin: 0; 
-    padding: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0;
 }
 
-.name-and-follow{
-    display: flex; 
-    align-content: center;
-}
-
-.btn-follow-md{
-    margin-left: auto; 
+.btn-unfollow-md{
     height: 2rem; 
     padding: 0.2rem 0.3rem 1.5rem 0.3rem;
 }
 
 .userName{
-    margin: 0; 
-    padding-top: 0;
+    font-size: 14px;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .sold-items{ 
@@ -83,14 +80,10 @@
     align-items: center;
 }
 
-.following-div{
-    margin-left: 1.5rem;
-}
-
-.follow-button{
+.unfollow-button{
     margin-right: 2rem; 
     margin-left:auto; 
-    width:6rem; 
+    width:7rem; 
     height: 2.4rem; 
     float: right;
 }
@@ -113,7 +106,7 @@
         width: 93%;
     }
     .user-name{
-        font-size: 20px; 
+        font-size:1.125rem; 
     }
     .ratings{
         display:none; 
@@ -131,8 +124,15 @@
         display: flex;
         align-items: center;
     }
-    .follow-button{
+    .unfollow-button{
         display: none;
+    }
+    .following-div{
+        display: flex;
+        justify-content: space-evenly;
+    }
+    .dropdown-content {
+        width: 6.5rem;
     }
 }
 
@@ -140,8 +140,55 @@
     .ratings-md{
         display: none; 
     }
-    .btn-follow-md{
+    .btn-unfollow-md{
         display: none;
     }
+    .following-div{
+        margin-left: 1.5rem;
+    }
+    .following-number{
+        margin-left: 3rem;
+    }
+    .dropdown-content {
+        width: 7rem;
+    }
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    margin-left: -0.755rem;
+    margin-top: 5px;
+}
+
+.dropdown-content button {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    border-radius: 0;
+}
+
+.dropdown-content button:hover {
+    color: rgb(255, 255, 255);
+    background-color: #000;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.no-bullets{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
