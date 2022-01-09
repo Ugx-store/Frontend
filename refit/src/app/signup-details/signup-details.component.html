@@ -11,9 +11,12 @@
                             <div class="form-group">
                                 <label for="name" style="font-weight: 900;">Personal Information</label>
                                 <input type="text" class="form-control" name="name" #name="ngModel" [(ngModel)]="user.name"
-                                placeholder="Name" required>
+                                placeholder="Name" pattern="[a-zA-Z0-9 ]{3,}" required>
                                 <div *ngIf="f.controls['name']?.invalid && f.controls['name'].touched">
                                     <span *ngIf="f.controls['name'].errors?.required" class="form-text">Name is required</span>
+                                </div>
+                                <div *ngIf="name.invalid && name.dirty">
+                                    <span *ngIf="name.errors?.['pattern']" class="form-text">Name must only contain 3 or more alphanumeric characters.</span>
                                 </div>
                             </div>
 

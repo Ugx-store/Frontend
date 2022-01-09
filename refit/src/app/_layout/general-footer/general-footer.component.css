@@ -1,21 +1,24 @@
-nav{
-    margin-top: 5rem;
-}
 .navbar{
     border-top-color: rgb(215, 215, 215); 
     border-top-style: solid;
     border-top-width: 0.0625rem; 
-    height: 5rem;
+    height: 4rem;
     background: rgb(255, 255, 255);
-    /* position: fixed;
-    z-index: 2;
-    bottom: 0px;
-    width: 100%; */
+    padding-top: 0;
+}
+
+.navbar-brand{
+    font-size: 25px; 
+    font-weight: 700;
+}
+
+.container-fluid{
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .footer-list{
     display: inline-block;
-    margin-bottom: 20rem;
 }
 
 .footer-list li{
@@ -38,7 +41,7 @@ nav{
 
 .footer-p{
     font-size: 13px; 
-    margin-bottom: -1rem;
+    margin-bottom: 0rem;
 }
 
 @media(max-width: 768px) {

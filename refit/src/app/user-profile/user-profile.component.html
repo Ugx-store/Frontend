@@ -1,3 +1,7 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@200;900&display=swap');
+</style>
+
 <div class="row row-one">
     <div class="profile-pic-div">
         <img src="../../assets/blank-profile-picture.png"
@@ -66,7 +70,26 @@
     </div> 
 </div>
 <div class="row row-three">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
-    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
 </div>
+<div class="row row-four">
+    <div class="products-buttons">
+        <button class="btn btn-light allItems" [class.activated]="buttonValue === 1" (click)="allButton()">All</button>
+        <button class="btn btn-light" [class.activated]="buttonValue === 2" (click)="sellingButton()">Selling</button> 
+        <button class="btn btn-light" [class.activated]="buttonValue === 3" (click)="soldButton()">Sold</button>
+    </div> 
+</div>
+<div class="row row-five" *ngIf="(buttonValue === 1); else bodyOne">
+    <p>@username does not have anything yet. Please check back later.</p>
+</div>
+<ng-template #bodyOne>
+    <div class="row row-five" *ngIf="(buttonValue === 2); else bodyTwo">
+        <p>@username doesn't have anything to sell yet. Please check back later.</p>
+    </div>
+</ng-template>
+<ng-template #bodyTwo>
+    <div class="row row-five">
+        <p>@username hasn't sold anything yet. Please check back later.</p>
+    </div>
+</ng-template>
+

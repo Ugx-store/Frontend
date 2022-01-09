@@ -1,5 +1,5 @@
 .row-one{
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 
 .row-two{
@@ -10,6 +10,20 @@
     margin-left: 1.5rem;
     margin-top: 1rem;
     width: 50%;
+}
+
+.row-four{
+    margin-top: 1rem;
+    margin-left: 1.5rem;
+}
+
+.row-five{
+    margin-left: 1rem;
+    margin-top: 1rem;
+}
+
+.row-five p{
+    text-align: center;
 }
 
 .profile-pic-div{
@@ -44,6 +58,7 @@
 
 .user-name{
     font-family: 'Public Sans', sans-serif;  
+    font-weight: 900 !important;
     font-size: 25px; 
     overflow: hidden;
     text-overflow: ellipsis;
@@ -91,11 +106,13 @@
 .sold-number{
     text-align: center;
     font-family: 'Public Sans', sans-serif;
+    font-weight: 900 !important;
 }
 
 .rating-number{
     text-align: center;
     font-family: 'Public Sans', sans-serif;
+    font-weight: 900 !important;
 }
 
 @media(max-width: 768px) {
@@ -191,4 +208,28 @@
     margin: 0;
     padding: 0;
 }
+
+.allItems{
+    margin-left: -0.6rem !important;
+}
+
+.products-buttons button{
+    margin-left: 1rem;
+    padding: 0;
+    font-family: 'Public Sans', sans-serif;
+    font-weight: 200;
+    background: none;
+    color: rgb(0, 0, 0);
+    border-style: none;
+}
+
+.activated{
+    background: none;
+    color: black;
+    font-family: 'Public Sans', sans-serif;
+    font-weight: 900 !important;
+    box-shadow: none;
+    border-style: none;
+}
+
 
