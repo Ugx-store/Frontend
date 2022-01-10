@@ -24,7 +24,7 @@
                             <span class="material-icons arrow-drop-icon">arrow_drop_down</span>
                             <div class="dropdown-content-profile">
                                 <ul class="no-bullets">
-                                    <li><button class="btn btn-login">Profile</button></li>
+                                    <li><button class="btn btn-login" (click)="gotToProfile(user.username)">Profile</button></li>
                                     <li><button class="btn btn-login" (click)="signOut()">Logout</button></li>
                                 </ul>
                             </div>
@@ -148,7 +148,7 @@
     </div>
 
     <div *ngIf="authStatus; else notLoggedInOffCanvas">
-        <button class="btn btn-off-canvas" type="button">
+        <button class="btn btn-off-canvas" type="button" (click)="gotToProfile(user.username)">
             <span class="material-icons" style="font-size: 36px;">account_circle</span>
             <span class="profile-off-canvas">Profile</span>
         </button>

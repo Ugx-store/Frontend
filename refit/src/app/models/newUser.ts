@@ -1,9 +1,10 @@
-export interface newUser{
+export interface User{
     id: number;
     name: string; 
     username: string;
     password: string;
     email: string;
+    bio: string,
     phoneNumber: string;
     receiveEmailConsent: boolean;
     promoCode: string;

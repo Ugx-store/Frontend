@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { app } from 'src/app/models/firebaseapp';
+import { User } from 'src/app/models/newUser';
+import { AppServiceService } from 'src/app/services/app-service.service';
 
 @Component({
   selector: 'app-general-navbar',
@@ -10,7 +12,7 @@ import { app } from 'src/app/models/firebaseapp';
 })
 export class GeneralNavbarComponent implements OnInit {
 
-  constructor(private route: Router) { }
+  constructor(private route: Router, private service: AppServiceService) { }
 
   ladyCats: string[]= ["Dresses", "Tops", "Accessories", "Lingerie", "Shoes", "Skirts", "Pants", "Jackets", "Others"]
   menCats: string[] = ["Jackets", "Shirts", "Pants", "Underwear", "Shoes", "Accessories", "Others"]
@@ -22,20 +24,37 @@ export class GeneralNavbarComponent implements OnInit {
   authStatus: boolean = false;
 
   auth: any = getAuth(app);
-  user: any = this.auth.currentUser;
   userName: string = "";
+
+  user: User = {
+    id: 0,
+    name: '', 
+    email: '',
+    username: '',
+    password: '',
+    bio: '',
+    phoneNumber: '',
+    receiveEmailConsent: false,
+    promoCode: '',
+    FacebookLink: '',
+    TwitterLink: '',
+    InstagramLink: '',
+    dateTimeJoined: new Date(0)
+  }
 
   ngOnInit(): void {
     onAuthStateChanged(this.auth, (user) =>{
-      if(user !== null){
-        this.authStatus = true;
-        console.log("signed in")
-        const userId = user.phoneNumber
-        console.log(userId)
+      if(user){
+        if(user.email !== null){
+          this.authStatus = true;
+          this.service.getUser(user.email).then(res =>{
+            this.user = res;
+            console.log(this.user.username)
+          })
+        }
       }
       else{
         this.authStatus = false;
-        console.log("Not signed in")
       }
     })
   
@@ -52,6 +71,10 @@ export class GeneralNavbarComponent implements OnInit {
 
   goToSignup(){
     this.route.navigate(["/phone"])
+  }
+
+  gotToProfile(username: string){
+    this.route.navigateByUrl(`user-profile/${username}`) 
   }
 
   signOut(){

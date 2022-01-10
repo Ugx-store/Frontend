@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, delay, tap } from 'rxjs/operators';
-import { newUser } from '../models/newUser';
+import { User } from '../models/newUser';
 
 @Injectable({
   providedIn: 'root'
@@ -54,12 +54,16 @@ export class AppServiceService {
     return this.http.get<number>(this.users_url + "/" + "phone" + "/" + phoneNumber).toPromise();
   }
 
-  addUser(newUser: newUser): Promise<newUser>{
-    return this.http.post<newUser>(this.users_url, newUser).toPromise();
+  addUser(newUser: User): Promise<User>{
+    return this.http.post<User>(this.users_url, newUser).toPromise();
   }
 
-  updateUser(updatedUser: newUser): Promise<newUser>{
-    return this.http.put<newUser>(this.users_url, updatedUser).toPromise();
+  getUser(username: string): Promise<User>{
+    return this.http.get<User>(this.users_url + "/" + username).toPromise();
+  }
+
+  updateUser(updatedUser: User): Promise<User>{
+    return this.http.put<User>(this.users_url, updatedUser).toPromise();
   }
 
 }

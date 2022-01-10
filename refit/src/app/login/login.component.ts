@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { app } from '../models/firebaseapp';
-import { newUser } from '../models/newUser';
+import { User } from '../models/newUser';
 
 @Component({
   selector: 'app-login',
@@ -18,11 +18,12 @@ export class LoginComponent implements OnInit {
   spinner: boolean = false;
   wrongCredentials: boolean = false;
 
-  user: newUser = {
+  user: User = {
     id: 0,
     name: '', 
     email: '',
     username: '',
+    bio: '',
     password: '',
     phoneNumber: '',
     receiveEmailConsent: false,

@@ -26,7 +26,7 @@ const routes: Routes = [
       {path: 'passwordReset', component: PasswordResetComponent},
       {path: 'passwordResetMessage', component: PasswordResetMessageComponent},
       {path: 'passwordResetInput', component: PasswordResetInputComponent},
-      {path: 'user-profile', component: UserProfileComponent}
+      {path: 'user-profile/:username', component: UserProfileComponent}
     ]
   },
   {

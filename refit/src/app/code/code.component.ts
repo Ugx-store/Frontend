@@ -6,7 +6,7 @@ import { getAuth, PhoneAuthProvider, signInWithCredential } from 'firebase/auth'
 import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment';
 import { AppServiceService } from '../services/app-service.service';
-import { newUser } from '../models/newUser';
+import { User } from '../models/newUser';
 
 @Component({
   selector: 'app-code',
@@ -24,12 +24,13 @@ export class CodeComponent implements OnInit {
   verify: any;
   auth: any = getAuth(this.app);
 
-  user: newUser = {
+  user: User = {
     id: 0,
     name: '', 
     username: '',
     password: '',
     email: '',
+    bio: '',
     phoneNumber: '',
     receiveEmailConsent: false,
     promoCode: '',

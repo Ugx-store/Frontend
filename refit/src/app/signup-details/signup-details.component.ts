@@ -1,7 +1,7 @@
 import {  Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { newUser } from '../models/newUser';
+import { User } from '../models/newUser';
 import { AppServiceService } from '../services/app-service.service';
 import { EmailAuthProvider, getAuth, linkWithCredential } from 'firebase/auth';
 import { app } from '../models/firebaseapp';
@@ -22,11 +22,12 @@ export class SignupDetailsComponent implements OnInit {
   modalTrigger: any;
   error: any;
 
-  user: newUser = {
+  user: User = {
     id: 0,
     name: '', 
     email: '',
     username: '',
+    bio: '',
     password: '',
     phoneNumber: localStorage.getItem('refit_phoneNumber') as string,
     receiveEmailConsent: false,

@@ -5,8 +5,8 @@
         <button class="btn edit-profile-button">Edit Profile</button>
     </div>
     <div class="name-div">
-        <p class="user-name">Kimuli Peterclaver</p>
-        <span class="text-muted userName">@username</span>
+        <p class="user-name">{{user.name}}</p>
+        <span class="text-muted userName">@{{user.username}}</span>
         <p class="ratings">
             <span class="sold-items">
                 <span class="material-icons" style="color: blue;">storefront</span>
@@ -42,7 +42,7 @@
             </span>
         </p>
     </div>
-    <button class="btn btn-outline-primary dropdown-toggle dropdown unfollow-button">
+    <button *ngIf="!loggedInUser" class="btn btn-outline-primary dropdown-toggle dropdown unfollow-button">
         Following
         <div class="dropdown-content">
             <ul class="no-bullets">
@@ -55,7 +55,7 @@
     <div class="following-div">
         <span><span class="rating-number">20</span> Followers</span> 
         <span class="following-number"><span class="rating-number">20</span> Following</span> 
-        <button class="btn btn-outline-primary dropdown-toggle btn-unfollow-md dropdown">
+        <button *ngIf="!loggedInUser" class="btn btn-outline-primary dropdown-toggle btn-unfollow-md dropdown">
             Following
             <div class="dropdown-content">
                 <ul class="no-bullets">
