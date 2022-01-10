@@ -18,8 +18,7 @@
 }
 
 .row-five{
-    margin-left: 1rem;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
 }
 
 .row-five p{
@@ -58,7 +57,7 @@
 
 .user-name{
     font-family: 'Public Sans', sans-serif;  
-    font-weight: 900 !important;
+    font-weight: 900;
     font-size: 25px; 
     overflow: hidden;
     text-overflow: ellipsis;
@@ -106,13 +105,11 @@
 .sold-number{
     text-align: center;
     font-family: 'Public Sans', sans-serif;
-    font-weight: 900 !important;
 }
 
 .rating-number{
     text-align: center;
     font-family: 'Public Sans', sans-serif;
-    font-weight: 900 !important;
 }
 
 @media(max-width: 768px) {
@@ -120,7 +117,11 @@
         margin-top: 0.5rem; 
     }
     .row-three{
-        width: 93%;
+        width: 90%;
+    }
+    .row-five p{
+        margin-left: 1rem;
+        width: 95%;
     }
     .user-name{
         font-size:1.125rem; 
@@ -213,23 +214,29 @@
     margin-left: -0.6rem !important;
 }
 
-.products-buttons button{
+.activated{
+    margin-left: 1rem;
+    background: black;
+    color: white;
+    font-weight: 900;
+    box-shadow: none;
+    border-style: none;
+}
+
+.inactivated{
     margin-left: 1rem;
     padding: 0;
-    font-family: 'Public Sans', sans-serif;
     font-weight: 200;
     background: none;
     color: rgb(0, 0, 0);
     border-style: none;
 }
 
-.activated{
-    background: none;
-    color: black;
-    font-family: 'Public Sans', sans-serif;
-    font-weight: 900 !important;
-    box-shadow: none;
-    border-style: none;
-}
+/* .products-buttons{
+    display: flex;
+    align-content: center;
+} */
+
+
 
 

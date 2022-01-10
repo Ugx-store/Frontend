@@ -17,14 +17,17 @@ export class UserProfileComponent implements OnInit {
 
   allButton(){
     this.buttonValue = 1
+    console.log(this.buttonValue)
   }
 
   sellingButton(){
     this.buttonValue = 2
+    console.log(this.buttonValue)
   }
 
   soldButton(){
     this.buttonValue = 3
+    console.log(this.buttonValue)
   }
 
 }
