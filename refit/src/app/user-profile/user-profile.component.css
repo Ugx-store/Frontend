@@ -64,9 +64,22 @@
     margin: 0;
 }
 
+.follow-md-buttons{
+    height: 2rem; 
+    display: flex;
+    justify-content: center;
+}
+
 .btn-unfollow-md{
     height: 2rem; 
-    padding: 0.2rem 0.3rem 1.5rem 0.3rem;
+    padding-top: 0.2rem;
+    padding-bottom: 1.5rem;
+}
+
+.btn-follow-md{
+    height: 2rem; 
+    padding-top: 0.2rem;
+    padding-bottom: 1.5rem;
 }
 
 .userName{
@@ -93,12 +106,24 @@
     align-items: center;
 }
 
-.unfollow-button{
+.follow-buttons{
+    width: 7rem;
     margin-right: 2rem; 
     margin-left:auto; 
-    width:7rem; 
     height: 2.4rem; 
     float: right;
+    display: flex;
+    justify-content: center;
+}
+
+.unfollow-button{
+    width: 7rem; 
+    height: 2.4rem; 
+}
+
+.follow-button{
+    width: 7rem; 
+    height: 2.4rem; 
 }
 
 .sold-number{
@@ -141,7 +166,7 @@
         display: flex;
         align-items: center;
     }
-    .unfollow-button{
+    .follow-buttons{
         display: none;
     }
     .following-div{
@@ -158,6 +183,9 @@
         display: none; 
     }
     .btn-unfollow-md{
+        display: none;
+    }
+    .btn-follow-md{
         display: none;
     }
     .following-div{

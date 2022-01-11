@@ -35,7 +35,8 @@ export class SignupDetailsComponent implements OnInit {
     FacebookLink: '',
     TwitterLink: '',
     InstagramLink: '',
-    dateTimeJoined: new Date(0)
+    dateTimeJoined: new Date(0),
+    followings: []
   }
 
   credential: any;

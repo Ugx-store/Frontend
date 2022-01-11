@@ -37,7 +37,8 @@ export class CodeComponent implements OnInit {
     FacebookLink: '',
     TwitterLink: '',
     InstagramLink: '',
-    dateTimeJoined: new Date(0) 
+    dateTimeJoined: new Date(0),
+    followings: []
   }
 
   config = {

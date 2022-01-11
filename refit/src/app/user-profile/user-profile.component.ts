@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { app } from '../models/firebaseapp';
+import { Follow } from '../models/follow';
 import { User } from '../models/newUser';
 import { AppServiceService } from '../services/app-service.service';
 
@@ -12,7 +13,7 @@ import { AppServiceService } from '../services/app-service.service';
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor(private activatedRoute: ActivatedRoute, private service: AppServiceService) { }
+  constructor(private activatedRoute: ActivatedRoute, private service: AppServiceService, private route: Router) { }
 
   buttonValue: number = 0;
   loggedInUser: boolean = true;
@@ -31,8 +32,18 @@ export class UserProfileComponent implements OnInit {
     FacebookLink: '',
     TwitterLink: '',
     InstagramLink: '',
-    dateTimeJoined: new Date(0)
+    dateTimeJoined: new Date(0),
+    followings: []
   }
+
+  follow: Follow = {
+    id: 0,
+    followerUserId: 0,
+    followedUserId: 0,
+    followerName: ''
+  }
+
+  isUserFollowed: boolean= false;
 
 
   ngOnInit(): void {
@@ -43,14 +54,28 @@ export class UserProfileComponent implements OnInit {
         onAuthStateChanged(this.auth, (user) =>{
           if (user) {
             if(user.phoneNumber === res.phoneNumber){
+              this.loggedInUser = true;
               this.user = res;
             }
             else{
               this.loggedInUser = false;
               this.user = res;
+
+              if(user.email){
+                this.service.getUser(user.email).then(loggedUser =>{
+                  for(let i = 0; i < this.user.followings?.length; i++){
+                    if(this.user.followings[i].followerName == loggedUser.username){
+                      this.isUserFollowed = true
+                      break
+                    }
+                  }
+                })
+              }
+
             }
           } else {
-            this.loggedInUser = true;
+            this.loggedInUser = false;
+            this.isUserFollowed = false
             this.user = res;
           }
         })
@@ -68,6 +93,52 @@ export class UserProfileComponent implements OnInit {
 
   soldButton(){
     this.buttonValue = 3
+  }
+
+  followUser(followedUser: User){
+    onAuthStateChanged(this.auth, (user) =>{
+      if (user) {
+        if(user.email){
+          this.service.getUser(user.email).then(res =>{
+            this.follow.followedUserId = followedUser.id
+            this.follow.followerUserId = res.id
+            this.follow.followerName = res.username
+
+            this.service.followUser(this.follow).subscribe(data =>{
+              this.isUserFollowed = true
+            })
+          })
+        }
+        
+      } 
+      else {
+        this.route.navigate(['/login'])
+      }
+    })
+  }
+
+  unFollowUser(followedUser: User){
+    onAuthStateChanged(this.auth, (user) =>{
+      if (user) {
+        if(user.email){
+          this.service.getUser(user.email).then(res =>{
+            this.service.getUser(followedUser.username).then(returnedUser =>{
+              for(let i = 0; i < returnedUser.followings.length; i++){
+                if(returnedUser.followings[i].followerName === res.username){
+                  this.service.unFollowUser(returnedUser.followings[i].id).subscribe(data =>{
+                    this.isUserFollowed = false
+                  })
+                }
+              }
+            })
+          })
+        }
+        
+      } 
+      else {
+        this.route.navigate(['/login'])
+      }
+    })
   }
 
 }

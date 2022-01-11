@@ -42,31 +42,50 @@
             </span>
         </p>
     </div>
-    <button *ngIf="!loggedInUser" class="btn btn-outline-primary dropdown-toggle dropdown unfollow-button">
-        Following
-        <div class="dropdown-content">
-            <ul class="no-bullets">
-                <li><button class="btn btn-login">Unfollow</button></li>
-            </ul>
+    <div *ngIf="!loggedInUser" class="follow-buttons">
+        <div *ngIf="!isUserFollowed; else notFollowed">
+            <button class="btn btn-primary follow-button" (click)="followUser(user)">
+                Follow
+            </button>
         </div>
-    </button>
+        <ng-template #notFollowed>
+            <button  class="btn btn-outline-primary dropdown-toggle dropdown unfollow-button">
+                Following
+                <div class="dropdown-content">
+                    <ul class="no-bullets">
+                        <li><button class="btn btn-login" (click)="unFollowUser(user)">Unfollow</button></li>
+                    </ul>
+                </div>
+            </button>
+        </ng-template>
+    </div>
+    
 </div>
 <div class="row row-two">
     <div class="following-div">
         <span><span class="rating-number">20</span> Followers</span> 
         <span class="following-number"><span class="rating-number">20</span> Following</span> 
-        <button *ngIf="!loggedInUser" class="btn btn-outline-primary dropdown-toggle btn-unfollow-md dropdown">
-            Following
-            <div class="dropdown-content">
-                <ul class="no-bullets">
-                    <li><button class="btn btn-login">Unfollow</button></li>
-                </ul>
+        <div *ngIf="!loggedInUser" class="follow-md-buttons">
+            <div *ngIf="!isUserFollowed; else notFollowedMd">
+                <button class="btn btn-primary btn-follow-md" (click)="followUser(user)">
+                    Follow
+                </button>
             </div>
-        </button>
+            <ng-template #notFollowedMd>
+                <button  class="btn btn-outline-primary dropdown-toggle dropdown btn-unfollow-md">
+                    Following
+                    <div class="dropdown-content">
+                        <ul class="no-bullets">
+                            <li><button class="btn btn-login" (click)="unFollowUser(user)">Unfollow</button></li>
+                        </ul>
+                    </div>
+                </button>
+            </ng-template>
+        </div>
     </div> 
 </div>
 <div class="row row-three">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
+    {{user.bio}}
 </div>
 <div class="row row-four">
     <div class="products-buttons d-flex justify-content-center">
@@ -76,16 +95,16 @@
     </div> 
 </div>
 <div class="row row-five" *ngIf="(buttonValue === 1); else bodyOne">
-    <p>@username does not have anything yet. Please check back later.</p>
+    <p>@{{user.username}} does not have anything yet. Please check back later.</p>
 </div>
 <ng-template #bodyOne>
     <div class="row row-five" *ngIf="(buttonValue === 2); else bodyTwo">
-        <p>@username doesn't have anything to sell yet. Please check back later.</p>
+        <p>@{{user.username}} doesn't have anything to sell yet. Please check back later.</p>
     </div>
 </ng-template>
 <ng-template #bodyTwo>
     <div class="row row-five">
-        <p>@username hasn't sold anything yet. Please check back later.</p>
+        <p>@{{user.username}} hasn't sold anything yet. Please check back later.</p>
     </div>
 </ng-template>
 

@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, delay, tap } from 'rxjs/operators';
 import { User } from '../models/newUser';
+import { Follow } from '../models/follow';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class AppServiceService {
   private users_url: string = "https://users-db.azurewebsites.net/api/Users"
   private promocode_url: string = "https://users-db.azurewebsites.net/api/PromoCodes"
   private email_url: string = "https://users-db.azurewebsites.net/api/EmailSender/"
+  private follow_url: string = "https://users-db.azurewebsites.net/api/Following"
 
   constructor(private http: HttpClient) { }
 
@@ -64,6 +66,14 @@ export class AppServiceService {
 
   updateUser(updatedUser: User): Promise<User>{
     return this.http.put<User>(this.users_url, updatedUser).toPromise();
+  }
+
+  followUser(follow: Follow): Observable<Follow>{
+    return this.http.post<Follow>(this.follow_url, follow);
+  }
+
+  unFollowUser(userId: number): Observable<Follow>{
+    return this.http.delete<Follow>(this.follow_url + "/" + userId);
   }
 
 }

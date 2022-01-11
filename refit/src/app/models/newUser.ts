@@ -1,3 +1,5 @@
+import { Follow } from "./follow";
+
 export interface User{
     id: number;
     name: string; 
@@ -12,4 +14,5 @@ export interface User{
     TwitterLink: string;
     InstagramLink: string;
     dateTimeJoined: Date;
+    followings: Follow[];
 }
