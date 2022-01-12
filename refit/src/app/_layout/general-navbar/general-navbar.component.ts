@@ -43,6 +43,9 @@ export class GeneralNavbarComponent implements OnInit {
     followings: []
   }
 
+  date: Date = new Date()
+  year: number = 0
+
   ngOnInit(): void {
     onAuthStateChanged(this.auth, (user) =>{
       if(user){
@@ -58,7 +61,8 @@ export class GeneralNavbarComponent implements OnInit {
         this.authStatus = false;
       }
     })
-  
+
+    this.year = this.date.getFullYear();
   }
 
   checkAuthStatus(): boolean{

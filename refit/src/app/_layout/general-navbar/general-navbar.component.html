@@ -148,7 +148,7 @@
     </div>
 
     <div *ngIf="authStatus; else notLoggedInOffCanvas">
-        <button class="btn btn-off-canvas" type="button" (click)="gotToProfile(user.username)">
+        <button class="btn btn-off-canvas" type="button" (click)="gotToProfile(user.username)" data-bs-dismiss="offcanvas">
             <span class="material-icons" style="font-size: 36px;">account_circle</span>
             <span class="profile-off-canvas">Profile</span>
         </button>
@@ -234,7 +234,7 @@
                     </li>
                 </ul>
             </div>
-            <p class="footer-p" style="text-align: center;">ⒸREFIT 2022</p>
+            <p class="footer-p" style="text-align: center;">ⒸREFIT {{year}}</p>
         </nav>
     </div>
 

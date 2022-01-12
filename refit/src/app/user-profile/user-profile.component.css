@@ -76,6 +76,15 @@
     padding-bottom: 1.5rem;
 }
 
+.btn-unfollow-md:hover{
+    background: none;
+    color: #007bff; 
+}
+
+.btn-unfollow-md:focus{
+    box-shadow: none;
+}
+
 .btn-follow-md{
     height: 2rem; 
     padding-top: 0.2rem;
@@ -119,6 +128,15 @@
 .unfollow-button{
     width: 7rem; 
     height: 2.4rem; 
+}
+
+.unfollow-button:hover{
+    background: none;
+    color: #007bff; 
+}
+
+.unfollow-button:focus{
+    box-shadow: none;
 }
 
 .follow-button{
@@ -174,11 +192,14 @@
         justify-content: space-evenly;
     }
     .dropdown-content {
-        width: 6.5rem;
+        width: 7rem;
     }
 }
 
 @media (min-width: 992px) {
+    .row-two{
+        height: 1.5rem;
+    }
     .ratings-md{
         display: none; 
     }

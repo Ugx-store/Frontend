@@ -44,10 +44,13 @@ export class UserProfileComponent implements OnInit {
   }
 
   isUserFollowed: boolean= false;
+  userFollows: User[] = [];
 
+  placeHolder: boolean = true;
 
   ngOnInit(): void {
     this.buttonValue = 1
+    this.placeHolder = true;
 
     this.activatedRoute.params.subscribe((param) => {
       this.service.getUser(param.username).then(res =>{
@@ -56,6 +59,7 @@ export class UserProfileComponent implements OnInit {
             if(user.phoneNumber === res.phoneNumber){
               this.loggedInUser = true;
               this.user = res;
+              this.placeHolder = false;
             }
             else{
               this.loggedInUser = false;
@@ -66,6 +70,7 @@ export class UserProfileComponent implements OnInit {
                   for(let i = 0; i < this.user.followings?.length; i++){
                     if(this.user.followings[i].followerName == loggedUser.username){
                       this.isUserFollowed = true
+                      this.placeHolder = false;
                       break
                     }
                   }
@@ -73,14 +78,25 @@ export class UserProfileComponent implements OnInit {
               }
 
             }
-          } else {
+          } 
+          else {
             this.loggedInUser = false;
             this.isUserFollowed = false
             this.user = res;
+            this.placeHolder = false;
           }
+        })
+
+        this.placeHolder = true;
+
+        this.service.getUserFollows(param.username).then(res =>{
+          this.userFollows = res;
+          this.placeHolder = false;
         })
       })
     })
+
+    this.placeHolder = true;
   }
 
   allButton(){

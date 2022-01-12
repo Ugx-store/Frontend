@@ -76,4 +76,8 @@ export class AppServiceService {
     return this.http.delete<Follow>(this.follow_url + "/" + userId);
   }
 
+  getUserFollows(username: string): Promise<User[]>{
+    return this.http.get<User[]>(this.follow_url + "/" + username).toPromise();
+  }
+
 }

@@ -9,7 +9,11 @@ export class GeneralFooterComponent implements OnInit {
 
   constructor() { }
 
+  date: Date = new Date()
+  year: number = 0
+
   ngOnInit(): void {
+    this.year = this.date.getFullYear();
   }
 
 }

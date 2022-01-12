@@ -5,8 +5,17 @@
         <button class="btn edit-profile-button">Edit Profile</button>
     </div>
     <div class="name-div">
-        <p class="user-name">{{user.name}}</p>
-        <span class="text-muted userName">@{{user.username}}</span>
+        <span class="placeholder-glow" *ngIf="placeHolder; else notPending">
+            <p class="user-name placeholder col" style="width: 25%;"></p>
+            <br>
+            <span class="text-muted userName placeholder col" style="width: 25%;"></span>
+        </span> 
+        <ng-template #notPending>
+            <span>
+                <p class="user-name">{{user.name}}</p>
+                <span class="text-muted userName">@{{user.username}}</span>
+            </span>
+        </ng-template>
         <p class="ratings">
             <span class="sold-items">
                 <span class="material-icons" style="color: blue;">storefront</span>
@@ -63,8 +72,8 @@
 </div>
 <div class="row row-two">
     <div class="following-div">
-        <span><span class="rating-number">20</span> Followers</span> 
-        <span class="following-number"><span class="rating-number">20</span> Following</span> 
+        <span><span class="rating-number">{{user.followings.length}}</span> Followers</span> 
+        <span class="following-number"><span class="rating-number">{{userFollows.length}}</span> Following</span> 
         <div *ngIf="!loggedInUser" class="follow-md-buttons">
             <div *ngIf="!isUserFollowed; else notFollowedMd">
                 <button class="btn btn-primary btn-follow-md" (click)="followUser(user)">
@@ -84,7 +93,7 @@
         </div>
     </div> 
 </div>
-<div class="row row-three">
+<div class="row row-three" style="background: red;">
     {{user.bio}}
 </div>
 <div class="row row-four">
