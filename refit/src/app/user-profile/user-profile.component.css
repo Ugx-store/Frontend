@@ -154,6 +154,22 @@
     font-family: 'Public Sans', sans-serif;
 }
 
+.following-number{
+    color:black;
+}
+
+.following-number:hover{
+    text-decoration: none;
+}
+
+.follower-number{
+    color:black;
+}
+
+.follower-number:hover{
+    text-decoration: none;
+}
+
 @media(max-width: 768px) {
     .row-one{
         margin-top: 0.5rem; 

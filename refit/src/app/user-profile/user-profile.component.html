@@ -6,9 +6,9 @@
     </div>
     <div class="name-div">
         <span class="placeholder-glow" *ngIf="placeHolder; else notPending">
-            <p class="user-name placeholder col" style="width: 25%;"></p>
+            <p class="user-name placeholder bg-primary col" style="width: 25%;"></p>
             <br>
-            <span class="text-muted userName placeholder col" style="width: 25%;"></span>
+            <span class="text-muted userName placeholder bg-primary col" style="width: 25%;"></span>
         </span> 
         <ng-template #notPending>
             <span>
@@ -68,12 +68,31 @@
             </button>
         </ng-template>
     </div>
-    
 </div>
 <div class="row row-two">
     <div class="following-div">
-        <span><span class="rating-number">{{user.followings.length}}</span> Followers</span> 
-        <span class="following-number"><span class="rating-number">{{userFollows.length}}</span> Following</span> 
+        <a href="#followModal" data-bs-toggle="modal" class="follower-number"><span class="rating-number">{{user.followings.length}}</span> Followers</a> 
+        <a href="#followModal" data-bs-toggle="modal" class="following-number"><span class="rating-number">{{userFollows.length}}</span> Following</a> 
+        
+        <!-- Modal -->
+        <div class="modal fade"  tabindex="-1" aria-labelledby="followModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="followModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="followModal">
+                    ...Hello 1
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <div *ngIf="!loggedInUser" class="follow-md-buttons">
             <div *ngIf="!isUserFollowed; else notFollowedMd">
                 <button class="btn btn-primary btn-follow-md" (click)="followUser(user)">
