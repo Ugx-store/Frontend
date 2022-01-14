@@ -51,7 +51,7 @@ export class GeneralNavbarComponent implements OnInit {
       if(user){
         if(user.email !== null){
           this.authStatus = true;
-          this.service.getUser(user.email).then(res =>{
+          this.service.getUser(user.email).subscribe(res =>{
             this.user = res;
             console.log(this.user.username)
           })

@@ -60,8 +60,8 @@ export class AppServiceService {
     return this.http.post<User>(this.users_url, newUser).toPromise();
   }
 
-  getUser(username: string): Promise<User>{
-    return this.http.get<User>(this.users_url + "/" + username).toPromise();
+  getUser(username: string): Observable<User>{
+    return this.http.get<User>(this.users_url + "/" + username);
   }
 
   updateUser(updatedUser: User): Promise<User>{
@@ -76,8 +76,8 @@ export class AppServiceService {
     return this.http.delete<Follow>(this.follow_url + "/" + userId);
   }
 
-  getUserFollows(username: string): Promise<User[]>{
-    return this.http.get<User[]>(this.follow_url + "/" + username).toPromise();
+  getUserFollows(username: string): Observable<User[]>{
+    return this.http.get<User[]>(this.follow_url + "/" + username);
   }
 
 }

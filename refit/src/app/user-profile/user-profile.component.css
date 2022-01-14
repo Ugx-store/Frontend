@@ -31,6 +31,13 @@
     float: left;
 }
 
+.profile-pic-div-modal{
+    height: 6rem; 
+    width: 4rem; 
+    margin-left: 2rem; 
+    float: left;
+}
+
 .edit-profile-button{
     padding: 0; 
     width: 5rem; 
@@ -46,9 +53,16 @@
     border-radius: 50%;
 }
 
+.profile-img-modal{
+    margin-left: -0.75rem; 
+    height: 4rem; 
+    width: 4rem; 
+    border-radius: 50%;
+}
+
 .name-div{
     float: right; 
-    margin-left: 1.7rem; 
+    margin-left: 1rem; 
     width: 60%; 
     padding-left: 0;
     padding-top: 0.5rem;
@@ -58,6 +72,16 @@
     font-family: 'Public Sans', sans-serif;  
     font-weight: 900;
     font-size: 25px; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0;
+}
+
+.user-name-modal{
+    font-family: 'Public Sans', sans-serif;  
+    font-weight: 900;
+    font-size: 20px; 
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -232,7 +256,7 @@
         margin-left: 3rem;
     }
     .dropdown-content {
-        width: 7rem;
+        width: 6.9rem;
     }
 }
 
@@ -282,7 +306,6 @@
     margin-left: 1rem;
     background: black;
     color: white;
-    font-weight: 900;
     box-shadow: none;
     border-style: none;
 }
@@ -290,10 +313,44 @@
 .inactivated{
     margin-left: 1rem;
     padding: 0;
-    font-weight: 200;
     background: none;
     color: rgb(0, 0, 0);
     border-style: none;
+}
+
+.modal-title{
+    font-family: 'Public Sans', sans-serif;
+}
+
+.modal-header{
+    border-bottom-style: none;
+}
+
+.modal-body{
+    padding: 0;
+}
+
+.modal-buttons{
+    padding-top: 1.5rem;
+    border-bottom-color: rgb(215, 215, 215); 
+    border-bottom-style: solid;
+    border-bottom-width: 0.0625rem;
+}
+
+.inactivated-modal{
+    width: 50%;
+    height: 2.4rem; 
+    border-style: none;
+    background: none;
+    color: black;
+}
+
+.activated-modal{
+    width: 50%;
+    background: black;
+    color: white;
+    border-style: none;
+    height: 2.4rem; 
 }
 
 

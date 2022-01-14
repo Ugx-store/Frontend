@@ -5,6 +5,7 @@ import { app } from '../models/firebaseapp';
 import { Follow } from '../models/follow';
 import { User } from '../models/newUser';
 import { AppServiceService } from '../services/app-service.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-user-profile',
@@ -13,9 +14,10 @@ import { AppServiceService } from '../services/app-service.service';
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor(private activatedRoute: ActivatedRoute, private service: AppServiceService, private route: Router) { }
+  constructor(private activatedRoute: ActivatedRoute, private service: AppServiceService, private route: Router, private location: Location) { }
 
   buttonValue: number = 0;
+  followValue: number = 0;
   loggedInUser: boolean = true;
 
   auth: any = getAuth(app);
@@ -48,12 +50,14 @@ export class UserProfileComponent implements OnInit {
 
   placeHolder: boolean = true;
 
+  followingCountChanged: boolean = false;
+
   ngOnInit(): void {
     this.buttonValue = 1
     this.placeHolder = true;
 
     this.activatedRoute.params.subscribe((param) => {
-      this.service.getUser(param.username).then(res =>{
+      this.service.getUser(param.username).subscribe(res =>{
         onAuthStateChanged(this.auth, (user) =>{
           if (user) {
             if(user.phoneNumber === res.phoneNumber){
@@ -64,9 +68,10 @@ export class UserProfileComponent implements OnInit {
             else{
               this.loggedInUser = false;
               this.user = res;
+              console.log(this.user)
 
               if(user.email){
-                this.service.getUser(user.email).then(loggedUser =>{
+                this.service.getUser(user.email).subscribe(loggedUser =>{
                   for(let i = 0; i < this.user.followings?.length; i++){
                     if(this.user.followings[i].followerName == loggedUser.username){
                       this.isUserFollowed = true
@@ -89,7 +94,7 @@ export class UserProfileComponent implements OnInit {
 
         this.placeHolder = true;
 
-        this.service.getUserFollows(param.username).then(res =>{
+        this.service.getUserFollows(param.username).subscribe(res =>{
           this.userFollows = res;
           this.placeHolder = false;
         })
@@ -111,17 +116,44 @@ export class UserProfileComponent implements OnInit {
     this.buttonValue = 3
   }
 
+  followers(){
+    this.followValue = 1
+  }
+
+  following(){
+    this.followValue = 2
+    this.placeHolder = false;
+    onAuthStateChanged(this.auth, (user) =>{
+      if (user) {
+        if(user.phoneNumber === this.user.phoneNumber){
+          this.isUserFollowed = true;
+        }
+        
+      }
+    })
+  }
+
   followUser(followedUser: User){
     onAuthStateChanged(this.auth, (user) =>{
       if (user) {
         if(user.email){
-          this.service.getUser(user.email).then(res =>{
+          this.service.getUser(user.email).subscribe(res =>{
             this.follow.followedUserId = followedUser.id
             this.follow.followerUserId = res.id
             this.follow.followerName = res.username
 
             this.service.followUser(this.follow).subscribe(data =>{
               this.isUserFollowed = true
+
+              if(this.user.username === followedUser.username){
+                this.service.getUser(followedUser.username).subscribe(loggedUser =>{
+                  this.user = loggedUser
+                })
+              }
+              else{
+                this.followingCountChanged = true;
+              }
+              
             })
           })
         }
@@ -137,12 +169,22 @@ export class UserProfileComponent implements OnInit {
     onAuthStateChanged(this.auth, (user) =>{
       if (user) {
         if(user.email){
-          this.service.getUser(user.email).then(res =>{
-            this.service.getUser(followedUser.username).then(returnedUser =>{
+          this.service.getUser(user.email).subscribe(res =>{
+            this.service.getUser(followedUser.username).subscribe(returnedUser =>{
               for(let i = 0; i < returnedUser.followings.length; i++){
                 if(returnedUser.followings[i].followerName === res.username){
                   this.service.unFollowUser(returnedUser.followings[i].id).subscribe(data =>{
                     this.isUserFollowed = false
+
+                    if(this.user.username === followedUser.username){
+                      this.service.getUser(followedUser.username).subscribe(loggedUser =>{
+                        this.user = loggedUser
+                      })
+                    }
+                    else{
+                      this.followingCountChanged = true;
+                    }
+
                   })
                 }
               }
@@ -155,6 +197,12 @@ export class UserProfileComponent implements OnInit {
         this.route.navigate(['/login'])
       }
     })
+  }
+
+  onModalClose(){
+    this.service.getUserFollows(this.user.username).subscribe(res =>{
+        this.userFollows = res
+      })
   }
 
 }
