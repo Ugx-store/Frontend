@@ -80,4 +80,8 @@ export class AppServiceService {
     return this.http.get<User[]>(this.follow_url + "/" + username);
   }
 
+  getUserFollowersProfiles(username: string): Observable<User[]>{
+    return this.http.get<User[]>(this.follow_url + "/followers" + "/" + username);
+  }
+
 }

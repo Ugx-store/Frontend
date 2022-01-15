@@ -48,6 +48,8 @@ export class UserProfileComponent implements OnInit {
   isUserFollowed: boolean= false;
   userFollows: User[] = [];
 
+  userFollowersProfiles: User[] = [];
+
   placeHolder: boolean = true;
 
   followingCountChanged: boolean = false;
@@ -118,17 +120,33 @@ export class UserProfileComponent implements OnInit {
 
   followers(){
     this.followValue = 1
+    
+    this.service.getUserFollowersProfiles(this.user.username).subscribe(res =>{
+      this.userFollowersProfiles = res
+      for(let i = 0; i< res.length; i++){
+        if(this.userFollows.findIndex(item => item.username === res[i].username)>= 0){
+          this.isUserFollowed = true
+        }
+        else{
+          this.isUserFollowed = false
+        }
+      }
+      this.placeHolder = false;
+    })
   }
 
   following(){
     this.followValue = 2
-    this.placeHolder = false;
+    //To make all buttons in the following section of the modal have the value 'Following'
     onAuthStateChanged(this.auth, (user) =>{
       if (user) {
         if(user.phoneNumber === this.user.phoneNumber){
           this.isUserFollowed = true;
         }
-        
+        else{
+          this.isUserFollowed = false;
+        }
+        this.placeHolder = false;
       }
     })
   }
@@ -145,12 +163,16 @@ export class UserProfileComponent implements OnInit {
             this.service.followUser(this.follow).subscribe(data =>{
               this.isUserFollowed = true
 
+              //Check if the user who profile we are viewing is the user who has been followed
               if(this.user.username === followedUser.username){
                 this.service.getUser(followedUser.username).subscribe(loggedUser =>{
                   this.user = loggedUser
                 })
               }
               else{
+                this.service.getUser(this.user.username).subscribe(loggedUser =>{
+                  this.user = loggedUser
+                })
                 this.followingCountChanged = true;
               }
               
@@ -182,6 +204,9 @@ export class UserProfileComponent implements OnInit {
                       })
                     }
                     else{
+                      this.service.getUser(this.user.username).subscribe(loggedUser =>{
+                        this.user = loggedUser
+                      })
                       this.followingCountChanged = true;
                     }
 

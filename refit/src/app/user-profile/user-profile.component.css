@@ -68,6 +68,14 @@
     padding-top: 0.5rem;
 }
 
+.name-modal-div{
+    float: right; 
+    margin-left: 1rem; 
+    width: 60%; 
+    padding-left: 0;
+    padding-top: 0.5rem;
+}
+
 .user-name{
     font-family: 'Public Sans', sans-serif;  
     font-weight: 900;
@@ -149,9 +157,24 @@
     justify-content: center;
 }
 
+.modal-follow-buttons{
+    width: 7rem;
+    margin-right: 2rem; 
+    margin-left:auto; 
+    height: 2.4rem; 
+    float: right;
+    display: flex;
+    justify-content: center;
+}
+
 .unfollow-button{
     width: 7rem; 
     height: 2.4rem; 
+}
+
+.modal-unfollow-button{
+    width: 7rem; 
+    height: 2.4rem;
 }
 
 .unfollow-button:hover{
@@ -166,6 +189,11 @@
 .follow-button{
     width: 7rem; 
     height: 2.4rem; 
+}
+
+.modal-follow-button{
+    width: 7rem; 
+    height: 2.4rem;
 }
 
 .sold-number{
@@ -226,6 +254,16 @@
     }
     .follow-buttons{
         display: none;
+    }
+    .name-modal-div{ 
+        width: 40%; 
+    }
+    .modal-follow-buttons{
+        margin-right: 1.2rem; 
+        margin-top: 1rem;
+    }
+    .profile-pic-div-modal{
+        margin-left: 1.5rem; 
     }
     .following-div{
         display: flex;
