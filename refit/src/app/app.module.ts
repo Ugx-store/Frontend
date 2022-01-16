@@ -33,6 +33,7 @@ import { GeneralLayoutComponent } from './_layout/general-layout/general-layout.
 import { SignupLayoutComponent } from './_layout/signup-layout/signup-layout.component';
 import { GeneralFooterComponent } from './_layout/general-footer/general-footer.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { LoadingModule } from './Loader';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 		ReactiveFormsModule,
     NgOtpInputModule,
     NgxIntlTelInputModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    LoadingModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
