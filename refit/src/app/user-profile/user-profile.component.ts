@@ -54,6 +54,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   followingCountChanged: boolean = false;
 
+  followedAUserOrNot: boolean = false //Used to check if logged in user has followed someone on the modal
+
   ngOnInit(): void {
     this.buttonValue = 1
 
@@ -125,11 +127,16 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   followers(){
+    onAuthStateChanged
     this.followValue = 1
-    
-    this.service.getUserFollowersProfiles(this.user.username).subscribe(res =>{
-      this.userFollowersProfiles = res
+
+    this.service.getUserFollows(this.user.username).subscribe(res =>{
+      this.userFollows = res;
+      this.service.getUserFollowersProfiles(this.user.username).subscribe(res =>{
+        this.userFollowersProfiles = res
+      })
     })
+    
   }
 
   following(){
@@ -193,32 +200,60 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     })
   }
 
+  followUserInModal(followedUser: User){
+    onAuthStateChanged(this.auth, (user) =>{
+      if (user) {
+        console.log(followedUser);
+
+        this.follow.followedUserId = followedUser.id
+        this.follow.followerUserId = this.user.id
+        this.follow.followerName = this.user.username
+
+        this.service.followUser(this.follow).subscribe(data =>{
+          this.service.getUserFollowersProfiles(this.user.username).subscribe(res =>{
+            this.userFollowersProfiles = res
+            for(let i = 0; i < this.userFollowersProfiles.length; i++){
+              if(this.userFollowersProfiles[i].username === followedUser.username){
+                this.userFollows.unshift(this.userFollowersProfiles[i]);
+                this.isUserFollowedOrNot(this.userFollowersProfiles[i].username);
+                break;
+              }
+            }
+          })
+          
+        })
+        
+      } 
+      else {
+        this.route.navigate(['/login'])
+      }
+    })
+  }
+
   unFollowUser(followedUser: User){
     onAuthStateChanged(this.auth, (user) =>{
       if (user) {
         if(user.email){
           this.service.getUser(user.email).subscribe(res =>{
-            this.service.getUser(followedUser.username).subscribe(returnedUser =>{
-              for(let i = 0; i < returnedUser.followings.length; i++){
-                if(returnedUser.followings[i].followerName === res.username){
-                  this.service.unFollowUser(returnedUser.followings[i].id).subscribe(data =>{
-                    this.isUserFollowed = false
+            for(let i = 0; i < followedUser.followings.length; i++){
+              if(followedUser.followings[i].followerName === res.username){
+                this.service.unFollowUser(followedUser.followings[i].id).subscribe(data =>{
+                  this.isUserFollowed = false
 
-                    if(this.user.username === followedUser.username){
-                      this.service.getUser(followedUser.username).subscribe(loggedUser =>{
-                        this.user = loggedUser
-                      })
-                    }
-                    else{
-                      this.service.getUser(this.user.username).subscribe(loggedUser =>{
-                        this.user = loggedUser
-                      })
-                    }
+                  if(this.user.username === followedUser.username){
+                    this.service.getUser(followedUser.username).subscribe(loggedUser =>{
+                      this.user = loggedUser
+                    })
+                  }
+                  else{
+                    this.service.getUser(this.user.username).subscribe(loggedUser =>{
+                      this.user = loggedUser
+                    })
+                  }
 
-                  })
-                }
+                })
               }
-            })
+            }
           })
         }
         
@@ -229,10 +264,38 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     })
   }
 
+  unFollowUserInModal(unFollowedUser: User){
+    onAuthStateChanged(this.auth, (user) =>{
+      if (user) {
+
+        for(let j = 0; j < unFollowedUser.followings.length; j++){
+          if(unFollowedUser.followings[j].followerName === this.user.username){
+            this.service.unFollowUser(unFollowedUser.followings[j].id).subscribe(data =>{
+              this.service.getUserFollows(this.user.username).subscribe(res =>{
+                this.userFollows = res
+
+                this.service.getUserFollowersProfiles(this.user.username).subscribe(res =>{
+                  this.userFollowersProfiles = res
+  
+                  this.isUserFollowedOrNot(unFollowedUser.username);
+                })
+              })
+              
+            })
+            break
+          }
+        }
+      } 
+      else {
+        this.route.navigate(['/login'])
+      }
+    })
+  }
+
   onModalClose(){
     this.service.getUserFollows(this.user.username).subscribe(res =>{
         this.userFollows = res
-      })
+    })
   }
 
 }
