@@ -46,6 +46,10 @@
     justify-content: center;
 }
 
+.profile-pic-div-modal :hover{
+    cursor: pointer;
+}
+
 .edit-profile-button{
     padding: 0; 
     width: 5rem; 
@@ -81,6 +85,10 @@
     display: inline-block;
     padding-left: 0;
     padding-top: 0.5rem;
+}
+
+.name-modal-div:hover{
+    cursor: pointer;
 }
 
 .user-name{
@@ -242,6 +250,9 @@
     .user-name{
         font-size:1.125rem; 
     }
+    .user-name-modal{
+        font-size:1rem; 
+    }
     .ratings{
         display:none; 
     }
@@ -263,9 +274,10 @@
     }
     .name-modal-div{ 
         width: 40%; 
+        margin-left: 0.5rem;
     }
     .modal-follow-buttons{
-        margin-right: 1.2rem; 
+        margin-right: 0.5rem; 
         margin-top: 1rem;
     }
     .profile-pic-div-modal{

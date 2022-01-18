@@ -34,6 +34,9 @@
     margin-right: 0rem;
     font-family: 'Open Sans', sans-serif;
     font-weight: 600;
+    font-size: 25px; 
+    font-weight: 700; 
+    color: rgb(255, 0, 0);
 }
 
 .nav-item{
