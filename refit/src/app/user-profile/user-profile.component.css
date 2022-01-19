@@ -230,6 +230,7 @@
 
 .following-number:focus{
     box-shadow: none;
+    border-style: none;
 }
 
 .follower-number{
@@ -242,6 +243,7 @@
 
 .follower-number:hover{
     box-shadow: none;
+    border-style: none;
 }
 
 @media(max-width: 768px) {
