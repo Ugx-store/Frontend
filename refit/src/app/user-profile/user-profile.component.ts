@@ -245,7 +245,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
                 if(this.userFollowersProfiles[i].username === followedUser.username){
                   this.userFollows.unshift(this.userFollowersProfiles[i]);
                   this.isUserFollowedOrNot(this.userFollowersProfiles[i].username);
-                  this.service.getUser(followedUser.username)
                   break;
                 }
               }
@@ -277,7 +276,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
                     if(this.userFollowersProfiles[i].username === followedUser.username){
                       this.LoggedInUserFollows.unshift(this.userFollowersProfiles[i]);
                       this.isUserFollowedOrNot(this.userFollowersProfiles[i].username);
-                      this.service.getUser(followedUser.username)
                       break;
                     }
                   }
@@ -348,7 +346,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
                 })
                 
               })
-              this.service.getUser(unFollowedUser.username)
               break
             }
           }
@@ -376,7 +373,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
                     })
   
                   })
-                  this.service.getUser(unFollowedUser.username)
                   break
                 }
               }
@@ -399,6 +395,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   gotToProfile(username: string){
     this.route.navigateByUrl(`user-profile/${username}`) 
+  }
+
+  editProfile(username: string){
+    this.route.navigateByUrl(`edit-profile/${username}`)
   }
 
 }

@@ -34,6 +34,7 @@ import { SignupLayoutComponent } from './_layout/signup-layout/signup-layout.com
 import { GeneralFooterComponent } from './_layout/general-footer/general-footer.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { LoadingModule } from './Loader';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { LoadingModule } from './Loader';
     GeneralLayoutComponent,
     SignupLayoutComponent,
     GeneralFooterComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,

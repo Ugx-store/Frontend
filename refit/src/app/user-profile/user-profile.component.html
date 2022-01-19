@@ -2,7 +2,9 @@
     <div class="profile-pic-div">
         <img src="../../assets/blank-profile-picture.png"
             alt="Profile pic" max-width="100%" class="profile-img">
-        <button class="btn edit-profile-button">Edit Profile</button>
+        <span *ngIf="loggedInUser">
+            <button class="btn edit-profile-button" (click)="editProfile(user.username)">Edit Profile</button>
+        </span>
     </div>
     <div class="name-div">
         <span class="placeholder-glow" *ngIf="loaderService.isLoading | async; else notPending">

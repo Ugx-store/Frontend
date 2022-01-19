@@ -228,12 +228,20 @@
     text-decoration: none;
 }
 
+.following-number:focus{
+    box-shadow: none;
+}
+
 .follower-number{
     color:black;
 }
 
 .follower-number:hover{
     text-decoration: none;
+}
+
+.follower-number:hover{
+    box-shadow: none;
 }
 
 @media(max-width: 768px) {
@@ -334,7 +342,7 @@
     padding: 12px 16px;
     text-decoration: none;
     display: block;
-    text-align: left;
+    text-align: center;
     width: 100%;
     border-radius: 0;
 }
