@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, SecurityContext, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { app } from '../models/firebaseapp';
@@ -7,16 +7,20 @@ import { User } from '../models/newUser';
 import { AppServiceService } from '../services/app-service.service';
 import { Location } from '@angular/common';
 import { LoaderService } from '../Loader';
+import { Observable, Subscriber, Subscription } from 'rxjs';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
-export class UserProfileComponent implements OnInit, OnDestroy {
+export class UserProfileComponent implements OnInit{
 
   constructor(private activatedRoute: ActivatedRoute, private service: AppServiceService, 
-    private route: Router, public loaderService: LoaderService) { }
+    private route: Router, public loaderService: LoaderService, private sanitizer: DomSanitizer) {
+      this.route.routeReuseStrategy.shouldReuseRoute = () => false;
+    }
 
   auth: any = getAuth(app);
   user: User = {
@@ -47,6 +51,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   followValue: number = 0;
 
   loggedInUsername: string = '';
+  profilePic: string = '';
 
   isUserFollowed: boolean= false;
   loggedInUser: boolean = true;
@@ -62,6 +67,12 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
     this.activatedRoute.params.subscribe((param) => {
       this.service.getUser(param.username).subscribe(res =>{
+        this.service.getProfilePicture(param.username).subscribe(data =>{
+          if(data){
+            this.profilePic = 'data:image/jpg;base64,' + data;
+          }
+        })
+
         onAuthStateChanged(this.auth, (user) =>{
           if (user) {
             if(user.phoneNumber === res.phoneNumber){
@@ -83,8 +94,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
                 })
               }
 
-
-
             }
           } 
           else {
@@ -101,9 +110,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     })
   }
 
-  ngOnDestroy() {
-    this.userFollows = []
-  }
+  // ngOnDestroy() {
+  //   this.subParams.unsubscribe();
+  // }
 
   allButton(){
     this.buttonValue = 1
@@ -386,13 +395,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       })
     }
   }
-
-  onModalClose(){
-    this.service.getUserFollows(this.user.username).subscribe(res =>{
-        this.userFollows = res
-    })
-  }
-
   gotToProfile(username: string){
     this.route.navigateByUrl(`user-profile/${username}`) 
   }

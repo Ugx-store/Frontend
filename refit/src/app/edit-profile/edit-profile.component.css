@@ -1,0 +1,65 @@
+.container-fluid{
+    background:#f5f5f5;
+}
+
+.row{
+    width: 80%;
+}
+
+.row-title{
+    text-align: center;
+    font-size: 30px;
+    margin-top: 0.5rem;
+}
+
+.profile-pic-card{
+    width: 75%;
+}
+
+.card-body{
+    padding: 0;
+    margin-top: 0.5rem;
+}
+
+.card-title{
+    float: left;
+    padding: 0;
+}
+
+.edit-button{
+    float: right;
+    padding: 0;
+    border-style: none;
+    border-color: white;
+    background: white;
+    color: #007bff;
+}
+
+.edit-button :nth-child(2){
+    display: none;
+}
+
+.profile-pic-div{
+    height: 6rem; 
+    width: 6rem; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+}
+
+.profile-img{
+    height: 6rem; 
+    width: 6rem; 
+    border-radius: 50%;
+}
+
+@media (max-width: 768px) {
+    .row{
+        width: 90%;
+    }
+    .profile-pic-card{
+        width: 100%;
+    }
+}

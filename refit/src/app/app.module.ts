@@ -17,7 +17,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SignupNavbarComponent } from './_layout/signup-navbar/signup-navbar.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AsyncValidatorDirective } from './directives/async-validator.directive';
 import { TcsDisplayComponent } from './tcs-display/tcs-display.component';
 import { AuthGuard } from './auth.guard';
@@ -35,6 +35,9 @@ import { GeneralFooterComponent } from './_layout/general-footer/general-footer.
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { LoadingModule } from './Loader';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { ProfilePicUploadComponent } from './profile-pic-upload/profile-pic-upload.component';
+import { CacheInterceptorService } from './cache-interceptor/cache-interceptor.service';
+import { ImgCompressorDirective } from './directives/img-compressor.directive';
 
 
 @NgModule({
@@ -58,7 +61,9 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     SignupLayoutComponent,
     GeneralFooterComponent,
     UserProfileComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    ProfilePicUploadComponent,
+    ImgCompressorDirective
   ],
   imports: [
     BrowserModule,
@@ -74,7 +79,10 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     BrowserAnimationsModule,
     LoadingModule
   ],
-  providers: [AuthGuard],
+  providers: [
+    AuthGuard,
+    {provide: HTTP_INTERCEPTORS, useClass: CacheInterceptorService, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

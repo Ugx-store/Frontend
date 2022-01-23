@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, delay, tap } from 'rxjs/operators';
 import { User } from '../models/newUser';
 import { Follow } from '../models/follow';
+import { ProfilePic } from '../models/profilepic';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class AppServiceService {
   private promocode_url: string = "https://users-db.azurewebsites.net/api/PromoCodes"
   private email_url: string = "https://users-db.azurewebsites.net/api/EmailSender/"
   private follow_url: string = "https://users-db.azurewebsites.net/api/Following"
+  private profile_pic: string = "https://users-db.azurewebsites.net/api/ProfilePic"
 
   constructor(private http: HttpClient) { }
 
@@ -82,6 +84,14 @@ export class AppServiceService {
 
   getUserFollowersProfiles(username: string): Observable<User[]>{
     return this.http.get<User[]>(this.follow_url + "/followers" + "/" + username);
+  }
+
+  postProfilePicture(picture: ProfilePic){
+    return this.http.post(this.profile_pic + "/" + picture.Username, picture.ImageData, {responseType: "text"});
+  }
+
+  getProfilePicture(username: string): Observable<Uint8Array[]>{
+    return this.http.get<Uint8Array[]>(this.profile_pic + "/" + username);
   }
 
 }

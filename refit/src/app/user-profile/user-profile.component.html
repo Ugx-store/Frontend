@@ -1,6 +1,6 @@
 <div class="row row-one">
     <div class="profile-pic-div">
-        <img src="../../assets/blank-profile-picture.png"
+        <img [src]="profilePic ? profilePic : '../../assets/blank-profile-picture.png'"
             alt="Profile pic" max-width="100%" class="profile-img">
         <span *ngIf="loggedInUser">
             <button class="btn edit-profile-button" (click)="editProfile(user.username)">Edit Profile</button>
@@ -54,12 +54,12 @@
         </p>
     </div>
     <div *ngIf="!loggedInUser" class="follow-buttons">
-        <div *ngIf="!isUserFollowed; else notFollowed">
+        <div *ngIf="!isUserFollowed; else Followed">
             <button class="btn btn-primary follow-button" (click)="followUser(user)">
                 Follow
             </button>
         </div>
-        <ng-template #notFollowed>
+        <ng-template #Followed>
             <button  class="btn btn-outline-primary dropdown-toggle dropdown unfollow-button">
                 Following
                 <div class="dropdown-content">
@@ -82,7 +82,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="followModalLabel">@{{user.username}}</h5>
-                        <button type="button" (click)="onModalClose()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body" style="overflow-x: hidden;">
                         <div class="modal-buttons d-flex justify-content-center">
@@ -230,12 +230,12 @@
         </div>
         
         <div *ngIf="!loggedInUser" class="follow-md-buttons">
-            <div *ngIf="!isUserFollowed; else notFollowedMd">
+            <div *ngIf="!isUserFollowed; else FollowedMd">
                 <button class="btn btn-primary btn-follow-md" (click)="followUser(user)">
                     Follow
                 </button>
             </div>
-            <ng-template #notFollowedMd>
+            <ng-template #FollowedMd>
                 <button  class="btn btn-outline-primary dropdown-toggle dropdown btn-unfollow-md">
                     Following
                     <div class="dropdown-content">

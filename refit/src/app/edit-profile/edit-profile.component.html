@@ -1,1 +1,28 @@
-<p>edit-profile works!</p>
+<div class="container-fluid d-flex align-items-center justify-content-center">
+    <div class="row">
+        <p class="row-title">Edit Profile</p>
+        <div class="card profile-pic-card mx-auto">
+            <div class="card-body">
+                <p class="card-title">Profile Picture</p>
+                <label class="edit-button">
+                    <span>Change</span>
+                    <input #imageInput 
+                            type="file" 
+                            accept="image/*"
+                            (change)="processFile(imageInput)">
+                </label>
+                <!-- <button type="file" class="edit-button">Change</button> -->
+                <div *ngIf="selectedFile; else noImage" class="profile-pic-div mx-auto">
+                    <img src="{{selectedFile.src}}"
+                            alt="Profile pic" max-width="100%" class="profile-img">
+                </div>
+                <ng-template #noImage>
+                    <div class="profile-pic-div mx-auto">
+                        <img src="../../assets/blank-profile-picture.png"
+                            alt="Profile pic" max-width="100%" class="profile-img">
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>
