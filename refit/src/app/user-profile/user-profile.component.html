@@ -105,7 +105,7 @@
                                         <ng-template #hasFollowers>
                                             <span *ngFor="let follower of userFollowersProfiles" class="followers-span-modal">
                                                 <div class="profile-pic-div-modal" (click)="gotToProfile(follower.username)" data-bs-dismiss="modal">
-                                                    <img [src]="profilePic ? profilePic : '../../assets/blank-profile-picture.png'"
+                                                    <img [src]="follower.profilePicture ? followerImage[follower.username] : '../../assets/blank-profile-picture.png'"
                                                         alt="Profile pic" max-width="100%" class="profile-img-modal">
                                                 </div>
                                                 <div class="name-modal-div" (click)="gotToProfile(follower.username)" data-bs-dismiss="modal">
@@ -117,7 +117,7 @@
                                                     <span *ngIf="this.loggedInUsername === follower.username; else notLoggedInUsername">
                                                     </span>
                                                     <ng-template #notLoggedInUsername>
-                                                        <div *ngIf="!isUserFollowedOrNot(follower.username); else notFollowed">
+                                                        <div *ngIf="!isUserFollowedObject[follower.username]; else notFollowed">
                                                             <button class="btn btn-primary modal-follow-button" (click)="followUserInModal(follower)">
                                                                 Follow
                                                             </button>
@@ -136,7 +136,7 @@
                                                 </div>
                                                 <ng-template #LoggedInUser>
                                                     <span class="modal-follow-buttons">
-                                                        <div *ngIf="!isUserFollowedOrNot(follower.username); else Followed">
+                                                        <div *ngIf="!isUserFollowedObject[follower.username]; else Followed">
                                                             <button class="btn btn-primary modal-follow-button" (click)="followUserInModal(follower)">
                                                                 Follow
                                                             </button>
@@ -171,7 +171,7 @@
                                         <ng-template #hasFollowers>
                                             <span *ngFor="let follower of userFollows" class="followers-span-modal">
                                                 <div class="profile-pic-div-modal" (click)="gotToProfile(follower.username)" data-bs-dismiss="modal">
-                                                    <img [src]="profilePic ? profilePic : '../../assets/blank-profile-picture.png'"
+                                                    <img [src]="follower.profilePicture ? followerImage[follower.username] : '../../assets/blank-profile-picture.png'"
                                                         alt="Profile pic" max-width="100%" class="profile-img-modal">
                                                 </div>
                                                 <div class="name-modal-div" (click)="gotToProfile(follower.username)" data-bs-dismiss="modal">
@@ -182,7 +182,7 @@
                                                     <span *ngIf="this.loggedInUsername === follower.username; else notLoggedInUsername">
                                                     </span>
                                                     <ng-template #notLoggedInUsername>
-                                                        <div *ngIf="!isUserFollowedOrNot(follower.username); else notFollowed">
+                                                        <div *ngIf="!isUserFollowedObject[follower.username]; else notFollowed">
                                                             <button class="btn btn-primary modal-follow-button" (click)="followUserInModal(follower)">
                                                                 Follow
                                                             </button>
@@ -201,21 +201,14 @@
                                                 </div>
                                                 <ng-template #LoggedInUser>
                                                     <span class="modal-follow-buttons">
-                                                        <div *ngIf="!isUserFollowedOrNot(follower.username); else notFollowed">
-                                                            <button class="btn btn-primary modal-follow-button" (click)="followUserInModal(follower)">
-                                                                Follow
-                                                            </button>
-                                                        </div>
-                                                        <ng-template #notFollowed>
-                                                            <button  class="btn btn-outline-primary dropdown-toggle dropdown modal-unfollow-button">
-                                                                Following
-                                                                <div class="dropdown-content">
-                                                                    <ul class="no-bullets">
-                                                                        <li><button class="btn btn-login" (click)="unFollowUserInModal(follower)">Unfollow</button></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </button>
-                                                        </ng-template>
+                                                        <button  class="btn btn-outline-primary dropdown-toggle dropdown modal-unfollow-button">
+                                                            Following
+                                                            <div class="dropdown-content">
+                                                                <ul class="no-bullets">
+                                                                    <li><button class="btn btn-login" (click)="unFollowUserInModal(follower)">Unfollow</button></li>
+                                                                </ul>
+                                                            </div>
+                                                        </button>
                                                     </span>
                                                 </ng-template>
                                             </span>

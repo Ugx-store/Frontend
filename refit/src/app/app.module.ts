@@ -81,7 +81,7 @@ import { ImgCompressorDirective } from './directives/img-compressor.directive';
   ],
   providers: [
     AuthGuard,
-    {provide: HTTP_INTERCEPTORS, useClass: CacheInterceptorService, multi: true}
+    //{provide: HTTP_INTERCEPTORS, useClass: CacheInterceptorService, multi: true}
   ],
   bootstrap: [AppComponent]
 })

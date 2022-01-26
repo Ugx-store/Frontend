@@ -1,4 +1,5 @@
 import { Follow } from "./follow";
+import { ProfilePictures } from "./profilepic";
 
 export interface User{
     id: number;
@@ -15,4 +16,5 @@ export interface User{
     InstagramLink: string;
     dateTimeJoined: Date;
     followings: Follow[];
+    profilePicture: ProfilePictures
 }

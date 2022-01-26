@@ -12,7 +12,8 @@ import { User } from '../models/newUser';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public route: Router) { }
+  constructor(public route: Router) { 
+  }
 
   auth: any = getAuth(app);
   spinner: boolean = false;
@@ -32,7 +33,12 @@ export class LoginComponent implements OnInit {
     TwitterLink: '',
     InstagramLink: '',
     dateTimeJoined: new Date(0),
-    followings: []
+    followings: [],
+    profilePicture: {
+      Id: 0,
+      Username: '',
+      imageData: []
+    }
   }
 
   ngOnInit(): void {

@@ -1,24 +1,26 @@
-import { Component, OnDestroy, OnInit, SecurityContext, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { app } from '../models/firebaseapp';
 import { Follow } from '../models/follow';
 import { User } from '../models/newUser';
 import { AppServiceService } from '../services/app-service.service';
-import { Location } from '@angular/common';
 import { LoaderService } from '../Loader';
-import { Observable, Subscriber, Subscription } from 'rxjs';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer} from '@angular/platform-browser';
+import { LooseObject, ProfilePictures } from '../models/profilepic';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css']
+  styleUrls: ['./user-profile.component.css'],
+  //changeDetection : ChangeDetectionStrategy.OnPush
 })
+
 export class UserProfileComponent implements OnInit{
 
   constructor(private activatedRoute: ActivatedRoute, private service: AppServiceService, 
-    private route: Router, public loaderService: LoaderService, private sanitizer: DomSanitizer) {
+    private route: Router, public loaderService: LoaderService, private sanitizer: DomSanitizer,
+    private cd: ChangeDetectorRef) {
       this.route.routeReuseStrategy.shouldReuseRoute = () => false;
     }
 
@@ -37,7 +39,12 @@ export class UserProfileComponent implements OnInit{
     TwitterLink: '',
     InstagramLink: '',
     dateTimeJoined: new Date(0),
-    followings: []
+    followings: [],
+    profilePicture: {
+      Id: 0,
+      Username: '',
+      imageData: []
+    }
   }
 
   follow: Follow = {
@@ -49,9 +56,11 @@ export class UserProfileComponent implements OnInit{
 
   buttonValue: number = 0;
   followValue: number = 0;
+  p: number = 0;
 
   loggedInUsername: string = '';
   profilePic: string = '';
+  
 
   isUserFollowed: boolean= false;
   loggedInUser: boolean = true;
@@ -59,6 +68,10 @@ export class UserProfileComponent implements OnInit{
   userFollows: User[] = [];
   LoggedInUserFollows: User[] = [];
   userFollowersProfiles: User[] = [];
+  followerProfilePics: ProfilePictures[] = [];
+
+  isUserFollowedObject: LooseObject = {}
+  followerImage: LooseObject = {}
 
   followedAUserOrNot: boolean = false //Used to check if logged in user has followed someone on the modal
 
@@ -110,9 +123,6 @@ export class UserProfileComponent implements OnInit{
     })
   }
 
-  // ngOnDestroy() {
-  //   this.subParams.unsubscribe();
-  // }
 
   allButton(){
     this.buttonValue = 1
@@ -126,21 +136,27 @@ export class UserProfileComponent implements OnInit{
     this.buttonValue = 3
   }
 
-  isUserFollowedOrNot(username: string): boolean{
-    if(this.loggedInUser){
-      if(this.userFollows.findIndex(item => item.username === username)>= 0){
-        return true
+  followingImages(userFollowMethod: User[]){
+    for(let user of userFollowMethod){
+      if(user.profilePicture){
+        console.log(user.username + this.p++)
+        var key = user.username
+        this.followerImage[key] = 'data:image/jpg;base64,' + user.profilePicture.imageData;
+      }
+    } 
+  }
+
+  checkFollowStatus(userFollowMethod: User[], userProfileMethod: User[]){
+    for(let user of userProfileMethod){
+      if(userFollowMethod.findIndex(item => item.username === user.username)>= 0){
+        var key = user.username
+        var value = true
+        this.isUserFollowedObject[key] = value
       }
       else{
-        return false
-      }
-    }
-    else{
-      if(this.LoggedInUserFollows.findIndex(item => item.username === username)>= 0){
-        return true
-      }
-      else{
-        return false
+        var key = user.username
+        var value = false
+        this.isUserFollowedObject[key] = value 
       }
     }
   }
@@ -149,19 +165,16 @@ export class UserProfileComponent implements OnInit{
     this.followValue = 1
 
     if(this.loggedInUser){
-      this.service.getUserFollows(this.user.username).subscribe(res =>{
-        this.userFollows = res;
-        this.service.getUserFollowersProfiles(this.user.username).subscribe(res =>{
-          this.userFollowersProfiles = res
-        })
+      this.service.getUserFollowersProfiles(this.user.username).subscribe(res =>{
+        this.userFollowersProfiles = res
+
+        this.checkFollowStatus(this.userFollows, this.userFollowersProfiles)
+        this.followingImages(this.userFollowersProfiles)
       })
     }
     else{
-      this.service.getUserFollows(this.user.username).subscribe(res =>{
-        this.userFollows = res;
-        this.service.getUserFollowersProfiles(this.user.username).subscribe(res =>{
-          this.userFollowersProfiles = res
-        })
+      this.service.getUserFollowersProfiles(this.user.username).subscribe(res =>{
+        this.userFollowersProfiles = res
       })
 
       onAuthStateChanged(this.auth, (user) =>{
@@ -171,11 +184,16 @@ export class UserProfileComponent implements OnInit{
               this.loggedInUsername = loggedUser.username
               this.service.getUserFollows(loggedUser.username).subscribe(res =>{
                 this.LoggedInUserFollows = res;
+
+                this.checkFollowStatus(this.LoggedInUserFollows, this.userFollowersProfiles)
+                this.followingImages(this.userFollowersProfiles)
               })
             })
           }
         }
-        else{}
+        else{
+          this.LoggedInUserFollows = [];
+        }
       })
     }
     
@@ -183,6 +201,7 @@ export class UserProfileComponent implements OnInit{
 
   following(){
     this.followValue = 2
+    this.followingImages(this.userFollows)
 
     if(!this.loggedInUser){
       onAuthStateChanged(this.auth, (user) =>{
@@ -193,6 +212,8 @@ export class UserProfileComponent implements OnInit{
               this.loggedInUsername = loggedUser.username
               this.service.getUserFollows(loggedUser.username).subscribe(res =>{
                 this.LoggedInUserFollows = res;
+
+                this.checkFollowStatus(this.LoggedInUserFollows, this.userFollows)
               })
             })
           }
@@ -203,37 +224,46 @@ export class UserProfileComponent implements OnInit{
 
   }
 
+
   followUser(followedUser: User){
     onAuthStateChanged(this.auth, (user) =>{
       if (user) {
         if(user.email){
           this.service.getUser(user.email).subscribe(res =>{
-            this.follow.followedUserId = followedUser.id
-            this.follow.followerUserId = res.id
-            this.follow.followerName = res.username
+            if(this.userFollows.findIndex(item => item.username === followedUser.username)<0){
+              console.log("Logged in user")
+              this.follow.followedUserId = followedUser.id
+              this.follow.followerUserId = res.id
+              this.follow.followerName = res.username
 
-            this.service.followUser(this.follow).subscribe(data =>{
-              this.isUserFollowed = true
-
-              //Check if the user whose profile we are viewing is the user who has been followed
-              if(this.user.username === followedUser.username){
-                this.service.getUser(followedUser.username).subscribe(loggedUser =>{
-                  this.user = loggedUser
+              if(this.follow.followedUserId !== this.follow.followerUserId){
+                this.service.followUser(this.follow).subscribe(data =>{
+                  this.isUserFollowed = true
+    
+                  //Check if the user whose profile we are viewing is the user who has been followed
+                  if(this.user.username === followedUser.username){
+                    this.service.getUser(followedUser.username).subscribe(loggedUser =>{
+                      this.user = loggedUser
+                    })
+                  }
+                  else{
+                    this.service.getUser(this.user.username).subscribe(loggedUser =>{
+                      this.user = loggedUser
+                    })
+                  }
+                  
                 })
               }
-              else{
-                this.service.getUser(this.user.username).subscribe(loggedUser =>{
-                  this.user = loggedUser
-                })
-              }
-              
-            })
+            }
           })
         }
         
       } 
       else {
-        this.route.navigate(['/login'])
+        console.log("Not Logged in user")
+        
+        alert("Please log in to follow @" + followedUser.username)
+        window.location.reload()
       }
     })
   }
@@ -253,17 +283,20 @@ export class UserProfileComponent implements OnInit{
               for(let i = 0; i < this.userFollowersProfiles.length; i++){
                 if(this.userFollowersProfiles[i].username === followedUser.username){
                   this.userFollows.unshift(this.userFollowersProfiles[i]);
-                  this.isUserFollowedOrNot(this.userFollowersProfiles[i].username);
                   break;
                 }
               }
+              this.checkFollowStatus(this.userFollows, this.userFollowersProfiles)
+              this.followingImages(this.userFollows)
             })
             
           })
           
         } 
         else {
-          this.route.navigate(['/login'])
+          window.location.reload()
+          alert("Please log in to follow @" + followedUser.username)
+          window.location.reload()
         }
       })
     }
@@ -284,10 +317,10 @@ export class UserProfileComponent implements OnInit{
                   for(let i = 0; i < this.userFollowersProfiles.length; i++){
                     if(this.userFollowersProfiles[i].username === followedUser.username){
                       this.LoggedInUserFollows.unshift(this.userFollowersProfiles[i]);
-                      this.isUserFollowedOrNot(this.userFollowersProfiles[i].username);
                       break;
                     }
                   }
+                  this.checkFollowStatus(this.LoggedInUserFollows, this.userFollowersProfiles)
                 })
                 
               })
@@ -296,7 +329,8 @@ export class UserProfileComponent implements OnInit{
           
         } 
         else {
-          this.route.navigate(['/login'])
+          alert("Please log in to follow @" + followedUser.username)
+          window.location.reload()
         }
       })
     }
@@ -332,7 +366,8 @@ export class UserProfileComponent implements OnInit{
         
       } 
       else {
-        this.route.navigate(['/login'])
+        alert("Please log in to unfollow @" + followedUser.username)
+        window.location.reload()
       }
     })
   }
@@ -347,20 +382,18 @@ export class UserProfileComponent implements OnInit{
               this.service.unFollowUser(unFollowedUser.followings[j].id).subscribe(data =>{
                 this.service.getUserFollows(this.user.username).subscribe(res =>{
                   this.userFollows = res
-  
-                  this.service.getUserFollowersProfiles(this.user.username).subscribe(res =>{
-                    this.userFollowersProfiles = res
-                    this.isUserFollowedOrNot(unFollowedUser.username);
-                  })
                 })
                 
               })
               break
             }
           }
+          this.checkFollowStatus(this.userFollows, this.userFollowersProfiles)
+          this.followingImages(this.userFollows)
         } 
         else {
-          this.route.navigate(['/login'])
+          alert("Please log in to unfollow @" + unFollowedUser.username)
+          window.location.reload()
         }
       })
     }
@@ -377,7 +410,6 @@ export class UserProfileComponent implements OnInit{
       
                       this.service.getUserFollowersProfiles(this.user.username).subscribe(profiles =>{
                         this.userFollowersProfiles = profiles
-                        this.isUserFollowedOrNot(unFollowedUser.username);
                       })
                     })
   
@@ -385,12 +417,14 @@ export class UserProfileComponent implements OnInit{
                   break
                 }
               }
+              this.checkFollowStatus(this.LoggedInUserFollows, this.userFollowersProfiles)
             })
           }
           
         } 
         else {
-          this.route.navigate(['/login'])
+          alert("Please log in to unfollow @" + unFollowedUser.username)
+          window.location.reload()
         }
       })
     }

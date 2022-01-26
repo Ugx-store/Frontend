@@ -40,7 +40,12 @@ export class GeneralNavbarComponent implements OnInit {
     TwitterLink: '',
     InstagramLink: '',
     dateTimeJoined: new Date(0),
-    followings: []
+    followings: [],
+    profilePicture: {
+      Id: 0,
+      Username: '',
+      imageData: []
+    }
   }
 
   date: Date = new Date()

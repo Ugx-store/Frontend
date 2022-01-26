@@ -212,7 +212,7 @@
     background-color: #000;
 }
 
-.dropdown:hover .dropdown-content-profile {
+.show{
     display: block;
 }
 

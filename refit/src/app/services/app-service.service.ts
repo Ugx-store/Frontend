@@ -4,7 +4,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, delay, tap } from 'rxjs/operators';
 import { User } from '../models/newUser';
 import { Follow } from '../models/follow';
-import { ProfilePic } from '../models/profilepic';
+import { ProfilePic, ProfilePictures } from '../models/profilepic';
 
 @Injectable({
   providedIn: 'root'
@@ -92,6 +92,10 @@ export class AppServiceService {
 
   getProfilePicture(username: string): Observable<Uint8Array[]>{
     return this.http.get<Uint8Array[]>(this.profile_pic + "/" + username);
+  }
+
+  getProfilePicturesList(username: string): Observable<ProfilePictures[]>{
+    return this.http.get<ProfilePictures[]>(this.profile_pic + "/pictures/" + username);
   }
 
 }
