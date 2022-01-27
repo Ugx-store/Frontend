@@ -184,6 +184,7 @@ export class UserProfileComponent implements OnInit{
               this.loggedInUsername = loggedUser.username
               this.service.getUserFollows(loggedUser.username).subscribe(res =>{
                 this.LoggedInUserFollows = res;
+                console.log(this.LoggedInUserFollows)
 
                 this.checkFollowStatus(this.LoggedInUserFollows, this.userFollowersProfiles)
                 this.followingImages(this.userFollowersProfiles)
@@ -286,7 +287,7 @@ export class UserProfileComponent implements OnInit{
                   break;
                 }
               }
-              this.checkFollowStatus(this.userFollows, this.userFollowersProfiles)
+              this.isUserFollowedObject[followedUser.username] = true
               this.followingImages(this.userFollows)
             })
             
@@ -311,16 +312,19 @@ export class UserProfileComponent implements OnInit{
   
               this.service.followUser(this.follow).subscribe(data =>{
                 this.isUserFollowed = true
+                console.log("Created")
   
                 this.service.getUserFollowersProfiles(this.user.username).subscribe(res =>{
                   this.userFollowersProfiles = res
                   for(let i = 0; i < this.userFollowersProfiles.length; i++){
                     if(this.userFollowersProfiles[i].username === followedUser.username){
-                      this.LoggedInUserFollows.unshift(this.userFollowersProfiles[i]);
+                      this.service.getUserFollows(this.user.username).subscribe(users =>{
+                        this.userFollows = users
+                      })
                       break;
                     }
                   }
-                  this.checkFollowStatus(this.LoggedInUserFollows, this.userFollowersProfiles)
+                  this.isUserFollowedObject[followedUser.username] = true
                 })
                 
               })
@@ -388,7 +392,7 @@ export class UserProfileComponent implements OnInit{
               break
             }
           }
-          this.checkFollowStatus(this.userFollows, this.userFollowersProfiles)
+          this.isUserFollowedObject[unFollowedUser.username] = false
           this.followingImages(this.userFollows)
         } 
         else {
@@ -405,19 +409,17 @@ export class UserProfileComponent implements OnInit{
               for(let i = 0; i < unFollowedUser.followings.length; i++){
                 if(unFollowedUser.followings[i].followerName === res.username){
                   this.service.unFollowUser(unFollowedUser.followings[i].id).subscribe(data =>{
-                    this.service.getUserFollows(res.username).subscribe(users =>{
-                      this.LoggedInUserFollows = users
-      
-                      this.service.getUserFollowersProfiles(this.user.username).subscribe(profiles =>{
-                        this.userFollowersProfiles = profiles
+                    this.service.getUserFollowersProfiles(this.user.username).subscribe(profiles =>{
+                      this.userFollowersProfiles = profiles
+                      this.service.getUserFollows(this.user.username).subscribe(users =>{
+                        this.userFollows = users
                       })
                     })
-  
                   })
                   break
                 }
               }
-              this.checkFollowStatus(this.LoggedInUserFollows, this.userFollowersProfiles)
+              this.isUserFollowedObject[unFollowedUser.username] = false
             })
           }
           
