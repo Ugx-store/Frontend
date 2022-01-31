@@ -11,7 +11,7 @@ import { CodeComponent } from './code/code.component';
 import { SignupDetailsComponent } from './signup-details/signup-details.component';
 
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 import { NgOtpInputModule } from 'ng-otp-input';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
@@ -35,9 +35,7 @@ import { GeneralFooterComponent } from './_layout/general-footer/general-footer.
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { LoadingModule } from './Loader';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
-import { ProfilePicUploadComponent } from './profile-pic-upload/profile-pic-upload.component';
 import { CacheInterceptorService } from './cache-interceptor/cache-interceptor.service';
-import { ImgCompressorDirective } from './directives/img-compressor.directive';
 import { NgxImageCompressService } from 'ngx-image-compress';
 
 
@@ -62,9 +60,7 @@ import { NgxImageCompressService } from 'ngx-image-compress';
     SignupLayoutComponent,
     GeneralFooterComponent,
     UserProfileComponent,
-    EditProfileComponent,
-    ProfilePicUploadComponent,
-    ImgCompressorDirective
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,
