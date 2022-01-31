@@ -42,7 +42,7 @@ export class CodeComponent implements OnInit {
     profilePicture: {
       Id: 0,
       Username: '',
-      imageData: []
+      imageData: ''
     }
   }
 

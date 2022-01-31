@@ -40,7 +40,7 @@ export class SignupDetailsComponent implements OnInit {
     profilePicture: {
       Id: 0,
       Username: '',
-      imageData: []
+      imageData: ''
     }
   }
 

@@ -38,6 +38,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ProfilePicUploadComponent } from './profile-pic-upload/profile-pic-upload.component';
 import { CacheInterceptorService } from './cache-interceptor/cache-interceptor.service';
 import { ImgCompressorDirective } from './directives/img-compressor.directive';
+import { NgxImageCompressService } from 'ngx-image-compress';
 
 
 @NgModule({
@@ -81,6 +82,7 @@ import { ImgCompressorDirective } from './directives/img-compressor.directive';
   ],
   providers: [
     AuthGuard,
+    NgxImageCompressService
     //{provide: HTTP_INTERCEPTORS, useClass: CacheInterceptorService, multi: true}
   ],
   bootstrap: [AppComponent]

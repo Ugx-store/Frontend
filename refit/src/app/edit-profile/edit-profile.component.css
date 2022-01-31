@@ -12,8 +12,9 @@
     margin-top: 0.5rem;
 }
 
-.profile-pic-card{
+.info-cards{
     width: 75%;
+    margin-bottom: 1rem;
 }
 
 .card-body{
@@ -55,8 +56,40 @@
     border-radius: 50%;
 }
 
+.personal-info-div{
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+}
+
+.form-floating{
+    color: black;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.form-floating input{
+    color: black;
+}
+
+.form-floating textarea{
+    color: black;
+}
+
+.form-floating label{
+    color: grey;
+}
+
+.input-group{
+    color: black;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
 @media (max-width: 768px) {
     .row{
+        width: 90%;
+    }
+    .info-cards{
         width: 90%;
     }
     .profile-pic-card{

@@ -1,19 +1,12 @@
 <div class="container-fluid d-flex align-items-center justify-content-center">
     <div class="row">
         <p class="row-title">Edit Profile</p>
-        <div class="card profile-pic-card mx-auto">
+        <div class="card info-cards mx-auto">
             <div class="card-body">
                 <p class="card-title">Profile Picture</p>
-                <label class="edit-button">
-                    <span>Change</span>
-                    <input #imageInput 
-                            type="file" 
-                            accept="image/*"
-                            (change)="processFile(imageInput)">
-                </label>
-                <!-- <button type="file" class="edit-button">Change</button> -->
-                <div *ngIf="selectedFile; else noImage" class="profile-pic-div mx-auto">
-                    <img src="{{selectedFile.src}}"
+                <label class="edit-button" data-bs-toggle="modal" data-bs-target="#imageModal">Change</label>
+                <div *ngIf="user.profilePicture; else noImage" class="profile-pic-div mx-auto">
+                    <img src="{{imgResultAfterCompress ? imgResultAfterCompress : userImg}}"
                             alt="Profile pic" max-width="100%" class="profile-img">
                 </div>
                 <ng-template #noImage>
@@ -23,6 +16,81 @@
                     </div>
                 </ng-template>
             </div>
+        </div>
+        <div class="card info-cards mx-auto">
+            <div class="card-body">
+                <p class="card-title">Personal information</p>
+                <div class="personal-info-div">
+                    <form class="form-floating">
+                        <input class="form-control" id="usersName" placeholder="Name" value="{{user.name}}">
+                        <label for="usersName">Name</label> 
+                    </form>
+                    <form class="form-floating">
+                        <input class="form-control" id="username" placeholder="Name" value="{{user.username}}">
+                        <label for="username">Username</label> 
+                    </form>
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a bio here" maxlength="140" value="{{user.bio}}" id="userBio" style="height: 100px"></textarea>
+                        <label for="userBio">Include a Bio...</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card info-cards mx-auto">
+            <div class="card-body">
+                <p class="card-title">Social media</p>
+                <div class="personal-info-div">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="facebook-icon">
+                            <img src="../../../assets/5305153_fb_facebook_facebook logo_icon.ico"
+                            alt="Facebook" width="20px">
+                        </span>
+                        <input type="text" class="form-control" placeholder="Facebook link" value="{{user.FacebookLink}}" aria-label="Facebook" aria-describedby="facebook-icon">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="twitter-icon">
+                            <img src="../../../assets/5305170_bird_social media_social network_tweet_twitter_icon.ico" 
+                            alt="twitter" width="20px">
+                        </span>
+                        <input type="text" class="form-control" placeholder="Twitter link" value="{{user.TwitterLink}}" aria-label="Twitter" aria-describedby="twitter-icon">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="instagram-icon">
+                            <img src="../../../assets/5335781_camera_instagram_social media_instagram logo_icon.ico"
+                            alt="Instagram" width="20px">
+                        </span>
+                        <input type="text" class="form-control" placeholder="Instagram link" aria-label="Instagram" value="{{user.InstagramLink}}" aria-describedby="instagram-icon">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="imageModalLabel">Caution</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Please note that changing profile picture will permanently delete it from your account.
+            Would you like to continue?
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <label type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                <span>Continue</span>
+                <input #imageInput
+                    appImgCompressor 
+                    type="file" 
+                    accept="image/*"
+                    (change)="processFile(imageInput)"
+                    style="display: none;">
+            </label>
+        </div>
         </div>
     </div>
 </div>

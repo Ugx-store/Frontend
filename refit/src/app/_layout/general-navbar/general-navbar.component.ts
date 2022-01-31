@@ -44,7 +44,7 @@ export class GeneralNavbarComponent implements OnInit {
     profilePicture: {
       Id: 0,
       Username: '',
-      imageData: []
+      imageData: ''
     }
   }
 
@@ -90,6 +90,7 @@ export class GeneralNavbarComponent implements OnInit {
   signOut(){
     signOut(this.auth).then(() => {
       this.authStatus = false;
+      localStorage.removeItem('LoggedInUserDetails')
     }).catch((error) => {
       alert(error.message);
     });

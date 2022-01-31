@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     profilePicture: {
       Id: 0,
       Username: '',
-      imageData: []
+      imageData: ''
     }
   }
 
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
     .then((userCredential) => {
       // Signed in 
       this.spinner = false;
-
+      localStorage.setItem('LoggedInUserDetails', JSON.stringify(userCredential.user))
       this.route.navigate(['/homepage'])
     })
     .catch((error) => {

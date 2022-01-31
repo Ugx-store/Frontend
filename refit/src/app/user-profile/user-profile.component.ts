@@ -25,6 +25,8 @@ export class UserProfileComponent implements OnInit{
     }
 
   auth: any = getAuth(app);
+  currentLoggedInUser: any;
+
   user: User = {
     id: 0,
     name: '', 
@@ -43,7 +45,7 @@ export class UserProfileComponent implements OnInit{
     profilePicture: {
       Id: 0,
       Username: '',
-      imageData: []
+      imageData: ''
     }
   }
 
@@ -64,6 +66,7 @@ export class UserProfileComponent implements OnInit{
 
   isUserFollowed: boolean= false;
   loggedInUser: boolean = true;
+  authFlag: boolean = true;
 
   userFollows: User[] = [];
   LoggedInUserFollows: User[] = [];
@@ -80,14 +83,13 @@ export class UserProfileComponent implements OnInit{
 
     this.activatedRoute.params.subscribe((param) => {
       this.service.getUser(param.username).subscribe(res =>{
-        this.service.getProfilePicture(param.username).subscribe(data =>{
-          if(data){
-            this.profilePic = 'data:image/jpg;base64,' + data;
-          }
-        })
+        if(res.profilePicture){
+          this.profilePic = 'data:image/jpg;base64,' + res.profilePicture.imageData
+        }
 
         onAuthStateChanged(this.auth, (user) =>{
-          if (user) {
+          if (user && this.authFlag) {
+            console.log("Logged in user")
             if(user.phoneNumber === res.phoneNumber){
               this.loggedInUser = true;
               this.user = res;
@@ -136,6 +138,18 @@ export class UserProfileComponent implements OnInit{
     this.buttonValue = 3
   }
 
+  getLoggedInUser(){
+    var user = localStorage.getItem('LoggedInUserDetails')
+    if(user){
+      let anotherUser = JSON.parse(user)
+      return anotherUser
+    }
+    else{
+      return null
+    }
+    
+  }
+
   followingImages(userFollowMethod: User[]){
     for(let user of userFollowMethod){
       if(user.profilePicture){
@@ -176,26 +190,25 @@ export class UserProfileComponent implements OnInit{
       this.service.getUserFollowersProfiles(this.user.username).subscribe(res =>{
         this.userFollowersProfiles = res
       })
+      
+      this.currentLoggedInUser = this.getLoggedInUser();
+      if(this.currentLoggedInUser){
+        if(this.currentLoggedInUser.email){
+          this.service.getUser(this.currentLoggedInUser.email).subscribe(loggedUser =>{
+            this.loggedInUsername = loggedUser.username
+            this.service.getUserFollows(loggedUser.username).subscribe(res =>{
+              this.LoggedInUserFollows = res;
+              console.log(this.LoggedInUserFollows)
 
-      onAuthStateChanged(this.auth, (user) =>{
-        if(user){
-          if(user.email){
-            this.service.getUser(user.email).subscribe(loggedUser =>{
-              this.loggedInUsername = loggedUser.username
-              this.service.getUserFollows(loggedUser.username).subscribe(res =>{
-                this.LoggedInUserFollows = res;
-                console.log(this.LoggedInUserFollows)
-
-                this.checkFollowStatus(this.LoggedInUserFollows, this.userFollowersProfiles)
-                this.followingImages(this.userFollowersProfiles)
-              })
+              this.checkFollowStatus(this.LoggedInUserFollows, this.userFollowersProfiles)
+              this.followingImages(this.userFollowersProfiles)
             })
-          }
+          })
         }
-        else{
-          this.LoggedInUserFollows = [];
-        }
-      })
+      }
+      else{
+        this.LoggedInUserFollows = [];
+      }
     }
     
   }
@@ -205,230 +218,209 @@ export class UserProfileComponent implements OnInit{
     this.followingImages(this.userFollows)
 
     if(!this.loggedInUser){
-      onAuthStateChanged(this.auth, (user) =>{
-        if(user){
-          if(user.email){
+      this.currentLoggedInUser = this.getLoggedInUser();
+      if(this.currentLoggedInUser){
+        if(this.currentLoggedInUser.email){
+          this.service.getUser(this.currentLoggedInUser.email).subscribe(loggedUser =>{
+            this.loggedInUsername = loggedUser.username
+            this.service.getUserFollows(loggedUser.username).subscribe(res =>{
+              this.LoggedInUserFollows = res;
 
-            this.service.getUser(user.email).subscribe(loggedUser =>{
-              this.loggedInUsername = loggedUser.username
-              this.service.getUserFollows(loggedUser.username).subscribe(res =>{
-                this.LoggedInUserFollows = res;
-
-                this.checkFollowStatus(this.LoggedInUserFollows, this.userFollows)
-              })
+              this.checkFollowStatus(this.LoggedInUserFollows, this.userFollows)
             })
-          }
+          })
         }
-        else{}
-      })
+      }
+      else{}
     }
 
   }
 
 
   followUser(followedUser: User){
-    onAuthStateChanged(this.auth, (user) =>{
-      if (user) {
-        if(user.email){
-          this.service.getUser(user.email).subscribe(res =>{
-            if(this.userFollows.findIndex(item => item.username === followedUser.username)<0){
-              console.log("Logged in user")
-              this.follow.followedUserId = followedUser.id
-              this.follow.followerUserId = res.id
-              this.follow.followerName = res.username
+    this.currentLoggedInUser = this.getLoggedInUser();
+    if (this.currentLoggedInUser) {
+      console.log(this.currentLoggedInUser)
+      if(this.currentLoggedInUser.email){
+        this.service.getUser(this.currentLoggedInUser.email).subscribe(res =>{
+          console.log(followedUser.username)
+          this.follow.followedUserId = followedUser.id
+          this.follow.followerUserId = res.id
+          this.follow.followerName = res.username
 
-              if(this.follow.followedUserId !== this.follow.followerUserId){
-                this.service.followUser(this.follow).subscribe(data =>{
-                  this.isUserFollowed = true
-    
-                  //Check if the user whose profile we are viewing is the user who has been followed
-                  if(this.user.username === followedUser.username){
-                    this.service.getUser(followedUser.username).subscribe(loggedUser =>{
-                      this.user = loggedUser
-                    })
-                  }
-                  else{
-                    this.service.getUser(this.user.username).subscribe(loggedUser =>{
-                      this.user = loggedUser
-                    })
-                  }
-                  
+          if(this.follow.followedUserId !== this.follow.followerUserId){
+            this.service.followUser(this.follow).subscribe(data =>{
+              this.isUserFollowed = true
+
+              //Check if the user whose profile we are viewing is the user who has been followed
+              if(this.user.username === followedUser.username){
+                this.service.getUser(followedUser.username).subscribe(loggedUser =>{
+                  this.user = loggedUser
                 })
               }
+              else{
+                this.service.getUser(this.user.username).subscribe(loggedUser =>{
+                  this.user = loggedUser
+                })
+              }
+              
+            })
+          }
+        })
+      }
+      
+    } 
+    else {
+      alert("Please log in to follow @" + followedUser.username)
+    }
+  }
+
+  followUserInModal(followedUser: User){
+    if(this.loggedInUser){
+      if (this.user) {
+        this.follow.followedUserId = followedUser.id
+        this.follow.followerUserId = this.user.id
+        this.follow.followerName = this.user.username
+
+        this.service.followUser(this.follow).subscribe(data =>{
+          this.service.getUserFollowersProfiles(this.user.username).subscribe(res =>{
+            this.userFollowersProfiles = res
+            for(let i = 0; i < this.userFollowersProfiles.length; i++){
+              if(this.userFollowersProfiles[i].username === followedUser.username){
+                this.userFollows.unshift(this.userFollowersProfiles[i]);
+                break;
+              }
             }
+            this.isUserFollowedObject[followedUser.username] = true
+            this.followingImages(this.userFollows)
+          })
+          
+        })
+        
+      } 
+      else {
+        window.location.reload()
+        alert("Please log in to follow @" + followedUser.username)
+      }
+    }
+    else{
+      this.currentLoggedInUser = this.getLoggedInUser();
+      if (this.currentLoggedInUser) {
+        if(this.currentLoggedInUser.email){
+          this.service.getUser(this.currentLoggedInUser.email).subscribe(res =>{
+            this.follow.followedUserId = followedUser.id
+            this.follow.followerUserId = res.id
+            this.follow.followerName = res.username
+
+            this.service.followUser(this.follow).subscribe(data =>{
+              this.isUserFollowed = true
+              console.log("Created")
+
+              this.service.getUserFollowersProfiles(this.user.username).subscribe(res =>{
+                this.userFollowersProfiles = res
+                for(let i = 0; i < this.userFollowersProfiles.length; i++){
+                  if(this.userFollowersProfiles[i].username === followedUser.username){
+                    this.service.getUserFollows(this.user.username).subscribe(users =>{
+                      this.userFollows = users
+                    })
+                    break;
+                  }
+                }
+                this.isUserFollowedObject[followedUser.username] = true
+              })
+              
+            })
           })
         }
         
       } 
       else {
-        console.log("Not Logged in user")
-        
         alert("Please log in to follow @" + followedUser.username)
-        window.location.reload()
       }
-    })
-  }
-
-  followUserInModal(followedUser: User){
-    if(this.loggedInUser){
-      onAuthStateChanged(this.auth, (user) =>{
-        if (user) {
-  
-          this.follow.followedUserId = followedUser.id
-          this.follow.followerUserId = this.user.id
-          this.follow.followerName = this.user.username
-  
-          this.service.followUser(this.follow).subscribe(data =>{
-            this.service.getUserFollowersProfiles(this.user.username).subscribe(res =>{
-              this.userFollowersProfiles = res
-              for(let i = 0; i < this.userFollowersProfiles.length; i++){
-                if(this.userFollowersProfiles[i].username === followedUser.username){
-                  this.userFollows.unshift(this.userFollowersProfiles[i]);
-                  break;
-                }
-              }
-              this.isUserFollowedObject[followedUser.username] = true
-              this.followingImages(this.userFollows)
-            })
-            
-          })
-          
-        } 
-        else {
-          window.location.reload()
-          alert("Please log in to follow @" + followedUser.username)
-          window.location.reload()
-        }
-      })
-    }
-    else{
-      onAuthStateChanged(this.auth, (user) =>{
-        if (user) {
-          if(user.email){
-            this.service.getUser(user.email).subscribe(res =>{
-              this.follow.followedUserId = followedUser.id
-              this.follow.followerUserId = res.id
-              this.follow.followerName = res.username
-  
-              this.service.followUser(this.follow).subscribe(data =>{
-                this.isUserFollowed = true
-                console.log("Created")
-  
-                this.service.getUserFollowersProfiles(this.user.username).subscribe(res =>{
-                  this.userFollowersProfiles = res
-                  for(let i = 0; i < this.userFollowersProfiles.length; i++){
-                    if(this.userFollowersProfiles[i].username === followedUser.username){
-                      this.service.getUserFollows(this.user.username).subscribe(users =>{
-                        this.userFollows = users
-                      })
-                      break;
-                    }
-                  }
-                  this.isUserFollowedObject[followedUser.username] = true
-                })
-                
-              })
-            })
-          }
-          
-        } 
-        else {
-          alert("Please log in to follow @" + followedUser.username)
-          window.location.reload()
-        }
-      })
     }
     
   }
 
   unFollowUser(followedUser: User){
-    onAuthStateChanged(this.auth, (user) =>{
-      if (user) {
-        if(user.email){
-          this.service.getUser(user.email).subscribe(res =>{
-            for(let i = 0; i < followedUser.followings.length; i++){
-              if(followedUser.followings[i].followerName === res.username){
-                this.service.unFollowUser(followedUser.followings[i].id).subscribe(data =>{
-                  this.isUserFollowed = false
+    this.currentLoggedInUser = this.getLoggedInUser();
+    if (this.currentLoggedInUser) {
+      if(this.currentLoggedInUser.email){
+        this.service.getUser(this.currentLoggedInUser.email).subscribe(res =>{
+          for(let i = 0; i < followedUser.followings.length; i++){
+            if(followedUser.followings[i].followerName === res.username){
+              this.service.unFollowUser(followedUser.followings[i].id).subscribe(data =>{
+                this.isUserFollowed = false
 
-                  if(this.user.username === followedUser.username){
-                    this.service.getUser(followedUser.username).subscribe(loggedUser =>{
-                      this.user = loggedUser
-                    })
-                  }
-                  else{
-                    this.service.getUser(this.user.username).subscribe(loggedUser =>{
-                      this.user = loggedUser
-                    })
-                  }
+                if(this.user.username === followedUser.username){
+                  this.service.getUser(followedUser.username).subscribe(loggedUser =>{
+                    this.user = loggedUser
+                  })
+                }
+                else{
+                  this.service.getUser(this.user.username).subscribe(loggedUser =>{
+                    this.user = loggedUser
+                  })
+                }
 
+              })
+            }
+          }
+        })
+      }
+      
+    } 
+    else {
+      alert("Please log in to unfollow @" + followedUser.username)
+    }
+  }
+
+  unFollowUserInModal(unFollowedUser: User){
+    if(this.loggedInUser){
+      if (this.user) {
+        for(let j = 0; j < unFollowedUser.followings.length; j++){
+          if(unFollowedUser.followings[j].followerName === this.user.username){
+            this.service.unFollowUser(unFollowedUser.followings[j].id).subscribe(data =>{
+              this.service.getUserFollows(this.user.username).subscribe(res =>{
+                this.userFollows = res
+              })
+              
+            })
+            break
+          }
+        }
+        this.isUserFollowedObject[unFollowedUser.username] = false
+        this.followingImages(this.userFollows)
+      } 
+      else {
+        alert("Please log in to unfollow @" + unFollowedUser.username)
+      }
+    }
+    else{
+      this.currentLoggedInUser = this.getLoggedInUser();
+      if (this.currentLoggedInUser) {
+        if(this.currentLoggedInUser.email){
+          this.service.getUser(this.currentLoggedInUser.email).subscribe(res =>{
+            for(let i = 0; i < unFollowedUser.followings.length; i++){
+              if(unFollowedUser.followings[i].followerName === res.username){
+                this.service.unFollowUser(unFollowedUser.followings[i].id).subscribe(data =>{
+                  this.service.getUserFollowersProfiles(this.user.username).subscribe(profiles =>{
+                    this.userFollowersProfiles = profiles
+                    this.service.getUserFollows(this.user.username).subscribe(users =>{
+                      this.userFollows = users
+                    })
+                  })
                 })
+                break
               }
             }
+            this.isUserFollowedObject[unFollowedUser.username] = false
           })
         }
         
       } 
       else {
-        alert("Please log in to unfollow @" + followedUser.username)
-        window.location.reload()
+        alert("Please log in to unfollow @" + unFollowedUser.username)
       }
-    })
-  }
-
-  unFollowUserInModal(unFollowedUser: User){
-    if(this.loggedInUser){
-      onAuthStateChanged(this.auth, (user) =>{
-        if (user) {
-  
-          for(let j = 0; j < unFollowedUser.followings.length; j++){
-            if(unFollowedUser.followings[j].followerName === this.user.username){
-              this.service.unFollowUser(unFollowedUser.followings[j].id).subscribe(data =>{
-                this.service.getUserFollows(this.user.username).subscribe(res =>{
-                  this.userFollows = res
-                })
-                
-              })
-              break
-            }
-          }
-          this.isUserFollowedObject[unFollowedUser.username] = false
-          this.followingImages(this.userFollows)
-        } 
-        else {
-          alert("Please log in to unfollow @" + unFollowedUser.username)
-          window.location.reload()
-        }
-      })
-    }
-    else{
-      onAuthStateChanged(this.auth, (user) =>{
-        if (user) {
-          if(user.email){
-            this.service.getUser(user.email).subscribe(res =>{
-              for(let i = 0; i < unFollowedUser.followings.length; i++){
-                if(unFollowedUser.followings[i].followerName === res.username){
-                  this.service.unFollowUser(unFollowedUser.followings[i].id).subscribe(data =>{
-                    this.service.getUserFollowersProfiles(this.user.username).subscribe(profiles =>{
-                      this.userFollowersProfiles = profiles
-                      this.service.getUserFollows(this.user.username).subscribe(users =>{
-                        this.userFollows = users
-                      })
-                    })
-                  })
-                  break
-                }
-              }
-              this.isUserFollowedObject[unFollowedUser.username] = false
-            })
-          }
-          
-        } 
-        else {
-          alert("Please log in to unfollow @" + unFollowedUser.username)
-          window.location.reload()
-        }
-      })
     }
   }
   gotToProfile(username: string){

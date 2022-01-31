@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgxImageCompressService } from 'ngx-image-compress';
 import { User } from '../models/newUser';
-import { ProfilePic } from '../models/profilepic';
+import { ProfilePictures } from '../models/profilepic';
 import { AppServiceService } from '../services/app-service.service';
 
 class ImageSnippet{
@@ -17,14 +18,15 @@ class ImageSnippet{
 })
 export class EditProfileComponent implements OnInit {
 
-  constructor(private service: AppServiceService, private activatedRoute: ActivatedRoute) { }
+  constructor(private service: AppServiceService, private activatedRoute: ActivatedRoute, 
+    private imageCompress: NgxImageCompressService) { }
 
   selectedFile!: ImageSnippet;
 
-  profilePic: ProfilePic = {
+  profilePic: ProfilePictures = {
     Id: 0,
     Username: '',
-    ImageData: new FormData()
+    imageData: ''
   }
 
   user: User = {
@@ -45,14 +47,21 @@ export class EditProfileComponent implements OnInit {
     profilePicture: {
       Id: 0,
       Username: '',
-      imageData: []
+      imageData: ''
     }
   }
+
+  imgResultAfterCompress:any;
+
+  userImg: string = ''
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((param) => {
       this.service.getUser(param.username).subscribe(res =>{
         this.user = res
+        if(this.user.profilePicture){
+          this.userImg = 'data:image/jpg;base64,' + this.user.profilePicture.imageData
+        }
       })
     })
   }
@@ -71,24 +80,32 @@ export class EditProfileComponent implements OnInit {
   processFile(imageInput: any){
     const file: File = imageInput.files[0];
     const reader = new FileReader();
-    const fileData = new FormData();
+    var orientation = -1
 
-    reader.addEventListener('load', (event:any) =>{
-      this.selectedFile = new ImageSnippet(event.target.result, file)
-
-      this.profilePic.Username = this.user.username
-      this.profilePic.ImageData.append('image', this.selectedFile.file, this.selectedFile.file.name)
-
-      this.service.postProfilePicture(this.profilePic).subscribe(res =>{
-        console.log("Success")
-      },
-      (err) => {
-        console.log(err) 
-      }
-      )
-    })
-
-    reader.readAsDataURL(file)
+    if(imageInput.files[0]){
+      reader.addEventListener('load', (event:any) =>{
+        this.selectedFile = new ImageSnippet(event.target.result, file)
+  
+        this.imageCompress.compressFile(event.target.result, orientation, 50, 50).then(
+          result => {
+            this.imgResultAfterCompress = result
+  
+            this.profilePic.Username = this.user.username
+            this.profilePic.imageData = this.imgResultAfterCompress.split(',')[1]
+  
+            this.service.postProfilePicture(this.profilePic).subscribe(res =>{
+              console.log("Success")
+            },
+            (err) => {
+              console.log(err) 
+            }
+            )
+          }
+        )
+      })
+  
+      reader.readAsDataURL(file)
+    }
   }
 
 }
