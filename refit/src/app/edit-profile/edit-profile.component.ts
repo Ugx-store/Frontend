@@ -54,10 +54,12 @@ export class EditProfileComponent implements OnInit {
   imgResultAfterCompress:any;
 
   userImg: string = ''
+  theUsername: any;
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((param) => {
       this.service.getUser(param.username).subscribe(res =>{
+        this.theUsername = param.username
         this.user = res
         if(this.user.profilePicture){
           this.userImg = 'data:image/jpg;base64,' + this.user.profilePicture.imageData

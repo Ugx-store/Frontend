@@ -22,17 +22,58 @@
                 <p class="card-title">Personal information</p>
                 <div class="personal-info-div">
                     <form class="form-floating">
-                        <input class="form-control" id="usersName" placeholder="Name" value="{{user.name}}">
+                        <input class="form-control" id="usersName" placeholder="Name" value="{{user.name}}"
+                        name="name" #name="ngModel" [(ngModel)]="user.name" pattern="[a-zA-Z0-9 ]{3,}" required>
                         <label for="usersName">Name</label> 
+                        <div *ngIf="name.invalid && name.touched">
+                            <span *ngIf="name.errors?.required" class="form-text">Name is required</span>
+                        </div>
+                        <div *ngIf="name.invalid && name.dirty">
+                            <span *ngIf="name.errors?.['pattern']" class="form-text">
+                                Name must only contain 3 or more alphanumeric characters.
+                            </span>
+                        </div>
                     </form>
                     <form class="form-floating">
-                        <input class="form-control" id="username" placeholder="Name" value="{{user.username}}">
-                        <label for="username">Username</label> 
+                        <input class="form-control" id="username" placeholder="Username" value="{{theUsername}}"
+                        name="username" #username="ngModel" [(ngModel)]="user.username" pattern="[a-zA-Z0-9._]{3,}"
+                        autocomplete="username" uniqueUsername required>
+                        <label for="username">Username</label>
+                        <div *ngIf="username?.invalid && username.touched">
+                            <span *ngIf="username.errors?.required" class="form-text">Username is required.</span>
+                        </div>
+                        <div *ngIf="username.invalid && username.dirty">
+                            <span *ngIf="username.errors?.['pattern']" class="form-text">
+                                Username must only contain 3 or more lowercase alphanumeric characters and no spaces.
+                            </span>
+                        </div>
+                        <div *ngIf="username.invalid && (username.dirty || username.touched) && username.value !== theUsername">
+                            <span *ngIf="username.errors?.uniqueUsername" class="form-text">Username is taken</span>
+                        </div>
+                        <div *ngIf="username.valid && (username.dirty || username.touched) && !username.value !== theUsername">
+                            <span *ngIf="!(username.errors?.uniqueUsername)" class="form-text" style="color: green;">Username is available</span>
+                        </div>
+                        <div *ngIf="username.pending" class="form-text" style="color: orange;">
+                            Checking username
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                            style="width: 0.8rem; height: 0.8rem;"></span>
+                        </div>
                     </form>
-                    <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a bio here" maxlength="140" value="{{user.bio}}" id="userBio" style="height: 100px"></textarea>
+                    <form class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a bio here" maxlength="140" value="{{user.bio}}" id="userBio"
+                        style="height: 100px" name="bio" #bio="ngModel" [(ngModel)]="user.bio" pattern="[a-zA-Z0-9._()&%#?,:;@/!* ]{1,}"></textarea>
                         <label for="userBio">Include a Bio...</label>
-                    </div>
+                        <div *ngIf="bio.invalid && bio.dirty">
+                            <span *ngIf="bio.errors?.['pattern']" class="form-text">
+                                Bio cannot have that symbol.
+                            </span>
+                        </div>
+                        <div *ngIf="bio.invalid && bio.dirty">
+                            <span *ngIf="bio.errors?.maxlength" class="form-text">
+                                Bio cannot have more than 140 characters.
+                            </span>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
