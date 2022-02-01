@@ -19,6 +19,19 @@
     margin-bottom: 1rem;
 }
 
+.btn-label{
+    padding: 0.375rem 0.75rem;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    border-radius: 0;
+    line-height: 1.5;
+}
+
+.modal-footer :nth-child(1){
+    border-radius: 0;
+}
+
 .card-body{
     padding: 0;
     margin-top: 0.5rem;

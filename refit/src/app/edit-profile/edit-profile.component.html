@@ -64,41 +64,12 @@
                 </div>
             </div>
         </div>
-
-        <div class="card info-cards mx-auto">
-            <div class="card-body">
-                <p class="card-title">Social media</p>
-                <div class="personal-info-div">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="facebook-icon">
-                            <img src="../../../assets/5305153_fb_facebook_facebook logo_icon.ico"
-                            alt="Facebook" width="20px">
-                        </span>
-                        <input type="text" class="form-control" placeholder="Facebook link" value="{{user.FacebookLink}}" aria-label="Facebook" aria-describedby="facebook-icon">
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="twitter-icon">
-                            <img src="../../../assets/5305170_bird_social media_social network_tweet_twitter_icon.ico" 
-                            alt="twitter" width="20px">
-                        </span>
-                        <input type="text" class="form-control" placeholder="Twitter link" value="{{user.TwitterLink}}" aria-label="Twitter" aria-describedby="twitter-icon">
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="instagram-icon">
-                            <img src="../../../assets/5335781_camera_instagram_social media_instagram logo_icon.ico"
-                            alt="Instagram" width="20px">
-                        </span>
-                        <input type="text" class="form-control" placeholder="Instagram link" aria-label="Instagram" value="{{user.InstagramLink}}" aria-describedby="instagram-icon">
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
 <!-- Modal -->
 <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="imageModalLabel">Caution</h5>
@@ -110,7 +81,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <label type="button" class="btn btn-primary" data-bs-dismiss="modal">
+            <label type="button" class="btn-label" data-bs-dismiss="modal">
                 <span>Continue</span>
                 <input #imageInput
                     appImgCompressor 
