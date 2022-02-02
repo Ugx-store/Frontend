@@ -19,6 +19,14 @@
     margin-bottom: 1rem;
 }
 
+.arrow-back{
+    font-size: 15px;
+    margin-left: 7rem;
+    margin-bottom: 0.5rem;
+    display:flex; 
+    align-items: center; 
+}
+
 .form-text {
     color: #ee0000; 
 }
@@ -120,5 +128,8 @@
     }
     .profile-pic-card{
         width: 100%;
+    }
+    .arrow-back{
+        margin-left: 0.5rem;
     }
 }

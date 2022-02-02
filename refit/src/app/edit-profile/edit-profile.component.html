@@ -1,6 +1,10 @@
 <div class="container-fluid d-flex align-items-center justify-content-center">
     <div class="row">
         <p class="row-title">Edit Profile</p>
+        <a class="arrow-back" routerLink="/user-profile/{{theUsername}}">
+            <span class="material-icons" style="margin-right: 0.3rem;">west</span>
+            Back to Profile
+        </a>
         <div class="card info-cards mx-auto">
             <div class="card-body">
                 <p class="card-title">Profile Picture</p>
@@ -36,7 +40,7 @@
                     </form>
                     <form class="form-floating">
                         <input class="form-control" id="username" placeholder="Username" value="{{theUsername}}"
-                        name="username" #username="ngModel" [(ngModel)]="user.username" pattern="[a-zA-Z0-9._]{3,}"
+                        name="username" #username="ngModel" [(ngModel)]="user.username" pattern="[a-zA-Z0-9._-]{3,}"
                         autocomplete="username" uniqueUsername required>
                         <label for="username">Username</label>
                         <div *ngIf="username?.invalid && username.touched">
@@ -86,21 +90,41 @@
                             <img src="../../../assets/5305153_fb_facebook_facebook logo_icon.ico"
                             alt="Facebook" width="20px">
                         </span>
-                        <input type="text" class="form-control" placeholder="Facebook link" value="{{user.FacebookLink}}" aria-label="Facebook" aria-describedby="facebook-icon">
+                        <input type="text" pattern="[a-zA-Z0-9._()&%#?,:;@/!* ]{1,}" class="form-control" name="facebook"
+                        #facebook="ngModel" [(ngModel)]="user.FacebookLink" placeholder="Facebook link" value="{{user.FacebookLink}}" aria-label="Facebook" aria-describedby="facebook-icon">
                     </div>
+                    <div *ngIf="facebook.invalid && facebook.dirty">
+                        <span *ngIf="facebook.errors?.['pattern']" class="form-text">
+                            The link should not contain that symbol.
+                        </span>
+                    </div>
+
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="twitter-icon">
                             <img src="../../../assets/5305170_bird_social media_social network_tweet_twitter_icon.ico" 
                             alt="twitter" width="20px">
                         </span>
-                        <input type="text" class="form-control" placeholder="Twitter link" value="{{user.TwitterLink}}" aria-label="Twitter" aria-describedby="twitter-icon">
+                        <input type="text" pattern="[a-zA-Z0-9._()&%#?,:;@/!* ]{1,}" class="form-control" name="twitter"
+                        #twitter="ngModel" [(ngModel)]="user.TwitterLink" placeholder="Twitter link" value="{{user.TwitterLink}}" aria-label="Twitter" aria-describedby="twitter-icon">
                     </div>
+                    <div *ngIf="twitter.invalid && twitter.dirty">
+                        <span *ngIf="twitter.errors?.['pattern']" class="form-text">
+                            The link should not contain that symbol.
+                        </span>
+                    </div>
+
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="instagram-icon">
                             <img src="../../../assets/5335781_camera_instagram_social media_instagram logo_icon.ico"
                             alt="Instagram" width="20px">
                         </span>
-                        <input type="text" class="form-control" placeholder="Instagram link" aria-label="Instagram" value="{{user.InstagramLink}}" aria-describedby="instagram-icon">
+                        <input type="text" pattern="[a-zA-Z0-9._()&%#?,:;@/!* ]{1,}" class="form-control" name="instagram"
+                        #instagram="ngModel" [(ngModel)]="user.InstagramLink" placeholder="Instagram link" aria-label="Instagram" value="{{user.InstagramLink}}" aria-describedby="instagram-icon">
+                    </div>
+                    <div *ngIf="instagram.invalid && instagram.dirty">
+                        <span *ngIf="instagram.errors?.['pattern']" class="form-text">
+                            The link should not contain that symbol.
+                        </span>
                     </div>
                 </div>
             </div>

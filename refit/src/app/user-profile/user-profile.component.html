@@ -73,8 +73,8 @@
 </div>
 <div class="row row-two">
     <div class="following-div">
-        <a href="#followModal" data-bs-toggle="modal" (click)="followers()" class="follower-number"><span class="rating-number">{{user.followings.length}}</span> Followers</a> 
-        <a href="#followModal" data-bs-toggle="modal" (click)="following()" class="following-number"><span class="rating-number">{{userFollows.length}}</span> Following</a> 
+        <a href="#followModal" data-bs-toggle="modal" (click)="followers()" class="follower-number"><span class="rating-number">{{user.followings?.length}}</span> Followers</a> 
+        <a href="#followModal" data-bs-toggle="modal" (click)="following()" class="following-number"><span class="rating-number">{{userFollows?.length}}</span> Following</a> 
         
         <!-- Modal -->
         <div class="modal" id="followModal" tabindex="-1" aria-labelledby="followModalLabel" aria-hidden="true">

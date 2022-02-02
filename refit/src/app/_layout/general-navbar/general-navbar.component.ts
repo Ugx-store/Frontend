@@ -48,6 +48,8 @@ export class GeneralNavbarComponent implements OnInit {
     }
   }
 
+  profileImage: any;
+
   date: Date = new Date()
   year: number = 0
 
@@ -58,7 +60,9 @@ export class GeneralNavbarComponent implements OnInit {
           this.authStatus = true;
           this.service.getUser(user.email).subscribe(res =>{
             this.user = res;
-            console.log(this.user.username)
+            if(this.user.profilePicture){
+              this.profileImage = 'data:image/jpg;base64,' + this.user.profilePicture.imageData
+            }
           })
         }
       }

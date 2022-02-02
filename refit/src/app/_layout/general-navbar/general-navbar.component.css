@@ -365,6 +365,24 @@
     padding: 0;
 }
 
+.img-arrow{
+    display: flex;
+    align-items: center;
+}
+
+.profile-img{
+    height: 36px; 
+    width: 36px; 
+    border-radius: 50%;
+    margin-top: 0.15rem; 
+}
+
+.profile-img-md{
+    height: 36px; 
+    width: 36px; 
+    border-radius: 50%;
+}
+
 .account-circle-icon{
     margin-top: 0.15rem; 
     font-size: 36px;  
@@ -373,8 +391,9 @@
 
 .arrow-drop-icon{
     margin-top: 0.15rem; 
-    font-size: 36px;  
+    font-size: 30px;  
     padding: 0;
+    margin-left: -0.2rem;
 }
 
 .btn-close-search{
@@ -394,8 +413,8 @@
 } 
 
 .profile-off-canvas{
-    margin-left: 8px; 
-    font-size: 20px;
+    margin-left: 5px; 
+    font-size: 15px;
     font-family: 'Public Sans', sans-serif;
 }
 

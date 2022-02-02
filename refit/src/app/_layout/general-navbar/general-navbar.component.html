@@ -20,10 +20,16 @@
                             <span class="material-icons-outlined local-mall-icon">local_mall</span>
                         </button>
                         <button class="btn btn-login profile-icons" type="button">
-                            <span class="dropdown" onclick="myFunction(event)">
-                                <span class="material-icons account-circle-icon">account_circle</span>
-                                <span class="material-icons arrow-drop-icon">arrow_drop_down</span>
+                            <span *ngIf="user.profilePicture; else noImage" class="dropdown img-arrow" onclick="myFunction(event)">
+                                <img src="{{profileImage}}" alt="Profile pic" class="profile-img">
+                                <span class="material-icons arrow-drop-icon" style="font-size: 30px;">arrow_drop_down</span>
                             </span>
+                            <ng-template #noImage>
+                                <span class="dropdown" onclick="myFunction(event)">
+                                    <span class="material-icons account-circle-icon">account_circle</span>
+                                    <span class="material-icons arrow-drop-icon">arrow_drop_down</span>
+                                </span>
+                            </ng-template>
                             
                             <div class="dropdown-content-profile" id="profileDropdown">
                                 <ul class="no-bullets">
@@ -151,10 +157,21 @@
     </div>
 
     <div *ngIf="authStatus; else notLoggedInOffCanvas">
-        <button class="btn btn-off-canvas" type="button" (click)="gotToProfile(user.username)" data-bs-dismiss="offcanvas">
-            <span class="material-icons" style="font-size: 36px;">account_circle</span>
-            <span class="profile-off-canvas">Profile</span>
-        </button>
+        <span *ngIf="user.profilePicture; else noImage">
+            <button class="btn btn-off-canvas" type="button" (click)="gotToProfile(user.username)" data-bs-dismiss="offcanvas">
+                <span>
+                    <img src="{{profileImage}}" alt="Profile pic" class="profile-img-md">
+                </span>
+                <span class="profile-off-canvas">@{{user.username}}</span>
+            </button>
+        </span>
+        <ng-template #noImage>
+            <button class="btn btn-off-canvas" type="button" (click)="gotToProfile(user.username)" data-bs-dismiss="offcanvas">
+                <span class="material-icons" style="font-size: 36px;">account_circle</span>
+                <span class="profile-off-canvas">@{{user.username}}</span>
+            </button>
+        </ng-template>
+
         <div class="offcanvas-header Logout-off-canvas">
             <button class="btn btn-secondary btn-offCanvas-logout" type="button" data-bs-dismiss="offcanvas" (click)="signOut()">Logout</button>
         </div>
