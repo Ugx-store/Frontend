@@ -32,9 +32,9 @@ export class SignupDetailsComponent implements OnInit {
     phoneNumber: localStorage.getItem('refit_phoneNumber') as string,
     receiveEmailConsent: false,
     promoCode: '',
-    FacebookLink: '',
-    TwitterLink: '',
-    InstagramLink: '',
+    facebookLink: '',
+    twitterLink: '',
+    instagramLink: '',
     dateTimeJoined: new Date(0),
     followings: [],
     profilePicture: {

@@ -34,9 +34,9 @@ export class CodeComponent implements OnInit {
     phoneNumber: '',
     receiveEmailConsent: false,
     promoCode: '',
-    FacebookLink: '',
-    TwitterLink: '',
-    InstagramLink: '',
+    facebookLink: '',
+    twitterLink: '',
+    instagramLink: '',
     dateTimeJoined: new Date(0),
     followings: [],
     profilePicture: {

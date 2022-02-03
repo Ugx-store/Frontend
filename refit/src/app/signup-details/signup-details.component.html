@@ -119,13 +119,13 @@
                             </div>  
 
                             <div class="d-grid gap-2" 
-                            *ngIf="f.controls['name']?.valid 
-                            && confirmPassword === user.password
-                            && f.controls['username'].valid
-                            && f.controls['password'].valid
-                            && f.controls['email'].valid
-                            && !(f.controls['promoCode'].errors?.uniqueCodeExists)
-                            && !spinner; else invalid">
+                                *ngIf="f.controls['name']?.valid 
+                                && confirmPassword === user.password
+                                && f.controls['username'].valid
+                                && f.controls['password'].valid
+                                && f.controls['email'].valid
+                                && !(f.controls['promoCode'].errors?.uniqueCodeExists)
+                                && !spinner; else invalid">
                                 <button class="btn btn-dark btn-code" type="submit" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Submit</button>
                             </div>
                             <ng-template #invalid>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { User } from '../models/newUser';
 import { ProfilePictures } from '../models/profilepic';
@@ -19,7 +19,7 @@ class ImageSnippet{
 export class EditProfileComponent implements OnInit {
 
   constructor(private service: AppServiceService, private activatedRoute: ActivatedRoute, 
-    private imageCompress: NgxImageCompressService) { }
+    private imageCompress: NgxImageCompressService, private route: Router) { }
 
   selectedFile!: ImageSnippet;
 
@@ -28,6 +28,9 @@ export class EditProfileComponent implements OnInit {
     Username: '',
     imageData: ''
   }
+
+  modalTrigger: number = 0;
+  message: string = '';
 
   user: User = {
     id: 0,
@@ -39,9 +42,9 @@ export class EditProfileComponent implements OnInit {
     phoneNumber: '',
     receiveEmailConsent: false,
     promoCode: '',
-    FacebookLink: '',
-    TwitterLink: '',
-    InstagramLink: '',
+    facebookLink: '',
+    twitterLink: '',
+    instagramLink: '',
     dateTimeJoined: new Date(0),
     followings: [],
     profilePicture: {
@@ -61,6 +64,7 @@ export class EditProfileComponent implements OnInit {
       this.service.getUser(param.username).subscribe(res =>{
         this.theUsername = param.username
         this.user = res
+        localStorage.setItem('UserBeforeEdit', JSON.stringify(this.user))
         if(this.user.profilePicture){
           this.userImg = 'data:image/jpg;base64,' + this.user.profilePicture.imageData
         }
@@ -92,21 +96,66 @@ export class EditProfileComponent implements OnInit {
           result => {
             this.imgResultAfterCompress = result
   
-            this.profilePic.Username = this.user.username
-            this.profilePic.imageData = this.imgResultAfterCompress.split(',')[1]
+            // this.profilePic.Username = this.user.username
+            // this.profilePic.imageData = this.imgResultAfterCompress.split(',')[1]
   
-            this.service.postProfilePicture(this.profilePic).subscribe(res =>{
-              console.log("Success")
-            },
-            (err) => {
-              console.log(err) 
-            }
-            )
+            // this.service.postProfilePicture(this.profilePic).subscribe(res =>{
+            //   console.log("Success")
+            // },
+            // (err) => {
+            //   console.log(err) 
+            // }
+            // )
           }
         )
       })
   
       reader.readAsDataURL(file)
+    }
+  }
+
+  cancel(){
+    this.route.navigateByUrl(`user-profile/${this.user.username}`)
+  }
+
+  nextPage(){
+    this.route.navigateByUrl(`user-profile/${this.user.username}`)
+  }
+
+  save(){
+    if(this.imgResultAfterCompress){
+      this.profilePic.Username = this.user.username
+      this.profilePic.imageData = this.imgResultAfterCompress.split(',')[1]
+
+      console.log("Image to change")
+
+      this.service.postProfilePicture(this.profilePic).subscribe(res =>{
+        console.log("Success")
+      },
+      (err) => {
+        console.log(err) 
+      }
+      )
+    }
+
+    console.log(this.user)
+
+    var userBeforeEdit = localStorage.getItem('UserBeforeEdit')
+    if(userBeforeEdit){
+      let anotherUser = JSON.parse(userBeforeEdit)
+
+      if(this.user.name !== anotherUser.name
+        || this.user.bio !== anotherUser.bio
+        || this.user.facebookLink !== anotherUser.facebookLink
+        || this.user.twitterLink !== anotherUser.twitterLink
+        || this.user.instagramLink !== anotherUser.instagramLink){
+        this.service.updateUser(this.user).then(res =>{
+          this.modalTrigger = 1;
+        },
+        err =>{
+          this.message = "Sorry we failed to update your information. Please try again!"
+        })
+      }
     }
   }
 

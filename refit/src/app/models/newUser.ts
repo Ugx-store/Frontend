@@ -11,9 +11,9 @@ export interface User{
     phoneNumber: string;
     receiveEmailConsent: boolean;
     promoCode: string;
-    FacebookLink: string;
-    TwitterLink: string;
-    InstagramLink: string;
+    facebookLink: string;
+    twitterLink: string;
+    instagramLink: string;
     dateTimeJoined: Date;
     followings: Follow[];
     profilePicture: ProfilePictures

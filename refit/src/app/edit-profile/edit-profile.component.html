@@ -38,7 +38,7 @@
                             </span>
                         </div>
                     </form>
-                    <form class="form-floating">
+                    <!-- <form class="form-floating">
                         <input class="form-control" id="username" placeholder="Username" value="{{theUsername}}"
                         name="username" #username="ngModel" [(ngModel)]="user.username" pattern="[a-zA-Z0-9._-]{3,}"
                         autocomplete="username" uniqueUsername required>
@@ -62,7 +62,7 @@
                             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
                             style="width: 0.8rem; height: 0.8rem;"></span>
                         </div>
-                    </form>
+                    </form> -->
                     <form class="form-floating">
                         <textarea class="form-control" placeholder="Leave a bio here" maxlength="140" value="{{user.bio}}" id="userBio"
                         style="height: 100px" name="bio" #bio="ngModel" [(ngModel)]="user.bio" pattern="[a-zA-Z0-9._()&%#?,:;@/!* ]{1,}"></textarea>
@@ -91,7 +91,7 @@
                             alt="Facebook" width="20px">
                         </span>
                         <input type="text" pattern="[a-zA-Z0-9._()&%#?,:;@/!* ]{1,}" class="form-control" name="facebook"
-                        #facebook="ngModel" [(ngModel)]="user.FacebookLink" placeholder="Facebook link" value="{{user.FacebookLink}}" aria-label="Facebook" aria-describedby="facebook-icon">
+                        #facebook="ngModel" [(ngModel)]="user.facebookLink" placeholder="Facebook link" value="{{user.facebookLink}}" aria-label="Facebook" aria-describedby="facebook-icon">
                     </div>
                     <div *ngIf="facebook.invalid && facebook.dirty">
                         <span *ngIf="facebook.errors?.['pattern']" class="form-text">
@@ -105,7 +105,7 @@
                             alt="twitter" width="20px">
                         </span>
                         <input type="text" pattern="[a-zA-Z0-9._()&%#?,:;@/!* ]{1,}" class="form-control" name="twitter"
-                        #twitter="ngModel" [(ngModel)]="user.TwitterLink" placeholder="Twitter link" value="{{user.TwitterLink}}" aria-label="Twitter" aria-describedby="twitter-icon">
+                        #twitter="ngModel" [(ngModel)]="user.twitterLink" placeholder="Twitter link" value="{{user.twitterLink}}" aria-label="Twitter" aria-describedby="twitter-icon">
                     </div>
                     <div *ngIf="twitter.invalid && twitter.dirty">
                         <span *ngIf="twitter.errors?.['pattern']" class="form-text">
@@ -119,7 +119,7 @@
                             alt="Instagram" width="20px">
                         </span>
                         <input type="text" pattern="[a-zA-Z0-9._()&%#?,:;@/!* ]{1,}" class="form-control" name="instagram"
-                        #instagram="ngModel" [(ngModel)]="user.InstagramLink" placeholder="Instagram link" aria-label="Instagram" value="{{user.InstagramLink}}" aria-describedby="instagram-icon">
+                        #instagram="ngModel" [(ngModel)]="user.instagramLink" placeholder="Instagram link" aria-label="Instagram" value="{{user.instagramLink}}" aria-describedby="instagram-icon">
                     </div>
                     <div *ngIf="instagram.invalid && instagram.dirty">
                         <span *ngIf="instagram.errors?.['pattern']" class="form-text">
@@ -127,6 +127,27 @@
                         </span>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="mx-auto save-button">
+            <div class="d-grid gap-2" 
+                *ngIf="name.valid
+                && bio.valid
+                && facebook.valid
+                && twitter.valid
+                && instagram.valid; else invalid" style="width: 40%;">
+                <button class="btn btn-dark btn-code" type="button" (click)="save()" 
+                style="background: black;" data-bs-toggle="modal" data-bs-target="#successMessage">
+                    Save
+                </button>
+            </div>
+            <ng-template #invalid>
+                <div class="d-grid gap-2" style="width: 40%;">
+                    <button class="btn btn-dark btn-code disabled" type="button">Save</button>
+                </div>
+            </ng-template>
+            <div class="d-grid gap-2" style="width: 40%;">
+                <button class="btn btn-dark btn-cancel" (click)="cancel()" type="button">Cancel</button>
             </div>
         </div>
     </div>
@@ -157,5 +178,41 @@
             </label>
         </div>
         </div>
+    </div>
+</div>
+
+<div class="modal fade" id="successMessage" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="successMessageLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" *ngIf="modalTrigger === 1; else notSuccessful">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successMessageLabel">Success</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="nextPage()"></button>
+            </div>
+            <div class="modal-body">
+                You Genius... you did it. Your information has been updated.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="nextPage()">Continue</button>
+            </div>
+        </div>
+        <ng-template #notSuccessful>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successMessageLabel">Alert</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" *ngIf="message; else noMessage">
+                    {{message}}
+                </div>
+                <ng-template #noMessage>
+                    <div class="modal-body">
+                        You did not update your information. Click continue to update some of your information.
+                    </div>
+                </ng-template>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark btn-code" data-bs-dismiss="modal">Continue</button>
+                </div>
+            </div>
+        </ng-template>
     </div>
 </div>
