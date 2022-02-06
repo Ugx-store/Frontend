@@ -105,7 +105,7 @@
                                         <ng-template #hasFollowers>
                                             <span *ngFor="let follower of userFollowersProfiles" class="followers-span-modal">
                                                 <div class="profile-pic-div-modal" (click)="gotToProfile(follower.username)" data-bs-dismiss="modal">
-                                                    <img [src]="follower.profilePicture ? followerImage[follower.username] : '../../assets/blank-profile-picture.png'"
+                                                    <img [src]="follower.profilePicture.length ? followerImage[follower.username] : '../../assets/blank-profile-picture.png'"
                                                         alt="Profile pic" max-width="100%" class="profile-img-modal">
                                                 </div>
                                                 <div class="name-modal-div" (click)="gotToProfile(follower.username)" data-bs-dismiss="modal">
@@ -171,7 +171,7 @@
                                         <ng-template #hasFollowers>
                                             <span *ngFor="let follower of userFollows" class="followers-span-modal">
                                                 <div class="profile-pic-div-modal" (click)="gotToProfile(follower.username)" data-bs-dismiss="modal">
-                                                    <img [src]="follower.profilePicture ? followerImage[follower.username] : '../../assets/blank-profile-picture.png'"
+                                                    <img [src]="follower.profilePicture.length ? followerImage[follower.username] : '../../assets/blank-profile-picture.png'"
                                                         alt="Profile pic" max-width="100%" class="profile-img-modal">
                                                 </div>
                                                 <div class="name-modal-div" (click)="gotToProfile(follower.username)" data-bs-dismiss="modal">

@@ -1,6 +1,7 @@
 export interface ProfilePictures{
-    Id: number;
-    Username: string;
+    id: number;
+    userId: number;
+    username: string;
     imageData: string
 }
 

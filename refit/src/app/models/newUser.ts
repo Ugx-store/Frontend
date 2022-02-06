@@ -16,5 +16,5 @@ export interface User{
     instagramLink: string;
     dateTimeJoined: Date;
     followings: Follow[];
-    profilePicture: ProfilePictures
+    profilePicture: ProfilePictures[]
 }

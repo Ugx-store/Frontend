@@ -37,11 +37,7 @@ export class SignupDetailsComponent implements OnInit {
     instagramLink: '',
     dateTimeJoined: new Date(0),
     followings: [],
-    profilePicture: {
-      Id: 0,
-      Username: '',
-      imageData: ''
-    }
+    profilePicture: []
   }
 
   credential: any;
@@ -63,6 +59,7 @@ export class SignupDetailsComponent implements OnInit {
     linkWithCredential(this.auth.currentUser, this.credential)
     .then(userCred => {
       const user = userCred.user;
+      localStorage.setItem('LoggedInUserDetails', JSON.stringify(userCred.user))
       localStorage.removeItem('verificationId');
       localStorage.removeItem('refit_phoneNumber');
 

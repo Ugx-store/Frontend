@@ -39,11 +39,7 @@ export class CodeComponent implements OnInit {
     instagramLink: '',
     dateTimeJoined: new Date(0),
     followings: [],
-    profilePicture: {
-      Id: 0,
-      Username: '',
-      imageData: ''
-    }
+    profilePicture: []
   }
 
   config = {

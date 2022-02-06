@@ -42,11 +42,7 @@ export class UserProfileComponent implements OnInit{
     instagramLink: '',
     dateTimeJoined: new Date(0),
     followings: [],
-    profilePicture: {
-      Id: 0,
-      Username: '',
-      imageData: ''
-    }
+    profilePicture: []
   }
 
   follow: Follow = {
@@ -83,9 +79,10 @@ export class UserProfileComponent implements OnInit{
 
     this.activatedRoute.params.subscribe((param) => {
       this.service.getUser(param.username).subscribe(res =>{
-        if(res.profilePicture){
-          this.profilePic = 'data:image/jpg;base64,' + res.profilePicture.imageData
+        if(res.profilePicture.length){
+          this.profilePic = 'data:image/jpg;base64,' + res.profilePicture[0].imageData
         }
+        console.log(res)
 
         onAuthStateChanged(this.auth, (user) =>{
           if (user && this.authFlag) {
@@ -152,10 +149,10 @@ export class UserProfileComponent implements OnInit{
 
   followingImages(userFollowMethod: User[]){
     for(let user of userFollowMethod){
-      if(user.profilePicture){
+      if(user.profilePicture.length){
         console.log(user.username + this.p++)
         var key = user.username
-        this.followerImage[key] = 'data:image/jpg;base64,' + user.profilePicture.imageData;
+        this.followerImage[key] = 'data:image/jpg;base64,' + user.profilePicture[0].imageData;
       }
     } 
   }

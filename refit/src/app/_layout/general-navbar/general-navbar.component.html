@@ -20,7 +20,7 @@
                             <span class="material-icons-outlined local-mall-icon">local_mall</span>
                         </button>
                         <button class="btn btn-login profile-icons" type="button">
-                            <span *ngIf="user.profilePicture; else noImage" class="dropdown img-arrow" onclick="myFunction(event)">
+                            <span *ngIf="user.profilePicture.length; else noImage" class="dropdown img-arrow" onclick="myFunction(event)">
                                 <img src="{{profileImage}}" alt="Profile pic" class="profile-img">
                                 <span class="material-icons arrow-drop-icon" style="font-size: 30px;">arrow_drop_down</span>
                             </span>
@@ -157,7 +157,7 @@
     </div>
 
     <div *ngIf="authStatus; else notLoggedInOffCanvas">
-        <span *ngIf="user.profilePicture; else noImage">
+        <span *ngIf="user.profilePicture.length; else noImage">
             <button class="btn btn-off-canvas" type="button" (click)="gotToProfile(user.username)" data-bs-dismiss="offcanvas">
                 <span>
                     <img src="{{profileImage}}" alt="Profile pic" class="profile-img-md">
@@ -168,7 +168,7 @@
         <ng-template #noImage>
             <button class="btn btn-off-canvas" type="button" (click)="gotToProfile(user.username)" data-bs-dismiss="offcanvas">
                 <span class="material-icons" style="font-size: 36px;">account_circle</span>
-                <span class="profile-off-canvas">@{{user.username}}</span>
+                <span class="profile-off-canvas">@{{user?.username}}</span>
             </button>
         </ng-template>
 

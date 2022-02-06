@@ -41,11 +41,7 @@ export class GeneralNavbarComponent implements OnInit {
     instagramLink: '',
     dateTimeJoined: new Date(0),
     followings: [],
-    profilePicture: {
-      Id: 0,
-      Username: '',
-      imageData: ''
-    }
+    profilePicture: []
   }
 
   profileImage: any;
@@ -60,8 +56,8 @@ export class GeneralNavbarComponent implements OnInit {
           this.authStatus = true;
           this.service.getUser(user.email).subscribe(res =>{
             this.user = res;
-            if(this.user.profilePicture){
-              this.profileImage = 'data:image/jpg;base64,' + this.user.profilePicture.imageData
+            if(this.user.profilePicture.length){
+              this.profileImage = 'data:image/jpg;base64,' + this.user.profilePicture[0].imageData
             }
           })
         }

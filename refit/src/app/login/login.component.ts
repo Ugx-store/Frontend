@@ -34,11 +34,7 @@ export class LoginComponent implements OnInit {
     instagramLink: '',
     dateTimeJoined: new Date(0),
     followings: [],
-    profilePicture: {
-      Id: 0,
-      Username: '',
-      imageData: ''
-    }
+    profilePicture: []
   }
 
   ngOnInit(): void {

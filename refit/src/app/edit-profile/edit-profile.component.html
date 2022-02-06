@@ -1,7 +1,7 @@
 <div class="container-fluid d-flex align-items-center justify-content-center">
     <div class="row">
         <p class="row-title">Edit Profile</p>
-        <a class="arrow-back" routerLink="/user-profile/{{theUsername}}">
+        <a class="arrow-back" routerLink="/user-profile/{{user.username}}">
             <span class="material-icons" style="margin-right: 0.3rem;">west</span>
             Back to Profile
         </a>
@@ -9,7 +9,7 @@
             <div class="card-body">
                 <p class="card-title">Profile Picture</p>
                 <label class="edit-button" data-bs-toggle="modal" data-bs-target="#imageModal">Change</label>
-                <div *ngIf="user.profilePicture; else noImage" class="profile-pic-div mx-auto">
+                <div *ngIf="user.profilePicture.length || imgResultAfterCompress; else noImage" class="profile-pic-div mx-auto">
                     <img src="{{imgResultAfterCompress ? imgResultAfterCompress : userImg}}"
                             alt="Profile pic" max-width="100%" class="profile-img">
                 </div>
@@ -64,14 +64,33 @@
                         </div>
                     </form> -->
                     <form class="form-floating">
+                        <input class="form-control" id="email" type="email" name="email" #email="ngModel" [(ngModel)]="user.email" 
+                        placeholder="Email Address" value="{{theEmail}}" email uniqueEmail required>
+                        <label for="email">Email</label>
+                        <div *ngIf="email?.invalid && email.touched">
+                            <span *ngIf="email.errors?.required" class="form-text">Email is required</span>
+                        </div>
+                        <div *ngIf="email?.invalid">
+                            <span *ngIf="email.errors?.email" class="form-text">Please enter a correct email address</span>
+                        </div> 
+                        <div *ngIf="email.invalid && (email.dirty || email.touched) && email.value !== theEmail">
+                            <span *ngIf="email.errors?.uniqueEmail" class="form-text">Email already exists</span>
+                        </div> 
+                        <div *ngIf="email.pending" class="form-text" style="color: orange;">
+                            Checking email
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                            style="width: 0.8rem; height: 0.8rem;"></span>
+                        </div>
+                    </form>
+                    <form class="form-floating">
                         <textarea class="form-control" placeholder="Leave a bio here" maxlength="140" value="{{user.bio}}" id="userBio"
-                        style="height: 100px" name="bio" #bio="ngModel" [(ngModel)]="user.bio" pattern="[a-zA-Z0-9._()&%#?,:;@/!* ]{1,}"></textarea>
+                        style="height: 100px" name="bio" #bio="ngModel" [(ngModel)]="user.bio"></textarea>
                         <label for="userBio">Include a Bio...</label>
-                        <div *ngIf="bio.invalid && bio.dirty">
+                        <!-- <div *ngIf="bio.invalid && bio.dirty">
                             <span *ngIf="bio.errors?.['pattern']" class="form-text">
                                 Bio cannot have that symbol.
                             </span>
-                        </div>
+                        </div> -->
                         <div *ngIf="bio.invalid && bio.dirty">
                             <span *ngIf="bio.errors?.maxlength" class="form-text">
                                 Bio cannot have more than 140 characters.
@@ -90,42 +109,43 @@
                             <img src="../../../assets/5305153_fb_facebook_facebook logo_icon.ico"
                             alt="Facebook" width="20px">
                         </span>
-                        <input type="text" pattern="[a-zA-Z0-9._()&%#?,:;@/!* ]{1,}" class="form-control" name="facebook"
-                        #facebook="ngModel" [(ngModel)]="user.facebookLink" placeholder="Facebook link" value="{{user.facebookLink}}" aria-label="Facebook" aria-describedby="facebook-icon">
+                        <input type="text" class="form-control" name="facebook" #facebook="ngModel"
+                        [(ngModel)]="user.facebookLink" placeholder="Facebook link" value="{{user.facebookLink}}" aria-label="Facebook" aria-describedby="facebook-icon">
                     </div>
-                    <div *ngIf="facebook.invalid && facebook.dirty">
+                    <!-- <div *ngIf="facebook.invalid && facebook.dirty">
+                        pattern="[a-zA-Z0-9._()&%#?,:;@/!* ]{1,}" 
                         <span *ngIf="facebook.errors?.['pattern']" class="form-text">
                             The link should not contain that symbol.
                         </span>
-                    </div>
+                    </div> -->
 
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="twitter-icon">
                             <img src="../../../assets/5305170_bird_social media_social network_tweet_twitter_icon.ico" 
                             alt="twitter" width="20px">
                         </span>
-                        <input type="text" pattern="[a-zA-Z0-9._()&%#?,:;@/!* ]{1,}" class="form-control" name="twitter"
-                        #twitter="ngModel" [(ngModel)]="user.twitterLink" placeholder="Twitter link" value="{{user.twitterLink}}" aria-label="Twitter" aria-describedby="twitter-icon">
+                        <input type="text" class="form-control" name="twitter" #twitter="ngModel" 
+                        [(ngModel)]="user.twitterLink" placeholder="Twitter link" value="{{user.twitterLink}}" aria-label="Twitter" aria-describedby="twitter-icon">
                     </div>
-                    <div *ngIf="twitter.invalid && twitter.dirty">
+                    <!-- <div *ngIf="twitter.invalid && twitter.dirty">
                         <span *ngIf="twitter.errors?.['pattern']" class="form-text">
                             The link should not contain that symbol.
                         </span>
-                    </div>
+                    </div> -->
 
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="instagram-icon">
                             <img src="../../../assets/5335781_camera_instagram_social media_instagram logo_icon.ico"
                             alt="Instagram" width="20px">
                         </span>
-                        <input type="text" pattern="[a-zA-Z0-9._()&%#?,:;@/!* ]{1,}" class="form-control" name="instagram"
-                        #instagram="ngModel" [(ngModel)]="user.instagramLink" placeholder="Instagram link" aria-label="Instagram" value="{{user.instagramLink}}" aria-describedby="instagram-icon">
+                        <input type="text" class="form-control" name="instagram" #instagram="ngModel" 
+                        [(ngModel)]="user.instagramLink" placeholder="Instagram link" aria-label="Instagram" value="{{user.instagramLink}}" aria-describedby="instagram-icon">
                     </div>
-                    <div *ngIf="instagram.invalid && instagram.dirty">
+                    <!-- <div *ngIf="instagram.invalid && instagram.dirty">
                         <span *ngIf="instagram.errors?.['pattern']" class="form-text">
                             The link should not contain that symbol.
                         </span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -133,6 +153,7 @@
             <div class="d-grid gap-2" 
                 *ngIf="name.valid
                 && bio.valid
+                && (email.valid || email.value === theEmail)
                 && facebook.valid
                 && twitter.valid
                 && instagram.valid; else invalid" style="width: 40%;">
@@ -183,32 +204,53 @@
 
 <div class="modal fade" id="successMessage" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="successMessageLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content" *ngIf="modalTrigger === 1; else notSuccessful">
-            <div class="modal-header">
-                <h5 class="modal-title" id="successMessageLabel">Success</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="nextPage()"></button>
-            </div>
-            <div class="modal-body">
-                You Genius... you did it. Your information has been updated.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="nextPage()">Continue</button>
-            </div>
+        <div class="modal-content" *ngIf="modalTrigger === 1; else notChanged">
+            <span *ngIf="(loaderService.isLoading | async) || authLoader; else notLoading">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body loader-body">
+                    <span class="spinner-grow spinner-grow-sm mx-auto" role="status" aria-hidden="true"></span>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </span>
+            <ng-template #notLoading>
+                <span *ngIf="error; else noError">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="successMessageLabel">Error</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {{message}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark btn-code" data-bs-dismiss="modal">Continue</button>
+                    </div>
+                </span>
+                <ng-template #noError>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="successMessageLabel">Success</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="nextPage()"></button>
+                    </div>
+                    <div class="modal-body">
+                        You Genius... you did it. Your information has been updated.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="nextPage()">Continue</button>
+                    </div>
+                </ng-template>
+            </ng-template>
         </div>
-        <ng-template #notSuccessful>
+        <ng-template #notChanged>
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="successMessageLabel">Alert</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" *ngIf="message; else noMessage">
+                <div class="modal-body">
                     {{message}}
                 </div>
-                <ng-template #noMessage>
-                    <div class="modal-body">
-                        You did not update your information. Click continue to update some of your information.
-                    </div>
-                </ng-template>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-dark btn-code" data-bs-dismiss="modal">Continue</button>
                 </div>
