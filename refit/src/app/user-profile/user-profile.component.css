@@ -13,7 +13,7 @@
 }
 
 .social-media{
-    margin-left: 1rem;
+    margin-left: 0.2rem;
     margin-top: 1rem;
 }
 
@@ -319,6 +319,9 @@
 @media (min-width: 992px) {
     .row-two{
         height: 1.5rem;
+    }
+    .social-media{
+        margin-left: 1rem;
     }
     .ratings-md{
         display: none; 
