@@ -12,6 +12,26 @@
     width: 50%;
 }
 
+.social-media{
+    margin-left: 1rem;
+    margin-top: 1rem;
+}
+
+.social-icon{
+    padding-left: 0;
+    width: 33.33%;
+    color: rgb(29, 155, 240);
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.social-icon a{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .row-four{
     margin-top: 1rem;
 }
@@ -246,6 +266,11 @@
     .row-five p{
         margin-left: 1rem;
         width: 95%;
+    }
+    .social-icon{
+        font-size: 13px;
+        margin-right: 10px;
+        margin-bottom: 8px;
     }
     .user-name{
         font-size:1.125rem; 

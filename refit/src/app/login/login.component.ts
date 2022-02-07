@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { app } from '../models/firebaseapp';
 import { User } from '../models/newUser';
+import { AppServiceService } from '../services/app-service.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ import { User } from '../models/newUser';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public route: Router) { 
+  constructor(public route: Router, private service: AppServiceService) { 
   }
 
   auth: any = getAuth(app);
@@ -43,17 +44,24 @@ export class LoginComponent implements OnInit {
   OnSubmit(f: NgForm){
     this.spinner = true
 
-    signInWithEmailAndPassword(this.auth, this.user.email, this.user.password)
-    .then((userCredential) => {
-      // Signed in 
-      this.spinner = false;
-      localStorage.setItem('LoggedInUserDetails', JSON.stringify(userCredential.user))
-      this.route.navigate(['/homepage'])
-    })
-    .catch((error) => {
-      this.wrongCredentials = true;
-      this.spinner = false;
-    });
+    this.service.getUser(this.user.email).subscribe(loggedUser =>
+      {
+        signInWithEmailAndPassword(this.auth, loggedUser.email, this.user.password)
+        .then((userCredential) => {
+          // Signed in 
+          this.spinner = false;
+          localStorage.setItem('LoggedInUserDetails', JSON.stringify(userCredential.user))
+          this.route.navigate(['/homepage'])
+        })
+        .catch((error) => {
+          this.wrongCredentials = true;
+          this.spinner = false;
+        });
+      },
+      (err) =>{
+        this.wrongCredentials = true;
+        this.spinner = false;
+      })
   }
 
   gotoSignup(){

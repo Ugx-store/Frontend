@@ -186,6 +186,7 @@ export class UserProfileComponent implements OnInit{
     else{
       this.service.getUserFollowersProfiles(this.user.username).subscribe(res =>{
         this.userFollowersProfiles = res
+        this.followingImages(this.userFollowersProfiles)
       })
       
       this.currentLoggedInUser = this.getLoggedInUser();
@@ -198,7 +199,6 @@ export class UserProfileComponent implements OnInit{
               console.log(this.LoggedInUserFollows)
 
               this.checkFollowStatus(this.LoggedInUserFollows, this.userFollowersProfiles)
-              this.followingImages(this.userFollowersProfiles)
             })
           })
         }

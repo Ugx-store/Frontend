@@ -244,6 +244,24 @@
 <div class="row row-three">
     {{user.bio}}
 </div>
+<div class="row social-media">
+    <span *ngIf="user.facebookLink" class="social-icon">
+        <img src="../../../assets/5305153_fb_facebook_facebook logo_icon.ico"
+        alt="Facebook" width="20px" style="padding-right: 2px;">
+        <a href="{{user.facebookLink}}" target="_blank">{{user.facebookLink}}</a>
+    </span>
+    <span *ngIf="user.twitterLink" class="social-icon">
+        <img src="../../../assets/5305170_bird_social media_social network_tweet_twitter_icon.ico"
+        alt="Twitter" width="20px" style="padding-right: 2px;">
+        <a href="{{user.twitterLink}}" target="_blank">{{user.twitterLink}}</a>
+    </span>
+    <span *ngIf="user.instagramLink" class="social-icon">
+        <img src="../../../assets/5335781_camera_instagram_social media_instagram logo_icon.ico"
+        alt="Instagram" width="20px" style="padding-right: 2px;">
+        <a href="{{user.instagramLink}}" target="_blank">{{user.instagramLink}}</a>
+    </span>
+</div>
+
 <div class="row row-four">
     <div class="d-flex justify-content-center">
         <button class="btn btn-light" [className]="buttonValue === 1 ? 'activated' : 'inactivated'" (click)="allButton()">All</button>

@@ -7,12 +7,9 @@
                 <form #f="ngForm" (ngSubmit)="OnSubmit(f)" style="margin-top: 15px;">
                     <div class="form-group">
                         <input class="form-control" type="email" name="email" #email="ngModel" [(ngModel)]="user.email" 
-                        placeholder="Email Address" email required>
+                        placeholder="Email Address or Username" required>
                         <div *ngIf="f.controls['email']?.invalid && f.controls['email'].touched">
-                            <span *ngIf="f.controls['email'].errors?.required" class="form-text">Email is required</span>
-                        </div>
-                        <div *ngIf="f.controls['email']?.invalid">
-                            <span *ngIf="f.controls['email'].errors?.email" class="form-text">Please enter a correct email address</span>
+                            <span *ngIf="f.controls['email'].errors?.required" class="form-text">Email address or Username is required</span>
                         </div>
                     </div>
 
