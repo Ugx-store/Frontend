@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { app } from '../models/firebaseapp';
@@ -26,6 +26,7 @@ export class UserProfileComponent implements OnInit{
 
   auth: any = getAuth(app);
   currentLoggedInUser: any;
+  LoginStatus: any;
 
   user: User = {
     id: 0,
@@ -63,6 +64,7 @@ export class UserProfileComponent implements OnInit{
   isUserFollowed: boolean= false;
   loggedInUser: boolean = true;
   authFlag: boolean = true;
+  showModalBox: boolean = false;
 
   userFollows: User[] = [];
   LoggedInUserFollows: User[] = [];
@@ -74,6 +76,8 @@ export class UserProfileComponent implements OnInit{
 
   followedAUserOrNot: boolean = false //Used to check if logged in user has followed someone on the modal
 
+  @ViewChild('content') content: any;
+
   ngOnInit(): void {
     this.buttonValue = 1
 
@@ -82,7 +86,6 @@ export class UserProfileComponent implements OnInit{
         if(res.profilePicture.length){
           this.profilePic = 'data:image/jpg;base64,' + res.profilePicture[0].imageData
         }
-        console.log(res)
 
         onAuthStateChanged(this.auth, (user) =>{
           if (user && this.authFlag) {
@@ -94,6 +97,8 @@ export class UserProfileComponent implements OnInit{
             else{
               this.loggedInUser = false;
               this.user = res;
+              this.LoginStatus = this.getLoggedInUser();
+              console.log(this.LoginStatus)
 
               if(user.email){
                 this.service.getUser(user.email).subscribe(loggedUser =>{
@@ -112,6 +117,7 @@ export class UserProfileComponent implements OnInit{
             this.loggedInUser = false;
             this.isUserFollowed = false
             this.user = res;
+            this.LoginStatus = null 
           }
         })
 
@@ -234,7 +240,7 @@ export class UserProfileComponent implements OnInit{
   }
 
 
-  followUser(followedUser: User){
+  followUser(event:Event, followedUser: User){
     this.currentLoggedInUser = this.getLoggedInUser();
     if (this.currentLoggedInUser) {
       console.log(this.currentLoggedInUser)
@@ -268,7 +274,11 @@ export class UserProfileComponent implements OnInit{
       
     } 
     else {
-      alert("Please log in to follow @" + followedUser.username)
+      //this.content.open();
+      // event.stopPropagation()
+      // this.showModalBox = true
+      // console.log(this.showModalBox)
+      //alert("Please log in to follow @" + followedUser.username)
     }
   }
 
@@ -420,8 +430,16 @@ export class UserProfileComponent implements OnInit{
       }
     }
   }
-  gotToProfile(username: string){
+  goToProfile(username: string){
     this.route.navigateByUrl(`user-profile/${username}`) 
+  }
+
+  goToLogin(){
+    this.route.navigate(['/login']) 
+  }
+
+  goToSignup(){
+    this.route.navigate(['/phone']) 
   }
 
   editProfile(username: string){
