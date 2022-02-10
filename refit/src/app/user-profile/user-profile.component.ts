@@ -59,6 +59,7 @@ export class UserProfileComponent implements OnInit{
 
   loggedInUsername: string = '';
   profilePic: string = '';
+  modalUserName: string = '';
   
 
   isUserFollowed: boolean= false;
@@ -211,6 +212,7 @@ export class UserProfileComponent implements OnInit{
       }
       else{
         this.LoggedInUserFollows = [];
+        this.checkFollowStatus(this.LoggedInUserFollows, this.userFollowersProfiles)
       }
     }
     
@@ -234,7 +236,10 @@ export class UserProfileComponent implements OnInit{
           })
         }
       }
-      else{}
+      else{
+        this.LoggedInUserFollows = [];
+        this.checkFollowStatus(this.LoggedInUserFollows, this.userFollowersProfiles)
+      }
     }
 
   }
@@ -274,10 +279,6 @@ export class UserProfileComponent implements OnInit{
       
     } 
     else {
-      //this.content.open();
-      // event.stopPropagation()
-      // this.showModalBox = true
-      // console.log(this.showModalBox)
       //alert("Please log in to follow @" + followedUser.username)
     }
   }
@@ -306,8 +307,7 @@ export class UserProfileComponent implements OnInit{
         
       } 
       else {
-        window.location.reload()
-        alert("Please log in to follow @" + followedUser.username)
+        //alert("Please log in to follow @" + followedUser.username)
       }
     }
     else{
@@ -342,7 +342,7 @@ export class UserProfileComponent implements OnInit{
         
       } 
       else {
-        alert("Please log in to follow @" + followedUser.username)
+        //alert("Please log in to follow @" + followedUser.username)
       }
     }
     
@@ -377,7 +377,7 @@ export class UserProfileComponent implements OnInit{
       
     } 
     else {
-      alert("Please log in to unfollow @" + followedUser.username)
+      //alert("Please log in to unfollow @" + followedUser.username)
     }
   }
 
@@ -399,7 +399,7 @@ export class UserProfileComponent implements OnInit{
         this.followingImages(this.userFollows)
       } 
       else {
-        alert("Please log in to unfollow @" + unFollowedUser.username)
+        //alert("Please log in to unfollow @" + unFollowedUser.username)
       }
     }
     else{
@@ -426,7 +426,7 @@ export class UserProfileComponent implements OnInit{
         
       } 
       else {
-        alert("Please log in to unfollow @" + unFollowedUser.username)
+        //alert("Please log in to unfollow @" + unFollowedUser.username)
       }
     }
   }
@@ -444,6 +444,10 @@ export class UserProfileComponent implements OnInit{
 
   editProfile(username: string){
     this.route.navigateByUrl(`edit-profile/${username}`)
+  }
+
+  toggleModal(name: string){
+    this.modalUserName = name;
   }
 
 }

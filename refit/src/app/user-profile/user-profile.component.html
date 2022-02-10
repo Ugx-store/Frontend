@@ -61,7 +61,7 @@
                 </button>
             </div>
             <ng-template #LoggedOut>
-                <button class="btn btn-primary follow-button" data-bs-toggle="modal" data-bs-target="#LoginModal">
+                <button class="btn btn-primary follow-button" (click)="toggleModal(user.name)" data-bs-toggle="modal" data-bs-target="#LoginModal">
                     Follow
                 </button>
             </ng-template>
@@ -125,9 +125,16 @@
                                                     </span>
                                                     <ng-template #notLoggedInUsername>
                                                         <div *ngIf="!isUserFollowedObject[follower.username]; else notFollowed">
-                                                            <button class="btn btn-primary modal-follow-button" (click)="followUserInModal(follower)">
-                                                                Follow
-                                                            </button>
+                                                            <div *ngIf="LoginStatus; else LoggedOut">
+                                                                <button class="btn btn-primary modal-follow-button" (click)="followUserInModal(follower)">
+                                                                    Follow
+                                                                </button>
+                                                            </div>
+                                                            <ng-template #LoggedOut>
+                                                                <button class="btn btn-primary modal-follow-button" (click)="toggleModal(follower.name)" data-bs-toggle="modal" data-bs-target="#LoginModal">
+                                                                    Follow
+                                                                </button>
+                                                            </ng-template>
                                                         </div>
                                                         <ng-template #notFollowed>
                                                             <button  class="btn btn-outline-primary dropdown-toggle dropdown modal-unfollow-button">
@@ -190,9 +197,16 @@
                                                     </span>
                                                     <ng-template #notLoggedInUsername>
                                                         <div *ngIf="!isUserFollowedObject[follower.username]; else notFollowed">
-                                                            <button class="btn btn-primary modal-follow-button" (click)="followUserInModal(follower)">
-                                                                Follow
-                                                            </button>
+                                                            <div *ngIf="LoginStatus; else LoggedOut">
+                                                                <button class="btn btn-primary modal-follow-button" (click)="followUserInModal(follower)">
+                                                                    Follow
+                                                                </button>
+                                                            </div>
+                                                            <ng-template #LoggedOut>
+                                                                <button class="btn btn-primary modal-follow-button" (click)="toggleModal(follower.name)" data-bs-toggle="modal" data-bs-target="#LoginModal">
+                                                                    Follow
+                                                                </button>
+                                                            </ng-template>
                                                         </div>
                                                         <ng-template #notFollowed>
                                                             <button  class="btn btn-outline-primary dropdown-toggle dropdown modal-unfollow-button">
@@ -237,7 +251,7 @@
                     </button>
                 </div>
                 <ng-template #LoggedOut>
-                    <button class="btn btn-primary btn-follow-md" data-bs-toggle="modal" data-bs-target="#LoginModal">
+                    <button class="btn btn-primary btn-follow-md" (click)="toggleModal(user.name)" data-bs-toggle="modal" data-bs-target="#LoginModal">
                         Follow
                     </button>
                 </ng-template>
@@ -298,7 +312,7 @@
 </ng-template>
 
 <!-- Login Modal -->
-<div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="LoginModalLabel" aria-hidden="true" #content>
+<div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="LoginModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -309,7 +323,7 @@
                     <span class="material-icons-outlined" style="font-size: 48px; color: rgb(29, 155, 240);">person_add_alt</span>
                 </div>
                 <div class="login-modal-body mx-auto login-modal-body-text" style="width: 90%;">
-                    <p style="width: 100%;">Login to follow {{user.name}} and see what they are selling on Refit</p>
+                    <p style="width: 100%;">Login to follow {{modalUserName}} and see what they are selling on Refit</p>
                 </div>
                 <div class="login-modal-body mx-auto modal-login-button">
                     <button class="btn btn-primary w-75" type="button" (click)="goToLogin()"
