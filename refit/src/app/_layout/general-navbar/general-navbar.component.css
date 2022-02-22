@@ -434,3 +434,36 @@
     margin-bottom: 2rem;
 } 
 
+.login-modal-body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-modal-body-text{
+    font-size: 25px;
+    overflow-wrap: break-word;
+    line-height: 32px;
+    margin-top: 2rem;
+}
+
+.modal-login-button{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.modal-signup-button{
+    margin-bottom: 2.5rem;
+}
+
+.modal-login-button button{
+    height: 3.5rem; 
+    border-radius: 9999px;
+    font-family: 'Public Sans', sans-serif;
+    font-size: 20px;
+}
+
+.sell-modal-header{
+    border-bottom-style: none;
+}
+

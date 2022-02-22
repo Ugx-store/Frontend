@@ -37,6 +37,7 @@ import { LoadingModule } from './Loader';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { CacheInterceptorService } from './cache-interceptor/cache-interceptor.service';
 import { NgxImageCompressService } from 'ngx-image-compress';
+import { SellPageComponent } from './sell-page/sell-page.component';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { NgxImageCompressService } from 'ngx-image-compress';
     SignupLayoutComponent,
     GeneralFooterComponent,
     UserProfileComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    SellPageComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +76,7 @@ import { NgxImageCompressService } from 'ngx-image-compress';
     NgOtpInputModule,
     NgxIntlTelInputModule,
     BrowserAnimationsModule,
-    LoadingModule
+    LoadingModule,
   ],
   providers: [
     AuthGuard,

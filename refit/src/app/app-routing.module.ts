@@ -15,6 +15,7 @@ import { GeneralLayoutComponent } from './_layout/general-layout/general-layout.
 import { SignupLayoutComponent } from './_layout/signup-layout/signup-layout.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { SellPageComponent } from './sell-page/sell-page.component';
 
 const routes: Routes = [
   {
@@ -28,7 +29,8 @@ const routes: Routes = [
       {path: 'passwordResetMessage', component: PasswordResetMessageComponent},
       {path: 'passwordResetInput', component: PasswordResetInputComponent},
       {path: 'user-profile/:username', component: UserProfileComponent},
-      {path: 'edit-profile/:username', component: EditProfileComponent}
+      {path: 'edit-profile/:username', component: EditProfileComponent},
+      {path: 'sell', component: SellPageComponent}
     ]
   },
   {

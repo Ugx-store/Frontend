@@ -1,0 +1,187 @@
+<div class="container-fluid d-flex align-items-center justify-content-center">
+    <div class="row">
+        <p class="row-title">List an item</p>
+        <div>
+            <p class="photos-heading">Photos</p>
+            <span class="text-muted photos-subheading">
+                Add upto 3 photos (We recommend you add a picture of yourself or someone else displaying the item)
+            </span>
+            <div class="all-photos">
+                <div class="photo-div">
+                    <span class="material-icons-outlined">add_a_photo</span>
+                </div>
+                <div class="photo-div">
+                    <span class="material-icons-outlined">add_a_photo</span>
+                </div>
+                <div class="photo-div">
+                    <span class="material-icons-outlined">add_a_photo</span>
+                </div>
+            </div>
+
+            <p class="headings">Description</p>
+            <textarea class="form-control" placeholder="Tell the buyers about your item. Come up with a Headline, then add some details including material, condition, size and style.
+
+Be accurate to the point." maxlength="1000"></textarea>
+
+            <p class="headings">Info</p>
+            <div class="form-floating">
+                <select class="form-select" name="category" #categories="ngModel" [(ngModel)]="category" 
+                aria-label="Category select" (input)="categoryChange()" required>
+                    <option value="" selected disabled hidden>Category</option>
+                    <option value="0" disabled></option>
+                    <option value="Ladies">Ladieswear</option>
+                    <option value="1" disabled></option>
+                    <option value="Men">Menswear</option>
+                    <option value="2" disabled></option>
+                    <option value="Jewelry">Jewelry</option>
+                    <option value="3" disabled></option>
+                    <option value="Beauty">Beauty</option>
+                    <option value="4" disabled></option>
+                    <option value="Kids">Kids</option>
+                    <option value="5" disabled></option>
+                    <option value="Rentals">Rentals</option> 
+                </select>
+                <label for="conditionSelect" class="select-label">Select the category</label>
+            </div>
+            <div class="form-floating" *ngIf="category === 'Ladies'" style="margin-top: 3rem;">
+                <select class="form-select" name="subcategory" #subcategories="ngModel" 
+                [(ngModel)]="subcategory" aria-label="Subcategory select" required>
+                    <option value="" selected hidden disabled>Subcategory</option>
+                    <option value="0" disabled></option>
+                    <option *ngFor="let lady of ladyCats" [value]="lady" [disabled]="lady === ' '">
+                        {{lady}}
+                    </option>
+                </select>
+                <label for="conditionSelect" class="select-label">Select the subcategory</label>
+            </div>
+            <div class="form-floating" *ngIf="category === 'Men'" style="margin-top: 3rem;">
+                <select class="form-select" name="subcategory" #subcategories="ngModel" 
+                [(ngModel)]="subcategory" aria-label="Subcategory select" required>
+                    <option value="" selected hidden disabled>Subcategory</option>
+                    <option value="0" disabled></option>
+                    <option *ngFor="let men of menCats" [value]="men" [disabled]="men === ' '">
+                        {{men}}
+                    </option>
+                </select>
+                <label for="conditionSelect" class="select-label">Select the subcategory</label>
+            </div>
+            <div class="form-floating" *ngIf="category === 'Jewelry'" style="margin-top: 3rem;">
+                <select class="form-select" name="subcategory" #subcategories="ngModel" 
+                [(ngModel)]="subcategory" aria-label="Subcategory select" required>
+                    <option value="" selected hidden disabled>Subcategory</option>
+                    <option value="0" disabled></option>
+                    <option *ngFor="let jewelry of jewelry" [value]="jewelry" [disabled]="jewelry === ' '">
+                        {{jewelry}}
+                    </option>
+                </select>
+                <label for="conditionSelect" class="select-label">Select the subcategory</label>
+            </div>
+            <div class="form-floating" *ngIf="category === 'Beauty'" style="margin-top: 3rem;">
+                <select class="form-select" name="subcategory" #subcategories="ngModel" 
+                [(ngModel)]="subcategory" aria-label="Subcategory select" required>
+                    <option value="" selected hidden disabled>Subcategory</option>
+                    <option value="0" disabled></option>
+                    <option *ngFor="let beauty of beauty" [value]="beauty" [disabled]="beauty === ' '">
+                        {{beauty}}
+                    </option>
+                </select>
+                <label for="conditionSelect" class="select-label">Select the subcategory</label>
+            </div>
+            <div class="form-floating" *ngIf="category === 'Kids'" style="margin-top: 3rem;">
+                <select class="form-select" name="subcategory" #subcategories="ngModel" 
+                [(ngModel)]="subcategory" aria-label="Subcategory select" required>
+                    <option value="" selected hidden disabled>Subcategory</option>
+                    <option value="0" disabled></option>
+                    <option *ngFor="let kid of kids" [value]="kid" [disabled]="kid === ' '">
+                        {{kid}}
+                    </option>
+                </select>
+                <label for="conditionSelect" class="select-label">Select the subcategory</label>
+            </div>
+            <div class="form-floating" *ngIf="category === 'Rentals'" style="margin-top: 3rem;">
+                <select class="form-select" name="subcategory" #subcategories="ngModel" 
+                [(ngModel)]="subcategory" aria-label="Subcategory select" required>
+                    <option value="" selected hidden disabled>Subcategory</option>
+                    <option value="0" disabled></option>
+                    <option *ngFor="let rental of rentals" [value]="rental" [disabled]="rental === ' '">
+                        {{rental}}
+                    </option>
+                </select>
+                <label for="conditionSelect" class="select-label">Select the subcategory</label>
+            </div>
+            <div class="form-floating" style="margin-top: 3rem;">
+                <select class="form-select" aria-label="Condition select" id="conditionSelect" required>
+                    <option value="" selected disabled hidden>Condition</option>
+                    <option value="0" disabled></option>
+                    <option value="Ladies">Brand new</option>
+                    <option class="sub-option" disabled value="Men">
+                        Unused with original packaging or tags
+                    </option>
+                    <option value="1" disabled></option>
+                    <option value="Men">Like new</option>
+                    <option class="sub-option" disabled value="Men">
+                        Mint condition pre-owned or new without tags
+                    </option>
+                    <option value="2" disabled></option>
+                    <option value="Jewelry">Used - Excellent</option>
+                    <option class="sub-option" disabled value="Men">
+                        Lightly used but no noticeable flaws
+                    </option>
+                    <option value="3" disabled></option>
+                    <option value="Beauty">Used - Good</option>
+                    <option class="sub-option" disabled value="Men">
+                        Minor flaws or signs of wear, to be noted in the description or photos
+                    </option>
+                    <option value="4" disabled></option>
+                    <option value="Kids">Used - Fair</option>
+                    <option class="sub-option" disabled value="Men">
+                        Obvious flaws or signs of wear, to be noted in the description or photos
+                    </option>
+                    <option value="5" disabled></option> 
+                </select>
+                <label for="conditionSelect" class="select-label">Select the condition</label>
+            </div>
+            <form class="input-floating">
+                <input class="form-control" placeholder="Brand">
+            </form>
+            <span class="text-muted" style="font-size: 13px;">Some users are attracted to certain brands. Ignore this you are unsure.</span>
+            <form class="input-floating">
+                <input class="form-control" placeholder="Color">
+            </form>
+            <form class="input-floating">
+                <input class="form-control" placeholder="Size">
+            </form>
+            <form class="input-floating">
+                <input class="form-control" placeholder="Age">
+            </form>
+            <span class="text-muted" style="font-size: 13px;">How long have you had this item? Ignore if item is new.</span>
+
+            <p class="headings" style="margin-bottom: 0.8rem;">Item Price</p>
+            <div class="input-group mb-3" style="width: 50%;">
+                <span class="input-group-text" id="item-price">
+                    Ugx
+                </span>
+                <input type="text" class="form-control" placeholder="Item price" 
+                aria-label="Price" aria-describedby="item-price">
+            </div>
+            <div class="input-group mb-3" style="width: 50%;">
+                <span class="input-group-text" id="original-price">
+                    Ugx
+                </span>
+                <input type="text" class="form-control" placeholder="Original price" 
+                aria-label="Price" aria-describedby="original-price">
+                <span class="text-muted" style="font-size: 13px;">
+                    This is the price at which you bought the item. It helps users know how much they will
+                    save by choosing to buy this item instead of a new one. Ignore if item is new.
+                </span>
+            </div>
+            <div class="form-check form-switch" style="margin-left: 1rem; margin-top: 2rem;">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked">
+                <label class="form-check-label" for="flexSwitchCheckChecked">Offer free delivery</label>
+            </div>
+            <span class="text-muted" style="font-size: 13px;">
+                Items with free delivery are twice as likely to sell.
+            </span>
+        </div>
+    </div>
+</div>

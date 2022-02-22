@@ -156,7 +156,7 @@ export class EditProfileComponent implements OnInit {
           }).catch(err => {
             this.authLoader = false
             this.error = err
-            this.message = "Your profile picture has been updated. To change your email address and other information, please log out and login again!"
+            this.message = "To change your email address, please log out, login and try again!"
           })
         }
         else{

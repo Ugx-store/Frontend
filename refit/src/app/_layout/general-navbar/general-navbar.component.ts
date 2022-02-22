@@ -86,6 +86,9 @@ export class GeneralNavbarComponent implements OnInit {
   gotToProfile(username: string){
     this.route.navigateByUrl(`user-profile/${username}`) 
   }
+  goToSell(){
+    this.route.navigate(["/sell"])
+  }
 
   signOut(){
     signOut(this.auth).then(() => {
