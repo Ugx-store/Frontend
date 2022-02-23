@@ -24,17 +24,25 @@
   <app-root></app-root>
   <script>
     function myFunction(event){
-      console.log("Span pressed")
       document.getElementById("profileDropdown").classList.toggle("show")
+      event.stopPropagation();
+    }
+
+    function mySellFunction(event){
+      console.log("Span pressed")
+      document.getElementById("sellDropdown").classList.toggle("show")
       event.stopPropagation();
     }
 
     //close the dropdown if the user clicks outside of it
     window.onclick = function(e) {
-      if(!e.target.matches('.dropdown') || !e.target.matches('.dropdown-content-profile')){
+      if(!e.target.matches('.dropdown') || !e.target.matches('.dropdown-content-profile')
+      || !e.target.matches('.dropdown-content-sell')){
         var myDropdown = document.getElementById("profileDropdown");
-        if(myDropdown.classList.contains('show')){
+        var sellDropdown = document.getElementById("sellDropdown");
+        if(myDropdown.classList.contains('show') || sellDropdown.classList.contains('show')){
           myDropdown.classList.remove('show')
+          sellDropdown.classList.remove('show')
         }
       }
     }

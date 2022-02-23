@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {ThemePalette} from '@angular/material/core';
 
 @Component({
   selector: 'app-sell-page',
@@ -12,7 +11,6 @@ export class SellPageComponent implements OnInit {
 
   category: string = "";
   subcategory: string = "";
-  color: ThemePalette = 'warn'; 
 
   ladyCats: string[]= ["Dresses", " ", "Tops", " ", "Accessories", " ", "Lingerie", " ", "Shoes", " ", "Skirts", " ", "Pants", " ", "Jackets", " ", "Others"]
   menCats: string[] = ["Jackets", " ", "Shirts", " ", "Pants", " ", "Underwear", " ", "Shoes", " ", "Accessories", " ", "Others"]
@@ -26,6 +24,11 @@ export class SellPageComponent implements OnInit {
 
   categoryChange(){
     console.log(this.category) 
+  }
+
+  optionClick(event: any){
+    console.log(event.target.innerText)
+    this.category = event.target.innerText
   }
 
 }

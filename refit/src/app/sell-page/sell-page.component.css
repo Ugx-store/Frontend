@@ -99,16 +99,66 @@ option{
     border-bottom: 0.0625rem solid rgb(0, 0, 0);
     margin-top: 3rem;
     background-color:#f5f5f5;
+    display: flex;
+    align-content: center;
 }
 
 .input-floating input{
     border-width: 0; 
     border-radius: 0; 
     padding-bottom: 0;
-    padding-left: 5px;
+    padding-left: 0;
     background-color:#f5f5f5;
     color: #000;
     font-size: inherit;
+}
+
+.input-floating:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+} 
+
+.no-bullets{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown-content-sell {
+    display: none;
+    position: relative;
+    z-index: 1;
+    background-color: #f9f9f9;
+    width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    margin-left: -0.1rem;
+    border-radius: 0;
+}
+
+.dropdown-content-sell li {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    float: none;
+    color: black;
+    padding: 10px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    border-bottom-color: rgb(215, 215, 215); 
+    border-bottom-style: solid;
+    border-bottom-width: 0.0625rem; 
+    border-radius: 0;
+    width: 100%;
+    cursor: pointer;
+}
+
+.dropdown-content-sell li:hover {
+    color: rgb(255, 255, 255);
+    background-color: #000;
+}
+
+.show{
+    display: block;
 }
 
 @media (max-width: 768px) {

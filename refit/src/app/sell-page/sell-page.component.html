@@ -24,42 +24,35 @@
 Be accurate to the point." maxlength="1000"></textarea>
 
             <p class="headings">Info</p>
-            <select name="category" #categories="ngModel" [(ngModel)]="category" 
-            (input)="categoryChange()" required>
-                    <option value="" selected disabled hidden>Category</option>
-                    <option value="0" disabled></option>
-                    <option value="Ladies">Ladieswear</option>
-                    <option value="1" disabled></option>
-                    <option value="Men">Menswear</option>
-                    <option value="2" disabled></option>
-                    <option value="Jewelry">Jewelry</option>
-                    <option value="3" disabled></option>
-                    <option value="Beauty">Beauty</option>
-                    <option value="4" disabled></option>
-                    <option value="Kids">Kids</option>
-                    <option value="5" disabled></option>
-                    <option value="Rentals">Rentals</option> 
-            </select>
-            <div class="form-floating">
-                <select class="form-select" name="category" #categories="ngModel" [(ngModel)]="category" 
-                aria-label="Category select" (input)="categoryChange()" required>
-                    <option value="" selected disabled hidden>Category</option>
-                    <option value="0" disabled></option>
-                    <option value="Ladies">Ladieswear</option>
-                    <option value="1" disabled></option>
-                    <option value="Men">Menswear</option>
-                    <option value="2" disabled></option>
-                    <option value="Jewelry">Jewelry</option>
-                    <option value="3" disabled></option>
-                    <option value="Beauty">Beauty</option>
-                    <option value="4" disabled></option>
-                    <option value="Kids">Kids</option>
-                    <option value="5" disabled></option>
-                    <option value="Rentals">Rentals</option> 
-                </select>
-                <label for="conditionSelect" class="select-label">Select the category</label>
+            <form class="input-floating">
+                <input class="form-control dropdown" placeholder="Category" name="category" 
+                #categories="ngModel" [(ngModel)]="category" value="{{category}}" onclick="mySellFunction(event)">
+                <span class="material-icons-outlined text-muted" style="margin-left: auto;"> keyboard_arrow_down</span>
+            </form>
+            <div class="dropdown-content-sell" id="sellDropdown">
+                <ul class="no-bullets">
+                    <li (click)="optionClick($event)">
+                        <span>Ladieswear</span>
+                    </li>
+                    <li (click)="optionClick($event)">
+                        <span>Menswear</span>
+                    </li>
+                    <li (click)="optionClick($event)">
+                        <span>Jewelry</span>
+                    </li>
+                    <li (click)="optionClick($event)">
+                        <span>Beauty</span>
+                    </li>
+                    <li (click)="optionClick($event)">
+                        <span>Kids</span>
+                    </li>
+                    <li (click)="optionClick($event)">
+                        <span>Rentals</span>
+                    </li>
+                </ul>
             </div>
-            <div class="form-floating" *ngIf="category === 'Ladies'" style="margin-top: 3rem;">
+            
+            <div class="form-floating" *ngIf="category === 'Ladieswear'" style="margin-top: 3rem;">
                 <select class="form-select" name="subcategory" #subcategories="ngModel" 
                 [(ngModel)]="subcategory" aria-label="Subcategory select" required>
                     <option value="" selected hidden disabled>Subcategory</option>
@@ -70,7 +63,7 @@ Be accurate to the point." maxlength="1000"></textarea>
                 </select>
                 <label for="conditionSelect" class="select-label">Select the subcategory</label>
             </div>
-            <div class="form-floating" *ngIf="category === 'Men'" style="margin-top: 3rem;">
+            <div class="form-floating" *ngIf="category === 'Menswear'" style="margin-top: 3rem;">
                 <select class="form-select" name="subcategory" #subcategories="ngModel" 
                 [(ngModel)]="subcategory" aria-label="Subcategory select" required>
                     <option value="" selected hidden disabled>Subcategory</option>
