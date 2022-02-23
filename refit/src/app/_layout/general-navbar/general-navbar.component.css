@@ -445,6 +445,7 @@
     overflow-wrap: break-word;
     line-height: 32px;
     margin-top: 2rem;
+    text-align: center;
 }
 
 .modal-login-button{

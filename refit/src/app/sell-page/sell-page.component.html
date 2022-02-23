@@ -24,6 +24,22 @@
 Be accurate to the point." maxlength="1000"></textarea>
 
             <p class="headings">Info</p>
+            <select name="category" #categories="ngModel" [(ngModel)]="category" 
+            (input)="categoryChange()" required>
+                    <option value="" selected disabled hidden>Category</option>
+                    <option value="0" disabled></option>
+                    <option value="Ladies">Ladieswear</option>
+                    <option value="1" disabled></option>
+                    <option value="Men">Menswear</option>
+                    <option value="2" disabled></option>
+                    <option value="Jewelry">Jewelry</option>
+                    <option value="3" disabled></option>
+                    <option value="Beauty">Beauty</option>
+                    <option value="4" disabled></option>
+                    <option value="Kids">Kids</option>
+                    <option value="5" disabled></option>
+                    <option value="Rentals">Rentals</option> 
+            </select>
             <div class="form-floating">
                 <select class="form-select" name="category" #categories="ngModel" [(ngModel)]="category" 
                 aria-label="Category select" (input)="categoryChange()" required>
