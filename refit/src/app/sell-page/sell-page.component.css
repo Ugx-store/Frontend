@@ -93,11 +93,19 @@ option{
     padding-left: 3px;
 }
 
+.form-floating input{
+    background-image: url(../../assets/dropdown.png);
+    background-repeat: no-repeat;
+    background-position: right .75rem bottom .5rem;
+    background-size: 22px 18px; 
+    background-color: red;
+}
+
 .input-floating{
     border-width: 0; 
     border-radius: 0; 
     border-bottom: 0.0625rem solid rgb(0, 0, 0);
-    margin-top: 3rem;
+    margin-top: 1.5rem;
     background-color:#f5f5f5;
     display: flex;
     align-content: center;
@@ -111,17 +119,28 @@ option{
     background-color:#f5f5f5;
     color: #000;
     font-size: inherit;
-}
-
-.input-floating:focus {
-    border-color: #28a745;
-    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
 } 
 
 .no-bullets{
     list-style-type: none;
     margin: 0;
     padding: 0;
+}
+
+.floating-label{
+    height: 2.5rem; 
+    margin-top: 1rem; 
+    padding-left: 0; 
+    color: #666;
+}
+
+.form-floating>.form-control:focus~label, .form-floating>.form-control:not(:placeholder-shown)~label, .form-floating>.form-select~label {
+    padding-top: 0;
+}
+
+.form-floating>.form-control:focus, .form-floating>.form-control:not(:placeholder-shown) {
+    padding-bottom: 0;
+    padding-left: 0;
 }
 
 .dropdown-content-sell {

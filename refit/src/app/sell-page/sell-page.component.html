@@ -24,11 +24,12 @@
 Be accurate to the point." maxlength="1000"></textarea>
 
             <p class="headings">Info</p>
-            <form class="input-floating">
-                <input class="form-control dropdown" placeholder="Category" name="category" 
+
+            <div class="form-floating input-floating" style="margin-top: 0;">
+                <input class="form-control dropdown" placeholder="Category" name="category" id="categoryInput"
                 #categories="ngModel" [(ngModel)]="category" value="{{category}}" onclick="mySellFunction(event)">
-                <span class="material-icons-outlined text-muted" style="margin-left: auto;"> keyboard_arrow_down</span>
-            </form>
+                <label class="floating-label" for="categoryInput">Category</label>
+            </div>
             <div class="dropdown-content-sell" id="sellDropdown">
                 <ul class="no-bullets">
                     <li (click)="optionClick($event)">
@@ -52,73 +53,115 @@ Be accurate to the point." maxlength="1000"></textarea>
                 </ul>
             </div>
             
-            <div class="form-floating" *ngIf="category === 'Ladieswear'" style="margin-top: 3rem;">
-                <select class="form-select" name="subcategory" #subcategories="ngModel" 
-                [(ngModel)]="subcategory" aria-label="Subcategory select" required>
-                    <option value="" selected hidden disabled>Subcategory</option>
-                    <option value="0" disabled></option>
-                    <option *ngFor="let lady of ladyCats" [value]="lady" [disabled]="lady === ' '">
-                        {{lady}}
-                    </option>
-                </select>
-                <label for="conditionSelect" class="select-label">Select the subcategory</label>
+            <div class="form-floating input-floating" *ngIf="category === 'Ladieswear'">
+                <input class="form-control dropdown" id="subcategoryInput" placeholder="Category" name="subcategory" #subcategories="ngModel" 
+                [(ngModel)]="subcategory" value="{{subcategory}}" onclick="ladyDropdown(event)">
+                <label class="floating-label" for="subcategoryInput">Subcategory</label>
             </div>
-            <div class="form-floating" *ngIf="category === 'Menswear'" style="margin-top: 3rem;">
-                <select class="form-select" name="subcategory" #subcategories="ngModel" 
-                [(ngModel)]="subcategory" aria-label="Subcategory select" required>
-                    <option value="" selected hidden disabled>Subcategory</option>
-                    <option value="0" disabled></option>
-                    <option *ngFor="let men of menCats" [value]="men" [disabled]="men === ' '">
-                        {{men}}
-                    </option>
-                </select>
-                <label for="conditionSelect" class="select-label">Select the subcategory</label>
+            <div class="dropdown-content-sell" id="ladyDropdown">
+                <ul *ngFor="let lady of ladyCats" class="no-bullets">
+                    <li (click)="subcategoryClick($event)">
+                        <span>{{lady}}</span>
+                    </li>
+                </ul>
             </div>
-            <div class="form-floating" *ngIf="category === 'Jewelry'" style="margin-top: 3rem;">
-                <select class="form-select" name="subcategory" #subcategories="ngModel" 
-                [(ngModel)]="subcategory" aria-label="Subcategory select" required>
-                    <option value="" selected hidden disabled>Subcategory</option>
-                    <option value="0" disabled></option>
-                    <option *ngFor="let jewelry of jewelry" [value]="jewelry" [disabled]="jewelry === ' '">
-                        {{jewelry}}
-                    </option>
-                </select>
-                <label for="conditionSelect" class="select-label">Select the subcategory</label>
+
+            <div class="form-floating input-floating" *ngIf="category === 'Menswear'">
+                <input class="form-control dropdown" id="subcategoryInput" placeholder="Category" name="subcategory" #subcategories="ngModel" 
+                [(ngModel)]="subcategory" value="{{subcategory}}" onclick="menDropdown(event)">
+                <label class="floating-label" for="subcategoryInput">Subcategory</label>
             </div>
-            <div class="form-floating" *ngIf="category === 'Beauty'" style="margin-top: 3rem;">
-                <select class="form-select" name="subcategory" #subcategories="ngModel" 
-                [(ngModel)]="subcategory" aria-label="Subcategory select" required>
-                    <option value="" selected hidden disabled>Subcategory</option>
-                    <option value="0" disabled></option>
-                    <option *ngFor="let beauty of beauty" [value]="beauty" [disabled]="beauty === ' '">
-                        {{beauty}}
-                    </option>
-                </select>
-                <label for="conditionSelect" class="select-label">Select the subcategory</label>
+            <div class="dropdown-content-sell" id="menDropdown">
+                <ul *ngFor="let men of menCats" class="no-bullets">
+                    <li (click)="subcategoryClick($event)">
+                        <span>{{men}}</span>
+                    </li>
+                </ul>
             </div>
-            <div class="form-floating" *ngIf="category === 'Kids'" style="margin-top: 3rem;">
-                <select class="form-select" name="subcategory" #subcategories="ngModel" 
-                [(ngModel)]="subcategory" aria-label="Subcategory select" required>
-                    <option value="" selected hidden disabled>Subcategory</option>
-                    <option value="0" disabled></option>
-                    <option *ngFor="let kid of kids" [value]="kid" [disabled]="kid === ' '">
-                        {{kid}}
-                    </option>
-                </select>
-                <label for="conditionSelect" class="select-label">Select the subcategory</label>
+
+            <div class="form-floating input-floating" *ngIf="category === 'Jewelry'">
+                <input class="form-control dropdown" id="subcategoryInput" placeholder="Category" name="subcategory" #subcategories="ngModel" 
+                [(ngModel)]="subcategory" value="{{subcategory}}" onclick="jewelryDropdown(event)">
+                <label class="floating-label" for="subcategoryInput">Subcategory</label>
             </div>
-            <div class="form-floating" *ngIf="category === 'Rentals'" style="margin-top: 3rem;">
-                <select class="form-select" name="subcategory" #subcategories="ngModel" 
-                [(ngModel)]="subcategory" aria-label="Subcategory select" required>
-                    <option value="" selected hidden disabled>Subcategory</option>
-                    <option value="0" disabled></option>
-                    <option *ngFor="let rental of rentals" [value]="rental" [disabled]="rental === ' '">
-                        {{rental}}
-                    </option>
-                </select>
-                <label for="conditionSelect" class="select-label">Select the subcategory</label>
+            <div class="dropdown-content-sell" id="jewelryDropdown">
+                <ul *ngFor="let jewelry of jewelry" class="no-bullets">
+                    <li (click)="subcategoryClick($event)">
+                        <span>{{jewelry}}</span>
+                    </li>
+                </ul>
             </div>
-            <div class="form-floating" style="margin-top: 3rem;">
+
+            <div class="form-floating input-floating" *ngIf="category === 'Beauty'">
+                <input class="form-control dropdown" id="subcategoryInput" placeholder="Category" name="subcategory" #subcategories="ngModel" 
+                [(ngModel)]="subcategory" value="{{subcategory}}" onclick="beautyDropdown(event)">
+                <label class="floating-label" for="subcategoryInput">Subcategory</label>
+            </div>
+            <div class="dropdown-content-sell" id="beautyDropdown">
+                <ul *ngFor="let beauty of beauty" class="no-bullets">
+                    <li (click)="subcategoryClick($event)">
+                        <span>{{beauty}}</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="form-floating input-floating" *ngIf="category === 'Kids'">
+                <input class="form-control dropdown" id="subcategoryInput" placeholder="Category" name="subcategory" #subcategories="ngModel" 
+                [(ngModel)]="subcategory" value="{{subcategory}}" onclick="kidsDropdown(event)">
+                <label class="floating-label" for="subcategoryInput">Subcategory</label>
+            </div>
+            <div class="dropdown-content-sell" id="kidsDropdown">
+                <ul *ngFor="let kid of kids" class="no-bullets">
+                    <li (click)="subcategoryClick($event)">
+                        <span>{{kid}}</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="form-floating input-floating" *ngIf="category === 'Rentals'">
+                <input class="form-control dropdown" id="subcategoryInput" placeholder="Category" name="subcategory" #subcategories="ngModel" 
+                [(ngModel)]="subcategory" value="{{subcategory}}" onclick="rentalsDropdown(event)">
+                <label class="floating-label" for="subcategoryInput">Subcategory</label>
+            </div>
+            <div class="dropdown-content-sell" id="rentalsDropdown">
+                <ul *ngFor="let rental of rentals" class="no-bullets">
+                    <li (click)="subcategoryClick($event)">
+                        <span>{{rental}}</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="form-floating input-floating">
+                <input class="form-control dropdown" placeholder="Condition" name="condition" id="conditionInput"
+                #conditions="ngModel" [(ngModel)]="condition" value="{{condition}}" onclick="conditionFunction(event)">
+                <label class="floating-label" for="brandInput">Condition</label>
+            </div>
+            <div class="dropdown-content-sell" id="conditionDropdown">
+                <ul class="no-bullets">
+                    <li (click)="conditionClick($event)">
+                        <span>Brand new</span><br>
+                        <span class="text-muted" style="font-size: 13px;">Unused with original packaging or tags</span>
+                    </li>
+                    <li (click)="conditionClick($event)">
+                        <span>Like new</span><br>
+                        <span class="text-muted" style="font-size: 13px;">Mint condition pre-owned or new without tags</span>
+                    </li>
+                    <li (click)="conditionClick($event)">
+                        <span>Used - Excellent</span><br>
+                        <span class="text-muted" style="font-size: 13px;">Lightly used but no noticeable flaws</span>
+                    </li>
+                    <li (click)="conditionClick($event)">
+                        <span>Used - Good</span><br>
+                        <span class="text-muted" style="font-size: 13px;">Minor flaws or signs of wear, to be noted in the description or photos</span>
+                    </li>
+                    <li (click)="conditionClick($event)">
+                        <span>Used - Fair</span><br>
+                        <span class="text-muted" style="font-size: 13px;">Obvious flaws or signs of wear, to be noted in the description or photos</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- <div class="form-floating" style="margin-top: 3rem;">
                 <select class="form-select" aria-label="Condition select" id="conditionSelect" required>
                     <option value="" selected disabled hidden>Condition</option>
                     <option value="0" disabled></option>
@@ -149,7 +192,7 @@ Be accurate to the point." maxlength="1000"></textarea>
                     <option value="5" disabled></option> 
                 </select>
                 <label for="conditionSelect" class="select-label">Select the condition</label>
-            </div>
+            </div> -->
             <form class="input-floating">
                 <input class="form-control" placeholder="Brand">
             </form>

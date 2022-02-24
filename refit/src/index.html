@@ -29,20 +29,76 @@
     }
 
     function mySellFunction(event){
-      console.log("Span pressed")
       document.getElementById("sellDropdown").classList.toggle("show")
+      event.stopPropagation();
+    }
+
+    function ladyDropdown(event){
+      document.getElementById("ladyDropdown").classList.toggle("show")
+      event.stopPropagation();
+    }
+
+    function menDropdown(event){
+      document.getElementById("menDropdown").classList.toggle("show")
+      event.stopPropagation();
+    }
+
+    function jewelryDropdown(event){
+      document.getElementById("jewelryDropdown").classList.toggle("show")
+      event.stopPropagation();
+    }
+
+    function beautyDropdown(event){
+      document.getElementById("beautyDropdown").classList.toggle("show")
+      event.stopPropagation();
+    }
+
+    function kidsDropdown(event){
+      document.getElementById("kidsDropdown").classList.toggle("show")
+      event.stopPropagation();
+    }
+
+    function rentalsDropdown(event){
+      document.getElementById("rentalsDropdown").classList.toggle("show")
+      event.stopPropagation();
+    }
+
+    function conditionFunction(event){
+      document.getElementById("conditionDropdown").classList.toggle("show")
       event.stopPropagation();
     }
 
     //close the dropdown if the user clicks outside of it
     window.onclick = function(e) {
-      if(!e.target.matches('.dropdown') || !e.target.matches('.dropdown-content-profile')
-      || !e.target.matches('.dropdown-content-sell')){
+      if(!e.target.matches('.dropdown')){
         var myDropdown = document.getElementById("profileDropdown");
         var sellDropdown = document.getElementById("sellDropdown");
-        if(myDropdown.classList.contains('show') || sellDropdown.classList.contains('show')){
+        var ladyDropdown = document.getElementById("ladyDropdown");
+        var menDropdown = document.getElementById("menDropdown");
+        var jewelryDropdown = document.getElementById("jewelryDropdown");
+        var beautyDropdown = document.getElementById("beautyDropdown");
+        var kidsDropdown = document.getElementById("kidsDropdown");
+        var rentalsDropdown = document.getElementById("rentalsDropdown");
+        var conditionDropdown = document.getElementById("conditionDropdown");
+
+        if(myDropdown.classList.contains('show') 
+        || sellDropdown.classList.contains('show')
+        || ladyDropdown.classList.contains('show')
+        || menDropdown.classList.contains('show')
+        ||jewelryDropdown.classList.contains('show')
+        ||beautyDropdown.classList.contains('show')
+        ||kidsDropdown.classList.contains('show')
+        ||rentalsDropdown.classList.contains('show')
+        ||conditionDropdown.classList.contains('show')){
           myDropdown.classList.remove('show')
           sellDropdown.classList.remove('show')
+          ladyDropdown.classList.remove('show')
+          menDropdown.classList.remove('show')
+          jewelryDropdown.classList.remove('show')
+          beautyDropdown.classList.remove('show')
+          kidsDropdown.classList.remove('show')
+          rentalsDropdown.classList.remove('show')
+          conditionDropdown.classList.remove('show')
         }
       }
     }

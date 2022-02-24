@@ -11,13 +11,14 @@ export class SellPageComponent implements OnInit {
 
   category: string = "";
   subcategory: string = "";
+  condition: string = "";
 
-  ladyCats: string[]= ["Dresses", " ", "Tops", " ", "Accessories", " ", "Lingerie", " ", "Shoes", " ", "Skirts", " ", "Pants", " ", "Jackets", " ", "Others"]
-  menCats: string[] = ["Jackets", " ", "Shirts", " ", "Pants", " ", "Underwear", " ", "Shoes", " ", "Accessories", " ", "Others"]
-  jewelry: string[] = ["Necklaces", " ", "Pins", " ", "Bracelets", " ", "Earrings", " ", "Rings", " ", "Watches", " ", "Others"]
-  beauty: string[] = ["Make up", " ", "Fragrance", " ", "Skin care", " ", "Hair", " ", "Other"]
-  kids: string[] = ["Girls", " ", "Boys"]
-  rentals: string[] = ["Ladies", " ", "Men"]
+  ladyCats: string[]= ["Dresses", "Tops", "Accessories", "Lingerie", "Shoes", "Skirts", "Pants", "Jackets", "Others"]
+  menCats: string[] = ["Jackets", "Shirts", "Pants", "Underwear", "Shoes", "Accessories", "Others"]
+  jewelry: string[] = ["Necklaces", "Pins", "Bracelets", "Earrings", "Rings", "Watches", "Others"]
+  beauty: string[] = ["Make up", "Fragrance", "Skin care", "Hair", "Other"]
+  kids: string[] = ["Girls", "Boys"]
+  rentals: string[] = ["Ladies", "Men"]
 
   ngOnInit(): void {
   }
@@ -27,8 +28,16 @@ export class SellPageComponent implements OnInit {
   }
 
   optionClick(event: any){
-    console.log(event.target.innerText)
+    this.subcategory = ""
     this.category = event.target.innerText
+  }
+
+  subcategoryClick(event: any){
+    this.subcategory = event.target.innerText
+  }
+
+  conditionClick(event: any){
+    this.condition = event.target.innerText
   }
 
 }
