@@ -93,7 +93,7 @@ option{
     padding-left: 3px;
 }
 
-.form-floating input{
+.dropdown{
     background-image: url(../../assets/dropdown.png);
     background-repeat: no-repeat;
     background-position: right .75rem bottom .5rem;

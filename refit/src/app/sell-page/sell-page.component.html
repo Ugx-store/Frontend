@@ -134,7 +134,7 @@ Be accurate to the point." maxlength="1000"></textarea>
             <div class="form-floating input-floating">
                 <input class="form-control dropdown" placeholder="Condition" name="condition" id="conditionInput"
                 #conditions="ngModel" [(ngModel)]="condition" value="{{condition}}" onclick="conditionFunction(event)">
-                <label class="floating-label" for="brandInput">Condition</label>
+                <label class="floating-label" for="conditionInput">Condition</label>
             </div>
             <div class="dropdown-content-sell" id="conditionDropdown">
                 <ul class="no-bullets">
@@ -161,50 +161,22 @@ Be accurate to the point." maxlength="1000"></textarea>
                 </ul>
             </div>
 
-            <!-- <div class="form-floating" style="margin-top: 3rem;">
-                <select class="form-select" aria-label="Condition select" id="conditionSelect" required>
-                    <option value="" selected disabled hidden>Condition</option>
-                    <option value="0" disabled></option>
-                    <option value="Ladies">Brand new</option>
-                    <option class="sub-option" disabled value="Men">
-                        Unused with original packaging or tags
-                    </option>
-                    <option value="1" disabled></option>
-                    <option value="Men">Like new</option>
-                    <option class="sub-option" disabled value="Men">
-                        Mint condition pre-owned or new without tags
-                    </option>
-                    <option value="2" disabled></option>
-                    <option value="Jewelry">Used - Excellent</option>
-                    <option class="sub-option" disabled value="Men">
-                        Lightly used but no noticeable flaws
-                    </option>
-                    <option value="3" disabled></option>
-                    <option value="Beauty">Used - Good</option>
-                    <option class="sub-option" disabled value="Men">
-                        Minor flaws or signs of wear, to be noted in the description or photos
-                    </option>
-                    <option value="4" disabled></option>
-                    <option value="Kids">Used - Fair</option>
-                    <option class="sub-option" disabled value="Men">
-                        Obvious flaws or signs of wear, to be noted in the description or photos
-                    </option>
-                    <option value="5" disabled></option> 
-                </select>
-                <label for="conditionSelect" class="select-label">Select the condition</label>
-            </div> -->
-            <form class="input-floating">
-                <input class="form-control" placeholder="Brand">
+            <form class="form-floating input-floating">
+                <input class="form-control" placeholder="Brand" id="brandInput"> 
+                <label class="floating-label" for="brandInput">Brand</label>
             </form>
             <span class="text-muted" style="font-size: 13px;">Some users are attracted to certain brands. Ignore this you are unsure.</span>
-            <form class="input-floating">
-                <input class="form-control" placeholder="Color">
+            <form class="form-floating input-floating">
+                <input class="form-control" placeholder="Color" id="colorInput">
+                <label class="floating-label" for="colorInput">Color</label>
             </form>
-            <form class="input-floating">
-                <input class="form-control" placeholder="Size">
+            <form class="form-floating input-floating">
+                <input class="form-control" placeholder="Size" id="sizeInput">
+                <label class="floating-label" for="sizeInput">Size</label>
             </form>
-            <form class="input-floating">
-                <input class="form-control" placeholder="Age">
+            <form class="form-floating input-floating">
+                <input class="form-control" placeholder="Age" id="ageInput">
+                <label class="floating-label" for="ageInput">Age</label>
             </form>
             <span class="text-muted" style="font-size: 13px;">How long have you had this item? Ignore if item is new.</span>
 
