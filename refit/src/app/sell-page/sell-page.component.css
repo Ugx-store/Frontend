@@ -43,7 +43,9 @@
 .photo-div{
     width: 10rem;
     height: 10rem;
-    border: 0.15rem dashed rgb(128, 125, 125);
+    border-width: 0.15rem;
+    border-style: dashed;
+    border-color: rgb(128, 125, 125);
     margin-right: 1rem;
     cursor: pointer;
     display: flex;
@@ -195,8 +197,6 @@ option{
         width: 7rem;
         height: 7rem;
         margin-right: 3rem;
-        border-right: 0.15rem solid rgb(128, 125, 125);
-        border-left: 0.15rem solid rgb(128, 125, 125);
     }
     textarea{
         height: 130px; 
