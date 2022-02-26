@@ -35,8 +35,8 @@
 }
 
 .all-photos{
-    /* display: flex;
-    align-items: center; */
+    display: flex;
+    align-items: center;
     margin-top: 0.5rem;
 }
 
@@ -195,8 +195,8 @@ option{
         width: 7rem;
         height: 7rem;
         margin-right: 3rem;
-        border-right: 0.15rem dashed rgb(128, 125, 125);
-        border-left: 0.15rem dashed rgb(128, 125, 125);
+        border-right: 0.15rem solid rgb(128, 125, 125);
+        border-left: 0.15rem solid rgb(128, 125, 125);
     }
     textarea{
         height: 130px; 
