@@ -37,7 +37,13 @@ export class SellPageComponent implements OnInit {
   }
 
   conditionClick(event: any){
-    this.condition = event.target.innerText
+    if(event.childNodes.length > 1){
+      this.condition = event.childNodes[0].innerText
+    }
+    else{
+      this.condition = event.childNodes[0].textContent
+      console.log(event.childNodes[0].textContent)
+    }
   }
 
 }

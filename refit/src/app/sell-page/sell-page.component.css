@@ -180,12 +180,20 @@ option{
     display: block;
 }
 
+.text-muted{
+    pointer-events: none;
+}
+
 @media (max-width: 768px) {
     .container-fluid{
         margin-bottom: -5rem;
     }
     .row{
         width: 100%;
+    }
+    .photo-div{
+        width: 5rem;
+        height: 5rem;
     }
     textarea{
         height: 130px; 

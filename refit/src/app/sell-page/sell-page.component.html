@@ -138,23 +138,23 @@ Be accurate to the point." maxlength="1000"></textarea>
             </div>
             <div class="dropdown-content-sell" id="conditionDropdown">
                 <ul class="no-bullets">
-                    <li (click)="conditionClick($event)">
+                    <li (click)="conditionClick($event.target)">
                         <span>Brand new</span><br>
                         <span class="text-muted" style="font-size: 13px;">Unused with original packaging or tags</span>
                     </li>
-                    <li (click)="conditionClick($event)">
+                    <li (click)="conditionClick($event.target)">
                         <span>Like new</span><br>
                         <span class="text-muted" style="font-size: 13px;">Mint condition pre-owned or new without tags</span>
                     </li>
-                    <li (click)="conditionClick($event)">
+                    <li (click)="conditionClick($event.target)">
                         <span>Used - Excellent</span><br>
                         <span class="text-muted" style="font-size: 13px;">Lightly used but no noticeable flaws</span>
                     </li>
-                    <li (click)="conditionClick($event)">
+                    <li (click)="conditionClick($event.target)">
                         <span>Used - Good</span><br>
                         <span class="text-muted" style="font-size: 13px;">Minor flaws or signs of wear, to be noted in the description or photos</span>
                     </li>
-                    <li (click)="conditionClick($event)">
+                    <li (click)="conditionClick($event.target)">
                         <span>Used - Fair</span><br>
                         <span class="text-muted" style="font-size: 13px;">Obvious flaws or signs of wear, to be noted in the description or photos</span>
                     </li>
@@ -165,7 +165,7 @@ Be accurate to the point." maxlength="1000"></textarea>
                 <input class="form-control" placeholder="Brand" id="brandInput"> 
                 <label class="floating-label" for="brandInput">Brand</label>
             </form>
-            <span class="text-muted" style="font-size: 13px;">Some users are attracted to certain brands. Ignore this you are unsure.</span>
+            <span class="text-muted" style="font-size: 13px;">Some users are attracted to certain brands. Ignore this if you are unsure.</span>
             <form class="form-floating input-floating">
                 <input class="form-control" placeholder="Color" id="colorInput">
                 <label class="floating-label" for="colorInput">Color</label>
