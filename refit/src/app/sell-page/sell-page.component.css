@@ -192,8 +192,10 @@ option{
         width: 100%;
     }
     .photo-div{
-        width: 5rem;
-        height: 5rem;
+        width: 7rem;
+        height: 7rem;
+        border-right: 0.15rem dashed rgb(128, 125, 125);
+        border-left: 0.15rem dashed rgb(128, 125, 125);
     }
     textarea{
         height: 130px; 
