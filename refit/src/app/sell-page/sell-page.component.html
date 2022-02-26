@@ -4,7 +4,7 @@
         <div>
             <p class="photos-heading">Photos</p>
             <span class="text-muted photos-subheading">
-                Add upto 3 photos (We recommend you add a picture of yourself or someone else displaying the item)
+                Add upto 3 photos (We recommend you add at least one picture of yourself or someone else displaying the item)
             </span>
             <div class="all-photos">
                 <div class="photo-div">
@@ -206,6 +206,23 @@ Be accurate to the point." maxlength="1000"></textarea>
             <span class="text-muted" style="font-size: 13px;">
                 Items with free delivery are twice as likely to sell.
             </span>
+
+            <div class="mx-auto save-button">
+                <div class="d-grid gap-2" style="width: 47%; height: 45px;">
+                    <button class="btn btn-dark btn-code" type="button"
+                    style="background: black;" data-bs-toggle="modal" data-bs-target="#successMessage">
+                        Save
+                    </button>
+                </div>
+                <ng-template #invalid>
+                    <div class="d-grid gap-2" style="width: 47%; height: 45px;">
+                        <button class="btn btn-dark btn-code disabled" type="button">Save</button>
+                    </div>
+                </ng-template>
+                <div class="d-grid gap-2" style="width: 47%; height: 45px;">
+                    <button class="btn btn-dark btn-cancel" type="button">Cancel</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -184,6 +184,19 @@ option{
     pointer-events: none;
 }
 
+.save-button{
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.btn-cancel{
+    background: #f5f5f5; 
+    color: black;
+}
+
 @media (max-width: 768px) {
     .container-fluid{
         margin-bottom: -5rem;

@@ -151,23 +151,23 @@
         </div>
         <div class="mx-auto save-button">
             <div class="d-grid gap-2" 
-                *ngIf="name.valid
-                && bio.valid
-                && (email.valid || email.value === theEmail)
-                && facebook.valid
-                && twitter.valid
-                && instagram.valid; else invalid" style="width: 40%;">
+            *ngIf="name.valid
+            && bio.valid
+            && (email.valid || email.value === theEmail)
+            && facebook.valid
+            && twitter.valid
+            && instagram.valid; else invalid" style="width: 47%; height: 45px;">
                 <button class="btn btn-dark btn-code" type="button" (click)="save()" 
                 style="background: black;" data-bs-toggle="modal" data-bs-target="#successMessage">
                     Save
                 </button>
             </div>
             <ng-template #invalid>
-                <div class="d-grid gap-2" style="width: 40%;">
+                <div class="d-grid gap-2" style="width: 47%; height: 45px;">
                     <button class="btn btn-dark btn-code disabled" type="button">Save</button>
                 </div>
             </ng-template>
-            <div class="d-grid gap-2" style="width: 40%;">
+            <div class="d-grid gap-2" style="width: 47%; height: 45px;">
                 <button class="btn btn-dark btn-cancel" (click)="cancel()" type="button">Cancel</button>
             </div>
         </div>
