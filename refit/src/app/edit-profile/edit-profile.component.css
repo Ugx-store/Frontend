@@ -1,5 +1,5 @@
 .container-fluid{
-    background:#f5f5f5;
+    background:hsl(0, 0%, 96%);
     height: 100%;
     margin-bottom: -1rem;
 }
@@ -149,5 +149,8 @@
     }
     .arrow-back{
         margin-left: 0.5rem;
+    }
+    .save-button{
+        width: 90%; 
     }
 }
