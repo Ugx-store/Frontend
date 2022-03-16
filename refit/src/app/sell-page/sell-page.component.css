@@ -39,7 +39,8 @@
 .all-photos{
     display: flex;
     align-items: center;
-    margin-top: 0.5rem;
+    margin-top: 2.5rem;
+    height: 13rem;
 }
 
 .photo-div{
@@ -51,6 +52,30 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.product-div{
+    width: 10rem;
+    height: 10rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.optional-edit{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    margin-top: 1rem;
+    height: 1.5rem;
+}
+
+.product-img{
+    width: 10rem;
+    height: 10rem;
+    outline: none;
 }
 
 textarea{
@@ -207,6 +232,10 @@ option{
         width: 100%;
     }
     .photo-div{
+        width: 7rem;
+        height: 7rem;
+    }
+    .product-div{
         width: 7rem;
         height: 7rem;
     }

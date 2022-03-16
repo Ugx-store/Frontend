@@ -11,7 +11,7 @@
                 <label class="edit-button" data-bs-toggle="modal" data-bs-target="#imageModal">Change</label>
                 <div *ngIf="user.profilePicture.length || imgResultAfterCompress; else noImage" class="profile-pic-div mx-auto">
                     <img src="{{imgResultAfterCompress ? imgResultAfterCompress : userImg}}"
-                            alt="Profile pic" max-width="100%" class="profile-img">
+                        alt="Profile pic" max-width="100%" class="profile-img">
                 </div>
                 <ng-template #noImage>
                     <div class="profile-pic-div mx-auto">

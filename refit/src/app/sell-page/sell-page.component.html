@@ -7,14 +7,92 @@
                 Add upto 3 photos (We recommend you add at least one picture of yourself or someone else displaying the item)
             </span>
             <div class="all-photos">
-                <div class="photo-div">
-                    <span class="material-icons-outlined">add_a_photo</span>
+                <div>
+                    <span *ngIf="imageResultAfterCompressOne; else noImage">
+                        <img src="{{imageResultAfterCompressOne}}"
+                            alt="Profile pic" max-width="100%" class="product-div">
+                    </span>
+                    <span *ngIf="imageResultAfterCompressOne" class="optional-edit">
+                        <label type="button" class="btn-label">
+                            <span class="material-icons" style="color: rgb(29, 155, 240); padding-right: 1rem;">edit</span>
+                            <input #imageInput
+                                type="file" 
+                                accept="image/jpeg, image/png"
+                                (change)="processFileOne(imageInput)"
+                                style="display: none;">
+                        </label>
+                        <span class="material-icons" (click)="deletePic(imageResultAfterCompressOne)" style="color: red; cursor: pointer;">delete</span>
+                    </span>
+                    <ng-template #noImage>
+                        <span class="photo-div">
+                            <label type="button" class="btn-label">
+                                <span class="material-icons-outlined">add_a_photo</span>
+                                <input #imageInput
+                                    type="file" 
+                                    accept="image/jpeg, image/png"
+                                    (change)="processFileOne(imageInput)"
+                                    style="display: none;">
+                            </label>
+                        </span>
+                    </ng-template>
                 </div>
-                <div class="photo-div">
-                    <span class="material-icons-outlined">add_a_photo</span>
+                <div style="margin-bottom: 5rem">
+                    <span *ngIf="imageResultAfterCompressTwo; else noImageTwo">
+                        <img src="{{imageResultAfterCompressTwo}}"
+                            alt="Profile pic" max-width="100%" class="product-div">
+                    </span>
+                    <span *ngIf="imageResultAfterCompressTwo" class="optional-edit">
+                        <label type="button" class="btn-label">
+                            <span class="material-icons" style="color: rgb(29, 155, 240); padding-right: 1rem;">edit</span>
+                            <input #imageInput
+                                type="file" 
+                                accept="image/jpeg, image/png"
+                                (change)="processFileTwo(imageInput)"
+                                style="display: none;">
+                        </label>
+                        <span class="material-icons" (click)="deletePic(imageResultAfterCompressTwo)" style="color: red; cursor: pointer;">delete</span>
+                    </span>
+                    <ng-template #noImageTwo>
+                        <span class="photo-div">
+                            <label type="button">
+                                <span class="material-icons-outlined">add_a_photo</span>
+                                <input #imageInput
+                                    type="file" 
+                                    accept="image/jpeg, image/png"
+                                    (change)="processFileTwo(imageInput)"
+                                    style="display: none;">
+                            </label>
+                        </span>
+                    </ng-template>
                 </div>
-                <div class="photo-div">
-                    <span class="material-icons-outlined">add_a_photo</span>
+                <div>
+                    <span *ngIf="imageResultAfterCompressThree; else noImageThree">
+                        <img src="{{imageResultAfterCompressThree}}"
+                            alt="Profile pic" max-width="100%" class="product-div">
+                    </span>
+                    <span *ngIf="imageResultAfterCompressThree" class="optional-edit">
+                        <label type="button" class="btn-label">
+                            <span class="material-icons" style="color: rgb(29, 155, 240); padding-right: 1rem;">edit</span>
+                            <input #imageInput
+                                type="file" 
+                                accept="image/jpeg, image/png"
+                                (change)="processFileThree(imageInput)"
+                                style="display: none;">
+                        </label>
+                        <span class="material-icons" (click)="deletePic(imageResultAfterCompressThree)" style="color: red; cursor: pointer;">delete</span>
+                    </span>
+                    <ng-template #noImageThree>
+                        <span class="photo-div">
+                            <label type="button" class="btn-label" data-bs-dismiss="modal">
+                                <span class="material-icons-outlined">add_a_photo</span>
+                                <input #imageInput
+                                    type="file" 
+                                    accept="image/jpeg, image/png"
+                                    (change)="processFileThree(imageInput)"
+                                    style="display: none;">
+                            </label>
+                        </span>
+                    </ng-template>
                 </div>
             </div>
 
@@ -178,7 +256,13 @@ Be accurate to the point." maxlength="1000"></textarea>
                 <input class="form-control" placeholder="Age" id="ageInput">
                 <label class="floating-label" for="ageInput">Age</label>
             </form>
-            <span class="text-muted" style="font-size: 13px;">How long have you had this item? Ignore if item is new.</span>
+            <span class="text-muted" style="font-size: 13px;">How long have you had this item? Ignore if item is new.</span> 
+            <form class="form-floating input-floating">
+                <input class="form-control" placeholder="Location" id="sizeInput">
+                <label class="floating-label" for="sizeInput">
+                    Location
+                </label>
+            </form>
 
             <p class="headings" style="margin-bottom: 0.8rem;">Item Price</p>
             <div class="input-group mb-3" style="width: 50%;">
