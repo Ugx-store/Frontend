@@ -67,6 +67,7 @@
 .optional-edit{
     display: flex;
     align-content: center;
+    justify-content: center;
     margin-top: 1rem;
 }
 
@@ -240,6 +241,11 @@ option{
     .product-div{
         width: 7rem;
         height: 7rem;
+    }
+    .optional-edit{
+        display: flex;
+        align-content: center;
+        margin-top: 1rem;
     }
     textarea{
         height: 130px; 
