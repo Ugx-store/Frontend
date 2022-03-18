@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxImageCompressService } from 'ngx-image-compress';
+import { Product } from '../models/product';
 
 
 @Component({
@@ -10,6 +11,24 @@ import { NgxImageCompressService } from 'ngx-image-compress';
 export class SellPageComponent implements OnInit {
 
   constructor(private imageCompress: NgxImageCompressService) { }
+  product: Product = {
+    id: 0,
+    description: '',
+    condition: '',
+    itemPrice: '',
+    originalPrice: '',
+    quantity: '',
+    ownerName: '',
+    category: '',
+    subCategory: '',
+    brand: '',
+    color: '',
+    age: '',
+    location: '',
+    size: '',
+    freeDelivery: false,
+    dateTimeAdded: new Date(0)
+  }
 
   category: string = "";
   subcategory: string = "";
@@ -99,25 +118,22 @@ export class SellPageComponent implements OnInit {
     }
   }
 
-  categoryChange(){
-    console.log(this.category) 
-  }
-
   optionClick(event: any){
-    this.subcategory = ""
-    this.category = event.target.innerText
+    this.product.subCategory = ""
+    this.product.category = event.target.innerText
+    console.log(this.product.category)
   }
 
   subcategoryClick(event: any){
-    this.subcategory = event.target.innerText
+    this.product.subCategory = event.target.innerText
   }
 
   conditionClick(event: any){
     if(event.childNodes.length > 1){
-      this.condition = event.childNodes[0].innerText
+      this.product.condition = event.childNodes[0].innerText
     }
     else{
-      this.condition = event.childNodes[0].textContent
+      this.product.condition = event.childNodes[0].textContent
       console.log(event.childNodes[0].textContent)
     }
   }

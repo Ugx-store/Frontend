@@ -99,14 +99,25 @@
             <p class="headings">Description</p>
             <textarea class="form-control" placeholder="Tell the buyers about your item. Come up with a Headline, then add some details including material, condition, size and style.
 
-Be accurate to the point." maxlength="1000"></textarea>
+Be accurate to the point." maxlength="1000" name="description" #description="ngModel" [(ngModel)]="product.description" required></textarea>
+            <div *ngIf="description.invalid && description.dirty">
+                <span *ngIf="description.errors?.maxlength" class="form-text" style="color: red;">
+                    Description cannot have more than 1000 characters.
+                </span>
+            </div>
+            <div *ngIf="description?.invalid && description.touched">
+                <span *ngIf="description.errors?.required" class="form-text" style="color: red;">Description is required</span>
+            </div>
 
             <p class="headings">Info</p>
 
             <div class="form-floating input-floating" style="margin-top: 0;">
                 <input class="form-control dropdown" placeholder="Category" name="category" id="categoryInput"
-                #categories="ngModel" [(ngModel)]="category" value="{{category}}" onclick="mySellFunction(event)">
+                #categories="ngModel" [(ngModel)]="product.category" value="{{product.category}}" onclick="mySellFunction(event)" required>
                 <label class="floating-label" for="categoryInput">Category</label>
+            </div>
+            <div *ngIf="!product.category && categories.invalid && categories.dirty">
+                <span *ngIf="categories.errors?.required" class="form-text" style="color: red;">Please select a category</span>
             </div>
             <div class="dropdown-content-sell" id="sellDropdown">
                 <ul class="no-bullets">
@@ -131,11 +142,16 @@ Be accurate to the point." maxlength="1000"></textarea>
                 </ul>
             </div>
             
-            <div class="form-floating input-floating" *ngIf="category === 'Ladieswear'">
-                <input class="form-control dropdown" id="subcategoryInput" placeholder="Category" name="subcategory" #subcategories="ngModel" 
-                [(ngModel)]="subcategory" value="{{subcategory}}" onclick="ladyDropdown(event)">
-                <label class="floating-label" for="subcategoryInput">Subcategory</label>
-            </div>
+            <span *ngIf="product.category === 'Ladieswear'">
+                <div class="form-floating input-floating">
+                    <input class="form-control dropdown" id="subcategoryInput" placeholder="Subcategory" name="subcategory" #subcategories="ngModel" 
+                    [(ngModel)]="product.subCategory" value="{{product.subCategory}}" onclick="ladyDropdown(event)" required>
+                    <label class="floating-label" for="subcategoryInput">Subcategory</label>
+                </div>
+                <div *ngIf="!product.subCategory && subcategories.invalid  && subcategories.dirty">
+                    <span *ngIf="subcategories.errors?.required" class="form-text" style="color: red;">Please select a subcategory</span>
+                </div>
+            </span>
             <div class="dropdown-content-sell" id="ladyDropdown">
                 <ul *ngFor="let lady of ladyCats" class="no-bullets">
                     <li (click)="subcategoryClick($event)">
@@ -144,11 +160,16 @@ Be accurate to the point." maxlength="1000"></textarea>
                 </ul>
             </div>
 
-            <div class="form-floating input-floating" *ngIf="category === 'Menswear'">
-                <input class="form-control dropdown" id="subcategoryInput" placeholder="Category" name="subcategory" #subcategories="ngModel" 
-                [(ngModel)]="subcategory" value="{{subcategory}}" onclick="menDropdown(event)">
-                <label class="floating-label" for="subcategoryInput">Subcategory</label>
-            </div>
+            <span *ngIf="product.category === 'Menswear'">
+                <div class="form-floating input-floating">
+                    <input class="form-control dropdown" id="subcategoryInput" placeholder="Subcategory" name="subcategory" #subcategories="ngModel" 
+                    [(ngModel)]="product.subCategory" value="{{product.subCategory}}" onclick="menDropdown(event)" required>
+                    <label class="floating-label" for="subcategoryInput">Subcategory</label>
+                </div>
+                <div *ngIf="!product.subCategory && subcategories.invalid  && subcategories.dirty">
+                    <span *ngIf="subcategories.errors?.required" class="form-text" style="color: red;">Please select a subcategory</span>
+                </div>
+            </span>
             <div class="dropdown-content-sell" id="menDropdown">
                 <ul *ngFor="let men of menCats" class="no-bullets">
                     <li (click)="subcategoryClick($event)">
@@ -157,11 +178,16 @@ Be accurate to the point." maxlength="1000"></textarea>
                 </ul>
             </div>
 
-            <div class="form-floating input-floating" *ngIf="category === 'Jewelry'">
-                <input class="form-control dropdown" id="subcategoryInput" placeholder="Category" name="subcategory" #subcategories="ngModel" 
-                [(ngModel)]="subcategory" value="{{subcategory}}" onclick="jewelryDropdown(event)">
-                <label class="floating-label" for="subcategoryInput">Subcategory</label>
-            </div>
+            <span *ngIf="product.category === 'Jewelry'">
+                <div class="form-floating input-floating">
+                    <input class="form-control dropdown" id="subcategoryInput" placeholder="Category" name="subcategory" #subcategories="ngModel" 
+                    [(ngModel)]="product.subCategory" value="{{product.subCategory}}" onclick="jewelryDropdown(event)" required>
+                    <label class="floating-label" for="subcategoryInput">Subcategory</label>
+                </div>
+                <div *ngIf="!product.subCategory && subcategories.invalid  && subcategories.dirty">
+                    <span *ngIf="subcategories.errors?.required" class="form-text" style="color: red;">Please select a subcategory</span>
+                </div>
+            </span>
             <div class="dropdown-content-sell" id="jewelryDropdown">
                 <ul *ngFor="let jewelry of jewelry" class="no-bullets">
                     <li (click)="subcategoryClick($event)">
@@ -170,11 +196,16 @@ Be accurate to the point." maxlength="1000"></textarea>
                 </ul>
             </div>
 
-            <div class="form-floating input-floating" *ngIf="category === 'Beauty'">
-                <input class="form-control dropdown" id="subcategoryInput" placeholder="Category" name="subcategory" #subcategories="ngModel" 
-                [(ngModel)]="subcategory" value="{{subcategory}}" onclick="beautyDropdown(event)">
-                <label class="floating-label" for="subcategoryInput">Subcategory</label>
-            </div>
+            <span *ngIf="product.category === 'Beauty'">
+                <div class="form-floating input-floating">
+                    <input class="form-control dropdown" id="subcategoryInput" placeholder="Category" name="subcategory" #subcategories="ngModel" 
+                    [(ngModel)]="product.subCategory" value="{{product.subCategory}}" onclick="beautyDropdown(event)" required>
+                    <label class="floating-label" for="subcategoryInput">Subcategory</label>
+                </div>
+                <div *ngIf="!product.subCategory && subcategories.invalid  && subcategories.dirty">
+                    <span *ngIf="subcategories.errors?.required" class="form-text" style="color: red;">Please select a subcategory</span>
+                </div>
+            </span>
             <div class="dropdown-content-sell" id="beautyDropdown">
                 <ul *ngFor="let beauty of beauty" class="no-bullets">
                     <li (click)="subcategoryClick($event)">
@@ -183,11 +214,16 @@ Be accurate to the point." maxlength="1000"></textarea>
                 </ul>
             </div>
 
-            <div class="form-floating input-floating" *ngIf="category === 'Kids'">
-                <input class="form-control dropdown" id="subcategoryInput" placeholder="Category" name="subcategory" #subcategories="ngModel" 
-                [(ngModel)]="subcategory" value="{{subcategory}}" onclick="kidsDropdown(event)">
-                <label class="floating-label" for="subcategoryInput">Subcategory</label>
-            </div>
+            <span *ngIf="product.category === 'Kids'">
+                <div class="form-floating input-floating">
+                    <input class="form-control dropdown" id="subcategoryInput" placeholder="Category" name="subcategory" #subcategories="ngModel" 
+                    [(ngModel)]="product.subCategory" value="{{product.subCategory}}" onclick="kidsDropdown(event)" required>
+                    <label class="floating-label" for="subcategoryInput">Subcategory</label>
+                </div>
+                <div *ngIf="!product.subCategory && subcategories.invalid  && subcategories.dirty">
+                    <span *ngIf="subcategories.errors?.required" class="form-text" style="color: red;">Please select a subcategory</span>
+                </div>
+            </span>
             <div class="dropdown-content-sell" id="kidsDropdown">
                 <ul *ngFor="let kid of kids" class="no-bullets">
                     <li (click)="subcategoryClick($event)">
@@ -196,11 +232,16 @@ Be accurate to the point." maxlength="1000"></textarea>
                 </ul>
             </div>
 
-            <div class="form-floating input-floating" *ngIf="category === 'Rentals'">
-                <input class="form-control dropdown" id="subcategoryInput" placeholder="Category" name="subcategory" #subcategories="ngModel" 
-                [(ngModel)]="subcategory" value="{{subcategory}}" onclick="rentalsDropdown(event)">
-                <label class="floating-label" for="subcategoryInput">Subcategory</label>
-            </div>
+            <span *ngIf="product.category === 'Rentals'">
+                <div class="form-floating input-floating">
+                    <input class="form-control dropdown" id="subcategoryInput" placeholder="Category" name="subcategory" #subcategories="ngModel" 
+                    [(ngModel)]="product.subCategory" value="{{product.subCategory}}" onclick="rentalsDropdown(event)" required>
+                    <label class="floating-label" for="subcategoryInput">Subcategory</label>
+                </div>
+                <div *ngIf="!product.subCategory && subcategories.invalid  && subcategories.dirty">
+                    <span *ngIf="subcategories.errors?.required" class="form-text" style="color: red;">Please select a subcategory</span>
+                </div>
+            </span>
             <div class="dropdown-content-sell" id="rentalsDropdown">
                 <ul *ngFor="let rental of rentals" class="no-bullets">
                     <li (click)="subcategoryClick($event)">
@@ -211,8 +252,11 @@ Be accurate to the point." maxlength="1000"></textarea>
 
             <div class="form-floating input-floating">
                 <input class="form-control dropdown" placeholder="Condition" name="condition" id="conditionInput"
-                #conditions="ngModel" [(ngModel)]="condition" value="{{condition}}" onclick="conditionFunction(event)">
+                #conditions="ngModel" [(ngModel)]="product.condition" value="{{product.condition}}" onclick="conditionFunction(event)" required>
                 <label class="floating-label" for="conditionInput">Condition</label>
+            </div>
+            <div *ngIf="!product.condition && conditions.invalid && conditions.dirty">
+                <span *ngIf="conditions.errors?.required" class="form-text" style="color: red;">Please select a condition</span>
             </div>
             <div class="dropdown-content-sell" id="conditionDropdown">
                 <ul class="no-bullets">
@@ -240,38 +284,54 @@ Be accurate to the point." maxlength="1000"></textarea>
             </div>
 
             <form class="form-floating input-floating">
-                <input class="form-control" placeholder="Brand" id="brandInput"> 
+                <input class="form-control" placeholder="Brand" id="brandInput" name="brand" #brands="ngModel" 
+                [(ngModel)]="product.brand" value="{{product.brand}}"> 
                 <label class="floating-label" for="brandInput">Brand</label>
             </form>
             <span class="text-muted" style="font-size: 13px;">Some users are attracted to certain brands. Ignore this if you are unsure.</span>
+            
             <form class="form-floating input-floating">
-                <input class="form-control" placeholder="Color" id="colorInput">
+                <input class="form-control" placeholder="Color" id="colorInput" name="color" #colors="ngModel" 
+                [(ngModel)]="product.color" value="{{product.color}}">
                 <label class="floating-label" for="colorInput">Color</label>
             </form>
             <form class="form-floating input-floating">
-                <input class="form-control" placeholder="Size" id="sizeInput">
+                <input class="form-control" placeholder="Size" id="sizeInput" name="size" #sizes="ngModel" 
+                [(ngModel)]="product.size" value="{{product.size}}">
                 <label class="floating-label" for="sizeInput">Size</label>
             </form>
             <form class="form-floating input-floating">
-                <input class="form-control" placeholder="Age" id="ageInput">
+                <input class="form-control" placeholder="Age" id="ageInput" name="age" #ages="ngModel" 
+                [(ngModel)]="product.age" value="{{product.age}}">
                 <label class="floating-label" for="ageInput">Age</label>
             </form>
             <span class="text-muted" style="font-size: 13px;">How long have you had this item? Ignore if item is new.</span> 
+            
             <form class="form-floating input-floating">
-                <input class="form-control" placeholder="Location" id="sizeInput">
+                <input class="form-control" placeholder="Location" id="sizeInput" name="location" #locations="ngModel" 
+                [(ngModel)]="product.location" value="{{product.location}}" required>
                 <label class="floating-label" for="sizeInput">
                     Location
                 </label>
             </form>
+            <div *ngIf="!product.location && locations.invalid && locations.dirty">
+                <span *ngIf="locations.errors?.required" class="form-text" style="color: red;">Please add your location</span>
+            </div>
+            <span class="text-muted" style="font-size: 13px;">Let users know where to find you.</span>
 
             <p class="headings" style="margin-bottom: 0.8rem;">Item Price</p>
             <div class="input-group mb-3" style="width: 50%;">
                 <span class="input-group-text" id="item-price">
                     Ugx
                 </span>
-                <input type="text" class="form-control" placeholder="Item price" 
-                aria-label="Price" aria-describedby="item-price">
+                <input type="text" class="form-control" placeholder="Item price" aria-label="Price" 
+                aria-describedby="item-price" name="price" #prices="ngModel" [(ngModel)]="product.itemPrice" 
+                value="{{product.itemPrice}}" required>
             </div>
+            <div *ngIf="!product.itemPrice && prices.invalid && prices.dirty">
+                <span *ngIf="prices.errors?.required" class="form-text" style="color: red; margin-top: -0.5rem;">Please add the price of the item</span>
+            </div>
+            
             <div class="input-group mb-3" style="width: 50%;">
                 <span class="input-group-text" id="original-price">
                     Ugx

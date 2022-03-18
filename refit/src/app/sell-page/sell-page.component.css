@@ -159,6 +159,8 @@ option{
 
 .form-floating>.form-control:focus~label, .form-floating>.form-control:not(:placeholder-shown)~label, .form-floating>.form-select~label {
     padding-top: 0;
+    margin-left: -0.2rem;
+
 }
 
 .form-floating>.form-control:focus, .form-floating>.form-control:not(:placeholder-shown) {
