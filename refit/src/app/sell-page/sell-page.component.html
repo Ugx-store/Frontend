@@ -326,23 +326,37 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
                 </span>
                 <input type="text" class="form-control" placeholder="Item price" aria-label="Price" 
                 aria-describedby="item-price" name="price" #prices="ngModel" [(ngModel)]="product.itemPrice" 
-                value="{{product.itemPrice}}" required>
+                value="{{product.itemPrice}}" pattern="[0-9,]{1,}" required>
+                <div *ngIf="prices.invalid && (prices.touched || prices.dirty)">
+                    <span *ngIf="prices.errors?.['pattern']" class="form-text" style="color: red;">
+                        The price can only contain numbers and a comma.
+                    </span>
+                </div>
             </div>
-            <div *ngIf="!product.itemPrice && prices.invalid && prices.dirty">
-                <span *ngIf="prices.errors?.required" class="form-text" style="color: red; margin-top: -0.5rem;">Please add the price of the item</span>
+            <div *ngIf="prices.invalid && (prices.touched || prices.dirty)">
+                <span *ngIf="prices.errors?.['required']" class="form-text" 
+                style="color: red; margin-top: -0.8rem; margin-bottom: 1rem;">Please add the price of the item</span>
             </div>
             
             <div class="input-group mb-3" style="width: 50%;">
                 <span class="input-group-text" id="original-price">
                     Ugx
                 </span>
-                <input type="text" class="form-control" placeholder="Original price" 
-                aria-label="Price" aria-describedby="original-price">
+                <input type="text" class="form-control" placeholder="Original price" aria-label="Price" 
+                aria-describedby="original-price" name="originalPrice" #originalPrices="ngModel" [(ngModel)]="product.originalPrice" 
+                value="{{product.originalPrice}}" pattern="[0-9,]{1,}">
+                <div *ngIf="originalPrices.invalid && (originalPrices.touched || originalPrices.dirty)">
+                    <span *ngIf="originalPrices.errors?.['pattern']" class="form-text" 
+                    style="color: red;">
+                        The price can only contain numbers and a comma.
+                    </span>
+                </div>
                 <span class="text-muted" style="font-size: 13px;">
                     This is the price at which you bought the item. It helps users know how much they will
                     save by choosing to buy this item instead of a new one. Ignore if item is new.
                 </span>
             </div>
+
             <div class="form-check form-switch" style="margin-left: 1rem; margin-top: 2rem;">
                 <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked">
                 <label class="form-check-label" for="flexSwitchCheckChecked">Offer free delivery</label>
@@ -352,7 +366,17 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
             </span>
 
             <div class="mx-auto save-button">
-                <div class="d-grid gap-2" style="width: 47%; height: 45px;">
+                <div
+                *ngIf="description.valid
+                && categories.valid
+                && (imageResultAfterCompressOne || imageResultAfterCompressTwo
+                || imageResultAfterCompressThree)
+                && product.subCategory
+                && conditions.valid
+                && locations.valid
+                && prices.valid
+                && originalPrices.valid; 
+                else invalid" class="d-grid gap-2" style="width: 47%; height: 45px;">
                     <button class="btn btn-dark btn-code" type="button"
                     style="background: black;" data-bs-toggle="modal" data-bs-target="#successMessage">
                         Save
