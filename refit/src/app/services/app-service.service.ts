@@ -5,6 +5,7 @@ import { catchError, delay, tap } from 'rxjs/operators';
 import { User } from '../models/newUser';
 import { Follow } from '../models/follow';
 import {  ProfilePictures } from '../models/profilepic';
+import { Product } from '../models/product';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class AppServiceService {
   private email_url: string = "https://users-db.azurewebsites.net/api/EmailSender/"
   private follow_url: string = "https://users-db.azurewebsites.net/api/Following"
   private profile_pic: string = "https://users-db.azurewebsites.net/api/ProfilePic"
+  private product_url: string = "https://products-db.azurewebsites.net/api/Products"
 
   constructor(private http: HttpClient) { }
 
@@ -96,6 +98,10 @@ export class AppServiceService {
 
   getProfilePicturesList(username: string): Observable<ProfilePictures[]>{
     return this.http.get<ProfilePictures[]>(this.profile_pic + "/pictures/" + username);
+  }
+
+  addProduct(newProduct: Product): Promise<Product>{
+    return this.http.post<Product>(this.product_url, newProduct).toPromise();
   }
 
 }

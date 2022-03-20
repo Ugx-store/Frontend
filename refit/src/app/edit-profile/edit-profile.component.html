@@ -168,7 +168,8 @@
                 </div>
             </ng-template>
             <div class="d-grid gap-2" style="width: 47%; height: 45px;">
-                <button class="btn btn-dark btn-cancel" (click)="cancel()" type="button">Cancel</button>
+                <button class="btn btn-dark btn-cancel" type="button" 
+                data-bs-toggle="modal" data-bs-target="#cancelMessage">Cancel</button>
             </div>
         </div>
     </div>
@@ -256,5 +257,22 @@
                 </div>
             </div>
         </ng-template>
+    </div>
+</div>
+
+<div class="modal fade" id="cancelMessage" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="cancelMessageLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cancelMessageLabel">Caution</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Please note that by continuing, your changes will not be saved!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark btn-code" (click)="cancel()" data-bs-dismiss="modal">Continue</button>
+            </div>
+        </div>
     </div>
 </div>

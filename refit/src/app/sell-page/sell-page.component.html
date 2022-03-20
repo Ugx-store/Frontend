@@ -301,6 +301,12 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
                 <label class="floating-label" for="sizeInput">Size</label>
             </form>
             <form class="form-floating input-floating">
+                <input class="form-control" placeholder="Size" id="sizeInput" name="quantity" #quantities="ngModel" 
+                [(ngModel)]="product.quantity" value="{{product.quantity}}">
+                <label class="floating-label" for="sizeInput">Quantity</label>
+            </form>
+            <span class="text-muted" style="font-size: 13px;">How many similar items have you got in stock?</span>
+            <form class="form-floating input-floating">
                 <input class="form-control" placeholder="Age" id="ageInput" name="age" #ages="ngModel" 
                 [(ngModel)]="product.age" value="{{product.age}}">
                 <label class="floating-label" for="ageInput">Age</label>
@@ -326,10 +332,10 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
                 </span>
                 <input type="text" class="form-control" placeholder="Item price" aria-label="Price" 
                 aria-describedby="item-price" name="price" #prices="ngModel" [(ngModel)]="product.itemPrice" 
-                value="{{product.itemPrice}}" pattern="[0-9,]{1,}" required>
+                value="{{product.itemPrice}}" pattern="[0-9.]{1,}" required>
                 <div *ngIf="prices.invalid && (prices.touched || prices.dirty)">
                     <span *ngIf="prices.errors?.['pattern']" class="form-text" style="color: red;">
-                        The price can only contain numbers and a comma.
+                        The price can only contain numbers and a fullstop.
                     </span>
                 </div>
             </div>
@@ -344,11 +350,11 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
                 </span>
                 <input type="text" class="form-control" placeholder="Original price" aria-label="Price" 
                 aria-describedby="original-price" name="originalPrice" #originalPrices="ngModel" [(ngModel)]="product.originalPrice" 
-                value="{{product.originalPrice}}" pattern="[0-9,]{1,}">
+                value="{{product.originalPrice}}" pattern="[0-9.]{1,}">
                 <div *ngIf="originalPrices.invalid && (originalPrices.touched || originalPrices.dirty)">
                     <span *ngIf="originalPrices.errors?.['pattern']" class="form-text" 
                     style="color: red;">
-                        The price can only contain numbers and a comma.
+                        The price can only contain numbers and a fullstop.
                     </span>
                 </div>
                 <span class="text-muted" style="font-size: 13px;">
@@ -358,7 +364,7 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
             </div>
 
             <div class="form-check form-switch" style="margin-left: 1rem; margin-top: 2rem;">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked">
+                <input class="form-check-input" type="checkbox" role="switch" (click)="freeDeliveryClicked()" id="flexSwitchCheckChecked">
                 <label class="form-check-label" for="flexSwitchCheckChecked">Offer free delivery</label>
             </div>
             <span class="text-muted" style="font-size: 13px;">
@@ -378,7 +384,7 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
                 && originalPrices.valid; 
                 else invalid" class="d-grid gap-2" style="width: 47%; height: 45px;">
                     <button class="btn btn-dark btn-code" type="button"
-                    style="background: black;" data-bs-toggle="modal" data-bs-target="#successMessage">
+                    style="background: black;" (click)="save()" data-bs-toggle="modal" data-bs-target="#successMessage">
                         Save
                     </button>
                 </div>
@@ -388,9 +394,71 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
                     </div>
                 </ng-template>
                 <div class="d-grid gap-2" style="width: 47%; height: 45px;">
-                    <button class="btn btn-dark btn-cancel" type="button">Cancel</button>
+                    <button class="btn btn-dark btn-cancel" type="button"data-bs-toggle="modal" 
+                    data-bs-target="#cancelMessage">Cancel</button>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cancelMessage" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="cancelMessageLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cancelMessageLabel">Caution</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Please note that by continuing, your changes will not be saved!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark btn-code" (click)="cancel()" data-bs-dismiss="modal">Continue</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="successMessage" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="successMessageLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <span *ngIf="(loaderService.isLoading | async); else notLoading">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body loader-body">
+                    <span class="spinner-grow spinner-grow-sm mx-auto" role="status" aria-hidden="true"></span>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </span>
+            <ng-template #notLoading>
+                <span *ngIf="error; else noError">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="successMessageLabel">Error</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {{message}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark btn-code" data-bs-dismiss="modal">Continue</button>
+                    </div>
+                </span>
+                <ng-template #noError>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="successMessageLabel">Success</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {{message}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Add</button>
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="cancel()">Continue</button>
+                    </div>
+                </ng-template>
+            </ng-template>
         </div>
     </div>
 </div>

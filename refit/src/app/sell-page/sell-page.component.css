@@ -222,6 +222,11 @@ option{
     color: black;
 }
 
+.loader-body{
+    display: flex; 
+    align-items: center;
+}
+
 @media (max-width: 768px) {
     .container-fluid{
         margin-bottom: -5rem;

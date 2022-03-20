@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgxImageCompressService } from 'ngx-image-compress';
+import { LoaderService } from '../Loader';
 import { Product } from '../models/product';
+import { AppServiceService } from '../services/app-service.service';
 
 
 @Component({
@@ -10,14 +13,15 @@ import { Product } from '../models/product';
 })
 export class SellPageComponent implements OnInit {
 
-  constructor(private imageCompress: NgxImageCompressService) { }
+  constructor(private imageCompress: NgxImageCompressService, private route: Router, private service: AppServiceService,
+    public loaderService: LoaderService) { }
   product: Product = {
     id: 0,
     description: '',
     condition: '',
-    itemPrice: '',
-    originalPrice: '',
-    quantity: '',
+    itemPrice: 0,
+    originalPrice: 0,
+    quantity: 0,
     ownerName: '',
     category: '',
     subCategory: '',
@@ -38,6 +42,9 @@ export class SellPageComponent implements OnInit {
   imageResultAfterCompressTwo: any;
   imageResultAfterCompressThree: any;
   emptyImage: any;
+
+  message: string = '';
+  error: any;
 
   ladyCats: string[]= ["Dresses", "Tops", "Accessories", "Lingerie", "Shoes", "Skirts", "Pants", "Jackets", "Others"]
   menCats: string[] = ["Jackets", "Shirts", "Pants", "Underwear", "Shoes", "Accessories", "Others"]
@@ -136,6 +143,26 @@ export class SellPageComponent implements OnInit {
       this.product.condition = event.childNodes[0].textContent
       console.log(event.childNodes[0].textContent)
     }
+  }
+
+  freeDeliveryClicked(){
+    this.product.freeDelivery = true;
+  }
+
+  cancel(){
+    this.route.navigateByUrl('homepage')
+  }
+
+  save(){
+    this.product.dateTimeAdded = new Date();
+    this.service.addProduct(this.product).then(res =>{
+      this.message = "Product saved! Press 'Add' to add another product or 'Continue' to return to the homepage."
+    },
+    err =>{
+      console.log(err)
+      this.error = err
+      this.message = "Sorry we failed to update your information. Please try again!"
+    })
   }
 
 }

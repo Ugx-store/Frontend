@@ -2,9 +2,8 @@ export interface Product{
     id: number;
     description: string;
     condition: string;
-    itemPrice: string;
-    originalPrice: string;
-    quantity: string;
+    itemPrice: number;
+    originalPrice: number;
     ownerName: string;
     category: string;
     subCategory: string;
@@ -13,6 +12,7 @@ export interface Product{
     age: string;
     location: string;
     size: string;
+    quantity: number;
     freeDelivery: boolean;
     dateTimeAdded: Date;
 }
