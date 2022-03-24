@@ -21,7 +21,7 @@ export class SellPageComponent implements OnInit {
     condition: '',
     itemPrice: 0,
     originalPrice: 0,
-    quantity: 0,
+    quantity: 1,
     ownerName: '',
     category: '',
     subCategory: '',
@@ -37,6 +37,11 @@ export class SellPageComponent implements OnInit {
   category: string = "";
   subcategory: string = "";
   condition: string = "";
+
+  itemPrice: any
+  originalPrice: any
+  quantity: any
+  user: any
 
   imageResultAfterCompressOne: any;
   imageResultAfterCompressTwo: any;
@@ -54,6 +59,14 @@ export class SellPageComponent implements OnInit {
   rentals: string[] = ["Ladies", "Men"]
 
   ngOnInit(): void {
+    var loggedInUser = localStorage.getItem('LoggedInUserDetails') 
+    if(loggedInUser){
+      var user = JSON.parse(loggedInUser)
+      if(user.email){
+        this.service.getUser(user.email).subscribe(res =>{
+          this.user = res
+        })}
+    }
   }
 
   processFileOne(imageInput: any){
@@ -154,7 +167,13 @@ export class SellPageComponent implements OnInit {
   }
 
   save(){
+    if(this.originalPrice) {this.product.originalPrice = this.originalPrice}
+    if(this.quantity){this.product.quantity = this.quantity}
+
+    this.product.itemPrice = this.itemPrice
+    this.product.ownerName = this.user.username
     this.product.dateTimeAdded = new Date();
+    
     this.service.addProduct(this.product).then(res =>{
       this.message = "Product saved! Press 'Add' to add another product or 'Continue' to return to the homepage."
     },

@@ -302,7 +302,7 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
             </form>
             <form class="form-floating input-floating">
                 <input class="form-control" placeholder="Size" id="sizeInput" name="quantity" #quantities="ngModel" 
-                [(ngModel)]="product.quantity" value="{{product.quantity}}">
+                [(ngModel)]="quantity" value="{{product.quantity}}">
                 <label class="floating-label" for="sizeInput">Quantity</label>
             </form>
             <span class="text-muted" style="font-size: 13px;">How many similar items have you got in stock?</span>
@@ -331,15 +331,14 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
                     Ugx
                 </span>
                 <input type="text" class="form-control" placeholder="Item price" aria-label="Price" 
-                aria-describedby="item-price" name="price" #prices="ngModel" [(ngModel)]="product.itemPrice" 
-                value="{{product.itemPrice}}" pattern="[0-9.]{1,}" required>
-                <div *ngIf="prices.invalid && (prices.touched || prices.dirty)">
-                    <span *ngIf="prices.errors?.['pattern']" class="form-text" style="color: red;">
-                        The price can only contain numbers and a fullstop.
-                    </span>
-                </div>
+                aria-describedby="item-price" name="price" #prices="ngModel" [(ngModel)]="itemPrice" 
+                value="{{product.itemPrice}}" pattern="[0-9]{1,}" required>
             </div>
             <div *ngIf="prices.invalid && (prices.touched || prices.dirty)">
+                <span *ngIf="prices.errors?.['pattern']" class="form-text" 
+                style="color: red; margin-top: -0.8rem; margin-bottom: 1rem;">
+                    The price can only contain numbers.
+                </span>
                 <span *ngIf="prices.errors?.['required']" class="form-text" 
                 style="color: red; margin-top: -0.8rem; margin-bottom: 1rem;">Please add the price of the item</span>
             </div>
@@ -349,12 +348,12 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
                     Ugx
                 </span>
                 <input type="text" class="form-control" placeholder="Original price" aria-label="Price" 
-                aria-describedby="original-price" name="originalPrice" #originalPrices="ngModel" [(ngModel)]="product.originalPrice" 
+                aria-describedby="original-price" name="originalPrice" #originalPrices="ngModel" [(ngModel)]="originalPrice" 
                 value="{{product.originalPrice}}" pattern="[0-9.]{1,}">
                 <div *ngIf="originalPrices.invalid && (originalPrices.touched || originalPrices.dirty)">
                     <span *ngIf="originalPrices.errors?.['pattern']" class="form-text" 
-                    style="color: red;">
-                        The price can only contain numbers and a fullstop.
+                    style="color: red; width: 50rem;">
+                        The price can only contain numbers.
                     </span>
                 </div>
                 <span class="text-muted" style="font-size: 13px;">
@@ -435,7 +434,7 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
             <ng-template #notLoading>
                 <span *ngIf="error; else noError">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="successMessageLabel">Error</h5>
+                        <h5 class="modal-title" id="successMessageLabel" style="font-family: 'Public Sans', sans-serif;">Error</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -447,15 +446,15 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
                 </span>
                 <ng-template #noError>
                     <div class="modal-header">
-                        <h5 class="modal-title" id="successMessageLabel">Success</h5>
+                        <h5 class="modal-title" id="successMessageLabel" style="font-family: 'Public Sans', sans-serif;">Success</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         {{message}}
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Add</button>
-                        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="cancel()">Continue</button>
+                        <button type="button" class="btn btn-primary success-buttons" data-bs-dismiss="modal">Add</button>
+                        <button type="button" class="btn btn-light success-buttons" data-bs-dismiss="modal" (click)="cancel()">Continue</button>
                     </div>
                 </ng-template>
             </ng-template>

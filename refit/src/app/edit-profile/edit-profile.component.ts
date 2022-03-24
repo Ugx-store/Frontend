@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { getAuth, updateEmail } from 'firebase/auth';
 import { NgxImageCompressService } from 'ngx-image-compress';
@@ -19,7 +19,7 @@ class ImageSnippet{
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.css']
 })
-export class EditProfileComponent implements OnInit {
+export class EditProfileComponent implements OnInit, OnDestroy {
 
   constructor(private service: AppServiceService, private activatedRoute: ActivatedRoute, 
     private imageCompress: NgxImageCompressService, private route: Router, public loaderService: LoaderService) { }
@@ -73,6 +73,10 @@ export class EditProfileComponent implements OnInit {
         }
       })
     })
+  }
+
+  ngOnDestroy(){
+    localStorage.removeItem('UserBeforeEdit')
   }
 
   processFile(imageInput: any){

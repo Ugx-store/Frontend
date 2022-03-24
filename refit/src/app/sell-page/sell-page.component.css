@@ -227,6 +227,23 @@ option{
     align-items: center;
 }
 
+.modal-login-button button{
+    height: 3.5rem; 
+    font-family: 'Public Sans', sans-serif;
+    font-size: 20px;
+}
+
+.success-buttons{
+    border-radius: 9999px;
+    width: 6rem;
+}
+
+.btn-light{
+    border-style: solid;
+    border-width: 0.0625rem;
+    border-color: black;
+}
+
 @media (max-width: 768px) {
     .container-fluid{
         margin-bottom: -5rem;
