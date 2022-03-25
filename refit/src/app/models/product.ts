@@ -10,7 +10,8 @@ export interface Product{
     brand: string;
     color: string;
     age: string;
-    location: string;
+    town: string;
+    city: string;
     size: string;
     quantity: number;
     freeDelivery: boolean;

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { LoaderService } from '../Loader';
 import { Product } from '../models/product';
+import { ProductImage } from '../models/productImage';
 import { AppServiceService } from '../services/app-service.service';
 
 
@@ -28,11 +29,20 @@ export class SellPageComponent implements OnInit {
     brand: '',
     color: '',
     age: '',
-    location: '',
+    town: '',
+    city: '',
     size: '',
     freeDelivery: false,
     dateTimeAdded: new Date(0)
   }
+
+  productImage: ProductImage = {
+    id: 0,
+    productId: 0,
+    imageData: ''
+  }
+
+  imagesToUpload: ProductImage[] = []
 
   category: string = "";
   subcategory: string = "";
@@ -79,6 +89,7 @@ export class SellPageComponent implements OnInit {
         this.imageCompress.compressFile(event.target.result, orientation, 50, 50).then(
           result => {
             this.imageResultAfterCompressOne = result
+            console.log(this.imageResultAfterCompressOne)
           }
         )
 
@@ -141,7 +152,6 @@ export class SellPageComponent implements OnInit {
   optionClick(event: any){
     this.product.subCategory = ""
     this.product.category = event.target.innerText
-    console.log(this.product.category)
   }
 
   subcategoryClick(event: any){
@@ -166,21 +176,48 @@ export class SellPageComponent implements OnInit {
     this.route.navigateByUrl('homepage')
   }
 
+  addButton(){
+    location.reload();
+  }
+
   save(){
+    var images = [
+      this.imageResultAfterCompressOne, 
+      this.imageResultAfterCompressTwo,
+      this.imageResultAfterCompressThree
+    ]
+
     if(this.originalPrice) {this.product.originalPrice = this.originalPrice}
     if(this.quantity){this.product.quantity = this.quantity}
 
     this.product.itemPrice = this.itemPrice
     this.product.ownerName = this.user.username
     this.product.dateTimeAdded = new Date();
-    
+
     this.service.addProduct(this.product).then(res =>{
-      this.message = "Product saved! Press 'Add' to add another product or 'Continue' to return to the homepage."
+      for(let i=0; i<images.length; i++){
+        if(images[i]){
+          this.productImage.productId = res.id
+          this.productImage.imageData = images[i].split(',')[1]
+
+          this.imagesToUpload.push(this.productImage)
+        }
+      }
+
+      this.service.addProductImages(this.imagesToUpload).subscribe(img =>{
+        this.message = "Product saved! Press 'Add' to add another product or 'Continue' to return to the homepage."
+        console.log(img)
+      },
+      err => {
+        console.log(err)
+        this.error = err
+        this.message = "Sorry we failed to upload the product images. Please try again!"
+      })
     },
     err =>{
       console.log(err)
       this.error = err
-      this.message = "Sorry we failed to update your information. Please try again!"
+      this.message = "Sorry we failed to upload the product information. Please try again!"
     })
   }
 

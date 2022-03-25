@@ -302,9 +302,15 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
             </form>
             <form class="form-floating input-floating">
                 <input class="form-control" placeholder="Size" id="sizeInput" name="quantity" #quantities="ngModel" 
-                [(ngModel)]="quantity" value="{{product.quantity}}">
+                [(ngModel)]="quantity" value="{{product.quantity}}" pattern="[0-9.]{1,}">
                 <label class="floating-label" for="sizeInput">Quantity</label>
             </form>
+            <div *ngIf="quantities.invalid && quantities.dirty">
+                <span *ngIf="quantities.errors?.['pattern']" class="form-text" 
+                style="color: red; width: 50rem;">
+                    The quantity can only contain numbers.
+                </span>
+            </div>
             <span class="text-muted" style="font-size: 13px;">How many similar items have you got in stock?</span>
             <form class="form-floating input-floating">
                 <input class="form-control" placeholder="Age" id="ageInput" name="age" #ages="ngModel" 
@@ -313,17 +319,29 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
             </form>
             <span class="text-muted" style="font-size: 13px;">How long have you had this item? Ignore if item is new.</span> 
             
-            <form class="form-floating input-floating">
-                <input class="form-control" placeholder="Location" id="sizeInput" name="location" #locations="ngModel" 
-                [(ngModel)]="product.location" value="{{product.location}}" required>
+            <p class="headings">Location</p>
+            <span class="text-muted" style="font-size: 13px;">Let buyers know where to find you.</span>
+            <form class="form-floating input-floating" style="margin-top: 0;">
+                <input class="form-control" placeholder="Town" id="sizeInput" name="town" #towns="ngModel" 
+                [(ngModel)]="product.town" value="{{product.town}}" required>
                 <label class="floating-label" for="sizeInput">
-                    Location
+                    Town
                 </label>
             </form>
-            <div *ngIf="!product.location && locations.invalid && locations.dirty">
-                <span *ngIf="locations.errors?.required" class="form-text" style="color: red;">Please add your location</span>
+            <div *ngIf="towns.invalid && towns.touched">
+                <span *ngIf="towns.errors?.required" class="form-text" style="color: red;">Please add your town</span>
             </div>
-            <span class="text-muted" style="font-size: 13px;">Let users know where to find you.</span>
+
+            <form class="form-floating input-floating">
+                <input class="form-control" placeholder="Town" id="sizeInput" name="city" #cities="ngModel" 
+                [(ngModel)]="product.city" value="{{product.city}}" required>
+                <label class="floating-label" for="sizeInput">
+                    City
+                </label>
+            </form>
+            <div *ngIf="cities.invalid && cities.touched">
+                <span *ngIf="cities.errors?.required" class="form-text" style="color: red;">Please add your City</span>
+            </div>
 
             <p class="headings" style="margin-bottom: 0.8rem;">Item Price</p>
             <div class="input-group mb-3" style="width: 50%;">
@@ -378,7 +396,8 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
                 || imageResultAfterCompressThree)
                 && product.subCategory
                 && conditions.valid
-                && locations.valid
+                && towns.valid
+                && cities.valid
                 && prices.valid
                 && originalPrices.valid; 
                 else invalid" class="d-grid gap-2" style="width: 47%; height: 45px;">
@@ -453,7 +472,7 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
                         {{message}}
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary success-buttons" data-bs-dismiss="modal">Add</button>
+                        <button type="button" class="btn btn-primary success-buttons" data-bs-dismiss="modal" (click)="addButton()">Add</button>
                         <button type="button" class="btn btn-light success-buttons" data-bs-dismiss="modal" (click)="cancel()">Continue</button>
                     </div>
                 </ng-template>

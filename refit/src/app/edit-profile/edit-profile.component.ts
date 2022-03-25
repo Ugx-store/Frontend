@@ -113,8 +113,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       this.profilePic.username = this.user.username
       this.profilePic.imageData = this.imgResultAfterCompress.split(',')[1]
 
-      console.log(this.profilePic)
-
       this.service.postProfilePicture(this.profilePic).subscribe(res =>{
         console.log(res)
       },

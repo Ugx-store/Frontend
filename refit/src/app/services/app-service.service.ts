@@ -6,6 +6,7 @@ import { User } from '../models/newUser';
 import { Follow } from '../models/follow';
 import {  ProfilePictures } from '../models/profilepic';
 import { Product } from '../models/product';
+import { ProductImage } from '../models/productImage';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,7 @@ export class AppServiceService {
   private follow_url: string = "https://users-db.azurewebsites.net/api/Following"
   private profile_pic: string = "https://users-db.azurewebsites.net/api/ProfilePic"
   private product_url: string = "https://products-db.azurewebsites.net/api/Products"
+  private product_image: string = "https://products-db.azurewebsites.net/api//ProductImages"
 
   constructor(private http: HttpClient) { }
 
@@ -102,6 +104,10 @@ export class AppServiceService {
 
   addProduct(newProduct: Product): Promise<Product>{
     return this.http.post<Product>(this.product_url, newProduct).toPromise();
+  }
+
+  addProductImages(image: ProductImage[]){
+    return this.http.post(this.product_image, image, {responseType: "text"})
   }
 
 }
