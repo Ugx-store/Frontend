@@ -67,7 +67,6 @@
 .product-img{
     width: 10rem;
     height: 10rem;
-    outline: none;
 }
 
 .edit-button{
@@ -256,6 +255,10 @@ option{
         height: 7rem;
     }
     .product-div{
+        width: 7rem;
+        height: 7rem;
+    }
+    .product-img{
         width: 7rem;
         height: 7rem;
     }

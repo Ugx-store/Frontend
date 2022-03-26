@@ -8,7 +8,7 @@
             </span>
             <div class="all-photos">
                 <div>
-                    <span *ngIf="imageResultAfterCompressOne; else noImage">
+                    <span *ngIf="imageResultAfterCompressOne; else noImage" class="product-img">
                         <img src="{{imageResultAfterCompressOne}}"
                             alt="Profile pic" max-width="100%" class="product-div">
                     </span>
@@ -37,7 +37,7 @@
                     </ng-template>
                 </div>
                 <div style="margin-bottom: 5rem">
-                    <span *ngIf="imageResultAfterCompressTwo; else noImageTwo">
+                    <span *ngIf="imageResultAfterCompressTwo; else noImageTwo" class="product-img">
                         <img src="{{imageResultAfterCompressTwo}}"
                             alt="Profile pic" max-width="100%" class="product-div">
                     </span>
@@ -66,7 +66,7 @@
                     </ng-template>
                 </div>
                 <div>
-                    <span *ngIf="imageResultAfterCompressThree; else noImageThree">
+                    <span *ngIf="imageResultAfterCompressThree; else noImageThree" class="product-img">
                         <img src="{{imageResultAfterCompressThree}}"
                             alt="Profile pic" max-width="100%" class="product-div">
                     </span>
