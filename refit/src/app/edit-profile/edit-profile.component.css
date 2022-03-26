@@ -83,7 +83,8 @@
 
 .profile-img{
     height: 6rem; 
-    width: 6rem; 
+    width: 6rem;
+    object-fit: cover; 
     border-radius: 50%;
 }
 

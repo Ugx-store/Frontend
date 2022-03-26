@@ -380,14 +380,16 @@
 
 .profile-img{
     height: 36px; 
-    width: 36px; 
+    width: 36px;
+    object-fit: cover; 
     border-radius: 50%;
     margin-top: 0.15rem; 
 }
 
 .profile-img-md{
     height: 36px; 
-    width: 36px; 
+    width: 36px;
+    object-fit: cover; 
     border-radius: 50%;
 }
 

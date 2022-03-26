@@ -81,13 +81,15 @@
 .profile-img{
     margin-left: -0.75rem; 
     height: 6rem; 
-    width: 6rem; 
+    width: 6rem;
+    object-fit: cover; 
     border-radius: 50%;
 }
 
 .profile-img-modal{
     height: 4rem; 
     width: 4rem; 
+    object-fit: cover;
     border-radius: 50%;
 }
 
