@@ -464,17 +464,31 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
                     </div>
                 </span>
                 <ng-template #noError>
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="successMessageLabel" style="font-family: 'Public Sans', sans-serif;">Success</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        {{message}}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary success-buttons" data-bs-dismiss="modal" (click)="addButton()">Add</button>
-                        <button type="button" class="btn btn-light success-buttons" data-bs-dismiss="modal" (click)="cancel()">Continue</button>
-                    </div>
+                    <span *ngIf="product.ownerName; else noName">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="successMessageLabel" style="font-family: 'Public Sans', sans-serif;">Success</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            {{message}}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary success-buttons" data-bs-dismiss="modal" (click)="addButton()">Add</button>
+                            <button type="button" class="btn btn-light success-buttons" data-bs-dismiss="modal" (click)="cancel()">Continue</button>
+                        </div>
+                    </span>
+                    <ng-template #noName>
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="successMessageLabel" style="font-family: 'Public Sans', sans-serif;">Alert</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Please login to upload your product for sale!
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary success-buttons" data-bs-dismiss="modal" (click)="goToLogin()">Login</button>
+                        </div>
+                    </ng-template>
                 </ng-template>
             </ng-template>
         </div>

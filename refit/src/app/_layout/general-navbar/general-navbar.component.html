@@ -22,7 +22,7 @@
                         <button class="btn btn-cart">
                             <span class="material-icons-outlined local-mall-icon">local_mall</span>
                         </button>
-                        <button class="btn btn-login profile-icons" type="button">
+                        <button class="btn btn-login btn-signUp-logout profile-icons" type="button">
                             <span *ngIf="user.profilePicture.length; else noImage" class="dropdown img-arrow" onclick="myFunction(event)">
                                 <img src="{{profileImage}}" alt="Profile pic" class="profile-img">
                                 <span class="material-icons arrow-drop-icon" style="font-size: 30px;">arrow_drop_down</span>
@@ -43,11 +43,11 @@
                         </button>
                     </div>
                     <ng-template #notLoggedIn>
-                        <button class="btn btn-dark btn-signUp me-2" type="button" 
+                        <button class="btn btn-dark btn-logout-sell me-2" type="button" 
                         data-bs-toggle="modal" data-bs-target="#LoginModal">
                             Sell
                         </button>
-                        <button class="btn btn-dark btn-signUp me-2" type="button" (click)="goToSignup()">Sign up</button>
+                        <button class="btn btn-dark btn-signUp btn-signUp-logout me-2" type="button" (click)="goToSignup()">Sign up</button>
                         <button class="btn btn-login" type="button" (click)="goToLogin()">Login</button>
                     </ng-template>
                 </div>
@@ -185,7 +185,7 @@
     </div>
     <ng-template #notLoggedInOffCanvas>
         <div class="offcanvas-header" style="padding-bottom: 10px;">
-            <button class="btn btn-secondary btn-offCanvas" type="button" data-bs-dismiss="offcanvas" (click)="goToLogin()" style="margin-left: 10px;">Login</button>
+            <button class="btn btn-secondary btn-offCanvas" type="button" data-bs-dismiss="offcanvas" (click)="goToSignup()" style="margin-left: 10px;">Sign up</button>
         </div>
     </ng-template>
 
@@ -395,7 +395,7 @@
                     <span class="material-icons" style="font-size: 48px; color: rgb(29, 155, 240);">storefront</span>
                 </div>
                 <div class="login-modal-body mx-auto login-modal-body-text" style="width: 90%;">
-                    <p style="width: 100%;">Login to sell your products on Refit</p>
+                    <p style="width: 100%;">Please login to sell your products on Refit</p>
                 </div>
                 <div class="login-modal-body mx-auto modal-login-button">
                     <button class="btn btn-primary w-75" type="button" (click)="goToLogin()"

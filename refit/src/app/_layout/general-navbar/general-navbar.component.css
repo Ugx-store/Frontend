@@ -74,6 +74,14 @@
     text-align: center;
 }
 
+.btn-logout-sell{
+    background-color: #000;
+    font-weight: bolder;
+    border-radius: 2px;
+    height: 2.3rem;
+    text-align: center;
+}
+
 .btn-login{
     font-weight: 900;
 }
@@ -103,7 +111,7 @@
         display: none;
     }
 
-    .btn-login{
+    .btn-signUp-logout{
         display: none;
     }
 

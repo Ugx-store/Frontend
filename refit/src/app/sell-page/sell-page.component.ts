@@ -176,6 +176,10 @@ export class SellPageComponent implements OnInit {
     this.route.navigateByUrl('homepage')
   }
 
+  goToLogin(){
+    this.route.navigate(["/login"])
+  }
+
   addButton(){
     location.reload();
   }
@@ -194,31 +198,33 @@ export class SellPageComponent implements OnInit {
     this.product.ownerName = this.user.username
     this.product.dateTimeAdded = new Date();
 
-    this.service.addProduct(this.product).then(res =>{
-      for(let i=0; i<images.length; i++){
-        if(images[i]){
-          this.productImage.productId = res.id
-          this.productImage.imageData = images[i].split(',')[1]
-
-          this.imagesToUpload.push(this.productImage)
+    if(this.product.ownerName){
+      this.service.addProduct(this.product).then(res =>{
+        for(let i=0; i<images.length; i++){
+          if(images[i]){
+            this.productImage.productId = res.id
+            this.productImage.imageData = images[i].split(',')[1]
+  
+            this.imagesToUpload.push(this.productImage)
+          }
         }
-      }
-
-      this.service.addProductImages(this.imagesToUpload).subscribe(img =>{
-        this.message = "Product saved! Press 'Add' to add another product or 'Continue' to return to the homepage."
-        console.log(img)
+  
+        this.service.addProductImages(this.imagesToUpload).subscribe(img =>{
+          this.message = "Product saved! Press 'Add' to add another product or 'Continue' to return to the homepage."
+          console.log(img)
+        },
+        err => {
+          console.log(err)
+          this.error = err
+          this.message = "Sorry we failed to upload the product images. Please try again!"
+        })
       },
-      err => {
+      err =>{
         console.log(err)
         this.error = err
-        this.message = "Sorry we failed to upload the product images. Please try again!"
+        this.message = "Sorry we failed to upload the product information. Please try again!"
       })
-    },
-    err =>{
-      console.log(err)
-      this.error = err
-      this.message = "Sorry we failed to upload the product information. Please try again!"
-    })
+    }
   }
 
 }
