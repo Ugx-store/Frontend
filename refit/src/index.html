@@ -81,7 +81,7 @@
         var rentalsDropdown = document.getElementById("rentalsDropdown");
         var conditionDropdown = document.getElementById("conditionDropdown");
 
-        if(myDropdown.classList.contains('show') 
+        if((myDropdown && myDropdown.classList.contains('show')) 
         || sellDropdown.classList.contains('show')
         || ladyDropdown.classList.contains('show')
         || menDropdown.classList.contains('show')
@@ -90,7 +90,9 @@
         ||kidsDropdown.classList.contains('show')
         ||rentalsDropdown.classList.contains('show')
         ||conditionDropdown.classList.contains('show')){
-          myDropdown.classList.remove('show')
+          if(myDropdown){
+            myDropdown.classList.remove('show')
+          }
           sellDropdown.classList.remove('show')
           ladyDropdown.classList.remove('show')
           menDropdown.classList.remove('show')
