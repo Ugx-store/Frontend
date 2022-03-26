@@ -468,3 +468,49 @@
     border-bottom-style: none;
 }
 
+.modal-header{
+    border-bottom-style: none;
+}
+
+.login-modal-body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-modal-body-text{
+    font-family: 'Public Sans', sans-serif;
+    font-size: 25px;
+    overflow-wrap: break-word;
+    line-height: 32px;
+    margin-top: 2rem;
+}
+
+.modal-login-button{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.modal-signup-button{
+    margin-bottom: 2.5rem;
+}
+
+.modal-login-button button{
+    height: 3.5rem; 
+    border-radius: 9999px;
+    font-family: 'Public Sans', sans-serif;
+    font-size: 20px;
+}
+
+.modal-signup-button button{
+    margin-bottom: 3rem;
+    height: 3.5rem; 
+    border-radius: 9999px; 
+    color: rgb(29, 155, 240);
+    border-color: rgb(207, 217, 222);
+    border-width: 1px;
+    font-family: 'Public Sans', sans-serif;
+    font-size: 20px;
+}
+
+

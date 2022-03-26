@@ -43,6 +43,10 @@
                         </button>
                     </div>
                     <ng-template #notLoggedIn>
+                        <button class="btn btn-dark btn-signUp me-2" type="button" 
+                        data-bs-toggle="modal" data-bs-target="#LoginModal">
+                            Sell
+                        </button>
                         <button class="btn btn-dark btn-signUp me-2" type="button" (click)="goToSignup()">Sign up</button>
                         <button class="btn btn-login" type="button" (click)="goToLogin()">Login</button>
                     </ng-template>
@@ -372,6 +376,37 @@
                     <button class="btn btn-primary w-75" type="button" (click)="goToSell()"
                     data-bs-dismiss="modal" aria-label="close">
                         Continue
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Login Modal -->
+<div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="LoginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body mx-auto">
+                <div class="login-modal-body">
+                    <span class="material-icons" style="font-size: 48px; color: rgb(29, 155, 240);">storefront</span>
+                </div>
+                <div class="login-modal-body mx-auto login-modal-body-text" style="width: 90%;">
+                    <p style="width: 100%;">Login to sell your products on Refit</p>
+                </div>
+                <div class="login-modal-body mx-auto modal-login-button">
+                    <button class="btn btn-primary w-75" type="button" (click)="goToLogin()"
+                    data-bs-dismiss="modal" aria-label="close">
+                        Log in
+                    </button>
+                </div>
+                <div class="login-modal-body mx-auto modal-signup-button" (click)="goToSignup()">
+                    <button class="btn w-75" type="button"
+                    data-bs-dismiss="modal" aria-label="close">
+                        Sign up
                     </button>
                 </div>
             </div>
