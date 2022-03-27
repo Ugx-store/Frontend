@@ -273,6 +273,10 @@ option{
         width: 7rem;
         height: 7rem;
     }
+    .empty-image-span{
+        width: 7rem;
+        height: 7rem;
+    }
     img{
         max-height: 7rem; 
         width: 7rem; 
