@@ -91,50 +91,21 @@ export class SellPageComponent implements OnInit {
     //const file: File = imageInput.files[0];
     //const reader = new FileReader();
     var orientation = -1;
-
-    if(imageInput.files.length === 1){
+    
+    for(let i=0; i<imageInput.files.length; i++){
       const reader = new FileReader();
-      if(imageInput.files[0]){
+      if(imageInput.files[i]){
         reader.addEventListener('load', (event:any) =>{
           this.imageCompress.compressFile(event.target.result, orientation, 50, 50).then(
             result => {
-              if(!this.compressedImages[0]){
-                this.compressedImages[0] = result
-              }
-              else if(!this.compressedImages[1]){
-                this.compressedImages[1] = result
-              }
-              else{
-                this.compressedImages[2] = result
-              }
+              var img = result
+              this.compressedImages.push(img)
             }
           )
   
         })
   
-        reader.readAsDataURL(imageInput.files[0])
-      }
-    }
-    else{
-      for(let i=0; i<imageInput.files.length; i++){
-        if(this.compressedImages[i]){
-          continue
-        }
-        else{
-          const reader = new FileReader();
-          if(imageInput.files[i]){
-            reader.addEventListener('load', (event:any) =>{
-              this.imageCompress.compressFile(event.target.result, orientation, 50, 50).then(
-                result => {
-                  this.compressedImages[i] = result
-                }
-              )
-      
-            })
-      
-            reader.readAsDataURL(imageInput.files[i])
-          }
-        }
+        reader.readAsDataURL(imageInput.files[i])
       }
     }
   } 
