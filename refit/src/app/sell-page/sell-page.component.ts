@@ -53,6 +53,7 @@ export class SellPageComponent implements OnInit {
   quantity: any
   user: any
 
+  compressedImages: any = []
   imageResultAfterCompressOne: any;
   imageResultAfterCompressTwo: any;
   imageResultAfterCompressThree: any;
@@ -86,27 +87,57 @@ export class SellPageComponent implements OnInit {
     }
   }
 
-  processFileOne(imageInput: any){
-    const file: File = imageInput.files[0];
+  processFile(imageInput: any){
+    //const file: File = imageInput.files[0];
     const reader = new FileReader();
     var orientation = -1;
 
-    if(file){
-      reader.addEventListener('load', (event:any) =>{
-        this.imageCompress.compressFile(event.target.result, orientation, 50, 50).then(
-          result => {
-            this.imageResultAfterCompressOne = result
-            console.log(this.imageResultAfterCompressOne)
+    if(imageInput.files.length === 1){
+      if(imageInput.files[0]){
+        reader.addEventListener('load', (event:any) =>{
+          this.imageCompress.compressFile(event.target.result, orientation, 50, 50).then(
+            result => {
+              if(!this.compressedImages[0]){
+                this.compressedImages[0] = result
+              }
+              else if(!this.compressedImages[1]){
+                this.compressedImages[1] = result
+              }
+              else{
+                this.compressedImages[2] = result
+              }
+            }
+          )
+  
+        })
+  
+        reader.readAsDataURL(imageInput.files[0])
+      }
+    }
+    else{
+      for(let i=0; i<imageInput.files.length; i++){
+        if(this.compressedImages[i]){
+          continue
+        }
+        else{
+          if(imageInput.files[i]){
+            reader.addEventListener('load', (event:any) =>{
+              this.imageCompress.compressFile(event.target.result, orientation, 50, 50).then(
+                result => {
+                  this.compressedImages[i] = result
+                }
+              )
+      
+            })
+      
+            reader.readAsDataURL(imageInput.files[i])
           }
-        )
-
-      })
-
-      reader.readAsDataURL(file)
+        }
+      }
     }
   } 
 
-  processFileTwo(imageInput: any){
+  editFile(imageInput: any, image: any){
     const file: File = imageInput.files[0];
     const reader = new FileReader();
     var orientation = -1;
@@ -115,7 +146,15 @@ export class SellPageComponent implements OnInit {
       reader.addEventListener('load', (event:any) =>{
         this.imageCompress.compressFile(event.target.result, orientation, 50, 50).then(
           result => {
-            this.imageResultAfterCompressTwo = result
+            if(this.compressedImages[0] === image){
+              this.compressedImages[0] = result
+            }
+            else if(this.compressedImages[1] === image){
+              this.compressedImages[1] = result
+            }
+            else{
+              this.compressedImages[2] = result
+            }
           }
         )
 
@@ -125,34 +164,34 @@ export class SellPageComponent implements OnInit {
     }
   }
 
-  processFileThree(imageInput: any){
-    const file: File = imageInput.files[0];
-    const reader = new FileReader();
-    var orientation = -1;
+  // processFileThree(imageInput: any){
+  //   const file: File = imageInput.files[0];
+  //   const reader = new FileReader();
+  //   var orientation = -1;
 
-    if(file){
-      reader.addEventListener('load', (event:any) =>{
-        this.imageCompress.compressFile(event.target.result, orientation, 50, 50).then(
-          result => {
-            this.imageResultAfterCompressThree = result
-          }
-        )
+  //   if(file){
+  //     reader.addEventListener('load', (event:any) =>{
+  //       this.imageCompress.compressFile(event.target.result, orientation, 50, 50).then(
+  //         result => {
+  //           this.imageResultAfterCompressThree = result
+  //         }
+  //       )
 
-      })
+  //     })
 
-      reader.readAsDataURL(file)
-    }
-  }
+  //     reader.readAsDataURL(file)
+  //   }
+  // }
 
   deletePic(image: any){
-    if(image === this.imageResultAfterCompressOne){
-      this.imageResultAfterCompressOne = this.emptyImage;
+    if(image === this.compressedImages[0]){
+      this.compressedImages.splice(0, 1)
     }
-    else if(image === this.imageResultAfterCompressTwo){
-      this.imageResultAfterCompressTwo = this.emptyImage;
+    else if(image === this.compressedImages[1]){
+      this.compressedImages.splice(1, 1);
     }
     else{
-      this.imageResultAfterCompressThree = this.emptyImage;
+      this.compressedImages.splice(2, 1)
     }
   }
 
@@ -227,12 +266,6 @@ export class SellPageComponent implements OnInit {
   }
 
   save(){
-    var images = [
-      this.imageResultAfterCompressOne, 
-      this.imageResultAfterCompressTwo,
-      this.imageResultAfterCompressThree
-    ]
-
     if(this.originalPrice) {this.product.originalPrice = this.originalPrice}
     if(this.quantity){this.product.quantity = this.quantity}
 
@@ -242,10 +275,10 @@ export class SellPageComponent implements OnInit {
 
     if(this.product.ownerName){
       this.service.addProduct(this.product).then(res =>{
-        for(let i=0; i<images.length; i++){
-          if(images[i]){
+        for(let i=0; i<this.compressedImages.length; i++){
+          if(this.compressedImages[i]){
             this.productImage.productId = res.id
-            this.productImage.imageData = images[i].split(',')[1]
+            this.productImage.imageData = this.compressedImages[i].split(',')[1]
   
             this.imagesToUpload.push(this.productImage)
           }

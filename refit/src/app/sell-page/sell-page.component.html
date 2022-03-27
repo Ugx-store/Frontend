@@ -8,19 +8,20 @@
             </span>
             <div class="all-photos">
                 <div>
-                    <span *ngIf="imageResultAfterCompressOne; else noImage" class="product-div">
-                        <img src="{{imageResultAfterCompressOne}}" alt="Profile pic" max-width="100%">
+                    <span *ngIf="compressedImages[0]; else noImage" class="product-div">
+                        <img src="{{compressedImages[0]}}" alt="Profile pic" max-width="100%">
                     </span>
-                    <span *ngIf="imageResultAfterCompressOne" class="optional-edit">
+                    <span *ngIf="compressedImages[0]" class="optional-edit">
                         <label type="button" class="btn-label">
                             <span class="material-icons edit-button">edit</span>
                             <input #imageInput
                                 type="file" 
                                 accept="image/jpeg, image/png"
-                                (change)="processFileOne(imageInput)"
-                                style="display: none;">
+                                (change)="editFile(imageInput, compressedImages[0])"
+                                style="display: none;" 
+                                multiple>
                         </label>
-                        <span class="material-icons" (click)="deletePic(imageResultAfterCompressOne)" style="color: red; cursor: pointer;">delete</span>
+                        <span class="material-icons" (click)="deletePic(compressedImages[0])" style="color: red; cursor: pointer;">delete</span>
                     </span>
                     <ng-template #noImage>
                         <span class="photo-div">
@@ -29,7 +30,7 @@
                                 <input #imageInput
                                     type="file" 
                                     accept="image/jpeg, image/png"
-                                    (change)="processFileOne(imageInput)"
+                                    (change)="processFile(imageInput)"
                                     style="display: none;" 
                                     multiple>
                             </label>
@@ -37,59 +38,69 @@
                     </ng-template>
                 </div>
                 <div style="margin-bottom: 5rem">
-                    <span *ngIf="imageResultAfterCompressTwo; else noImageTwo" class="product-div">
-                        <img src="{{imageResultAfterCompressTwo}}" alt="Profile pic" max-width="100%">
-                    </span>
-                    <span *ngIf="imageResultAfterCompressTwo" class="optional-edit">
-                        <label type="button" class="btn-label">
-                            <span class="material-icons edit-button">edit</span>
-                            <input #imageInput
-                                type="file" 
-                                accept="image/jpeg, image/png"
-                                (change)="processFileTwo(imageInput)"
-                                style="display: none;">
-                        </label>
-                        <span class="material-icons" (click)="deletePic(imageResultAfterCompressTwo)" style="color: red; cursor: pointer;">delete</span>
-                    </span>
-                    <ng-template #noImageTwo>
-                        <span class="photo-div">
-                            <label type="button">
-                                <span class="material-icons-outlined">add_a_photo</span>
+                    <span *ngIf="!compressedImages[0]; else ImageOne" class="empty-image-span"></span>
+                    <ng-template #ImageOne>
+                        <span *ngIf="compressedImages[1]; else noImageTwo" class="product-div">
+                            <img src="{{compressedImages[1]}}" alt="Profile pic" max-width="100%">
+                        </span>
+                        <span *ngIf="compressedImages[1]" class="optional-edit">
+                            <label type="button" class="btn-label">
+                                <span class="material-icons edit-button">edit</span>
                                 <input #imageInput
                                     type="file" 
                                     accept="image/jpeg, image/png"
-                                    (change)="processFileTwo(imageInput)"
-                                    style="display: none;">
+                                    (change)="editFile(imageInput, compressedImages[1])"
+                                    style="display: none;" 
+                                    multiple>
                             </label>
+                            <span class="material-icons" (click)="deletePic(compressedImages[1])" style="color: red; cursor: pointer;">delete</span>
                         </span>
+                        <ng-template #noImageTwo>
+                            <span class="photo-div">
+                                <label type="button">
+                                    <span class="material-icons-outlined">add_a_photo</span>
+                                    <input #imageInput
+                                        type="file" 
+                                        accept="image/jpeg, image/png"
+                                        (change)="processFile(imageInput)"
+                                        style="display: none;" 
+                                        multiple>
+                                </label>
+                            </span>
+                        </ng-template>
                     </ng-template>
                 </div>
                 <div>
-                    <span *ngIf="imageResultAfterCompressThree; else noImageThree" class="product-div">
-                        <img src="{{imageResultAfterCompressThree}}" alt="Profile pic" draggable="false">
-                    </span>
-                    <span *ngIf="imageResultAfterCompressThree" class="optional-edit">
-                        <label type="button" class="btn-label">
-                            <span class="material-icons edit-button">edit</span>
-                            <input #imageInput
-                                type="file" 
-                                accept="image/jpeg, image/png"
-                                (change)="processFileThree(imageInput)"
-                                style="display: none;">
-                        </label>
-                        <span class="material-icons" (click)="deletePic(imageResultAfterCompressThree)" style="color: red; cursor: pointer;">delete</span>
-                    </span>
-                    <ng-template #noImageThree>
-                        <span class="photo-div">
-                            <label type="button" class="btn-label" data-bs-dismiss="modal">
-                                <span class="material-icons-outlined">add_a_photo</span>
+                    <span *ngIf="!compressedImages[1]; else ImageTwo" class="empty-image-span"></span>
+                    <ng-template #ImageTwo>
+                        <span *ngIf="compressedImages[2]; else noImageThree" class="product-div">
+                            <img src="{{compressedImages[2]}}" alt="Profile pic" draggable="false">
+                        </span>
+                        <span *ngIf="compressedImages[2]" class="optional-edit">
+                            <label type="button" class="btn-label">
+                                <span class="material-icons edit-button">edit</span>
                                 <input #imageInput
                                     type="file" 
                                     accept="image/jpeg, image/png"
-                                    (change)="processFileThree(imageInput)"
-                                    style="display: none;">
+                                    (change)="editFile(imageInput, compressedImages[2])"
+                                    style="display: none;" 
+                                    multiple>
                             </label>
+                            <span class="material-icons" (click)="deletePic(compressedImages[2])" style="color: red; cursor: pointer;">delete</span>
                         </span>
+                        <ng-template #noImageThree>
+                            <span class="photo-div">
+                                <label type="button" class="btn-label" data-bs-dismiss="modal">
+                                    <span class="material-icons-outlined">add_a_photo</span>
+                                    <input #imageInput
+                                        type="file" 
+                                        accept="image/jpeg, image/png"
+                                        (change)="processFile(imageInput)"
+                                        style="display: none;" 
+                                        multiple>
+                                </label>
+                            </span>
+                        </ng-template>
                     </ng-template>
                 </div>
             </div>
@@ -422,8 +433,8 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
                 <div
                 *ngIf="description.valid
                 && categories.valid
-                && (imageResultAfterCompressOne || imageResultAfterCompressTwo
-                || imageResultAfterCompressThree)
+                && (compressedImages[0] || compressedImages[1]
+                || compressedImages[2])
                 && product.subCategory
                 && conditions.valid
                 && towns.valid
