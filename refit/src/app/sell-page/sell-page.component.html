@@ -30,7 +30,8 @@
                                     type="file" 
                                     accept="image/jpeg, image/png"
                                     (change)="processFileOne(imageInput)"
-                                    style="display: none;">
+                                    style="display: none;" 
+                                    multiple>
                             </label>
                         </span>
                     </ng-template>
@@ -110,11 +111,15 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
 
             <div class="form-floating input-floating" style="margin-top: 0;">
                 <input class="form-control dropdown" placeholder="Category" name="category" id="categoryInput"
-                #categories="ngModel" [(ngModel)]="product.category" value="{{product.category}}" onclick="mySellFunction(event)" required>
+                #categories="ngModel" [(ngModel)]="product.category" value="{{product.category}}" onclick="mySellFunction(event)"
+                (ngModelChange)="checkCategory(product.category)" required>
                 <label class="floating-label" for="categoryInput">Category</label>
             </div>
             <div *ngIf="!product.category && categories.invalid && categories.dirty">
                 <span *ngIf="categories.errors?.required" class="form-text" style="color: red;">Please select a category</span>
+            </div>
+            <div *ngIf="!catFound">
+                <span class="form-text" style="color: red;">Incorrect category. Please select a category from the dropdown.</span>
             </div>
             <div class="dropdown-content-sell" id="sellDropdown">
                 <ul class="no-bullets">
@@ -142,11 +147,15 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
             <span *ngIf="product.category === 'Ladieswear'">
                 <div class="form-floating input-floating">
                     <input class="form-control dropdown" id="subcategoryInput" placeholder="Subcategory" name="subcategory" #subcategories="ngModel" 
-                    [(ngModel)]="product.subCategory" value="{{product.subCategory}}" onclick="ladyDropdown(event)" required>
+                    [(ngModel)]="product.subCategory" value="{{product.subCategory}}" onclick="ladyDropdown(event)" 
+                    (ngModelChange)="checkSubcategory(product.subCategory)" required>
                     <label class="floating-label" for="subcategoryInput">Subcategory</label>
                 </div>
                 <div *ngIf="!product.subCategory && subcategories.invalid  && subcategories.dirty">
                     <span *ngIf="subcategories.errors?.required" class="form-text" style="color: red;">Please select a subcategory</span>
+                </div>
+                <div *ngIf="!subCatFound">
+                    <span class="form-text" style="color: red;">Incorrect subcategory. Please select a subcategory from the dropdown.</span>
                 </div>
             </span>
             <div class="dropdown-content-sell" id="ladyDropdown">
@@ -160,11 +169,15 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
             <span *ngIf="product.category === 'Menswear'">
                 <div class="form-floating input-floating">
                     <input class="form-control dropdown" id="subcategoryInput" placeholder="Subcategory" name="subcategory" #subcategories="ngModel" 
-                    [(ngModel)]="product.subCategory" value="{{product.subCategory}}" onclick="menDropdown(event)" required>
+                    [(ngModel)]="product.subCategory" value="{{product.subCategory}}" onclick="menDropdown(event)" 
+                    (ngModelChange)="checkSubcategory(product.subCategory)" required>
                     <label class="floating-label" for="subcategoryInput">Subcategory</label>
                 </div>
                 <div *ngIf="!product.subCategory && subcategories.invalid  && subcategories.dirty">
                     <span *ngIf="subcategories.errors?.required" class="form-text" style="color: red;">Please select a subcategory</span>
+                </div>
+                <div *ngIf="!subCatFound">
+                    <span class="form-text" style="color: red;">Incorrect subcategory. Please select a subcategory from the dropdown.</span>
                 </div>
             </span>
             <div class="dropdown-content-sell" id="menDropdown">
@@ -178,11 +191,15 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
             <span *ngIf="product.category === 'Jewelry'">
                 <div class="form-floating input-floating">
                     <input class="form-control dropdown" id="subcategoryInput" placeholder="Category" name="subcategory" #subcategories="ngModel" 
-                    [(ngModel)]="product.subCategory" value="{{product.subCategory}}" onclick="jewelryDropdown(event)" required>
+                    [(ngModel)]="product.subCategory" value="{{product.subCategory}}" onclick="jewelryDropdown(event)" 
+                    (ngModelChange)="checkSubcategory(product.subCategory)" required>
                     <label class="floating-label" for="subcategoryInput">Subcategory</label>
                 </div>
                 <div *ngIf="!product.subCategory && subcategories.invalid  && subcategories.dirty">
                     <span *ngIf="subcategories.errors?.required" class="form-text" style="color: red;">Please select a subcategory</span>
+                </div>
+                <div *ngIf="!subCatFound">
+                    <span class="form-text" style="color: red;">Incorrect subcategory. Please select a subcategory from the dropdown.</span>
                 </div>
             </span>
             <div class="dropdown-content-sell" id="jewelryDropdown">
@@ -196,11 +213,15 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
             <span *ngIf="product.category === 'Beauty'">
                 <div class="form-floating input-floating">
                     <input class="form-control dropdown" id="subcategoryInput" placeholder="Category" name="subcategory" #subcategories="ngModel" 
-                    [(ngModel)]="product.subCategory" value="{{product.subCategory}}" onclick="beautyDropdown(event)" required>
+                    [(ngModel)]="product.subCategory" value="{{product.subCategory}}" onclick="beautyDropdown(event)" 
+                    (ngModelChange)="checkSubcategory(product.subCategory)" required>
                     <label class="floating-label" for="subcategoryInput">Subcategory</label>
                 </div>
                 <div *ngIf="!product.subCategory && subcategories.invalid  && subcategories.dirty">
                     <span *ngIf="subcategories.errors?.required" class="form-text" style="color: red;">Please select a subcategory</span>
+                </div>
+                <div *ngIf="!subCatFound">
+                    <span class="form-text" style="color: red;">Incorrect subcategory. Please select a subcategory from the dropdown.</span>
                 </div>
             </span>
             <div class="dropdown-content-sell" id="beautyDropdown">
@@ -214,11 +235,15 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
             <span *ngIf="product.category === 'Kids'">
                 <div class="form-floating input-floating">
                     <input class="form-control dropdown" id="subcategoryInput" placeholder="Category" name="subcategory" #subcategories="ngModel" 
-                    [(ngModel)]="product.subCategory" value="{{product.subCategory}}" onclick="kidsDropdown(event)" required>
+                    [(ngModel)]="product.subCategory" value="{{product.subCategory}}" onclick="kidsDropdown(event)" 
+                    (ngModelChange)="checkSubcategory(product.subCategory)" required>
                     <label class="floating-label" for="subcategoryInput">Subcategory</label>
                 </div>
                 <div *ngIf="!product.subCategory && subcategories.invalid  && subcategories.dirty">
                     <span *ngIf="subcategories.errors?.required" class="form-text" style="color: red;">Please select a subcategory</span>
+                </div>
+                <div *ngIf="!subCatFound">
+                    <span class="form-text" style="color: red;">Incorrect subcategory. Please select a subcategory from the dropdown.</span>
                 </div>
             </span>
             <div class="dropdown-content-sell" id="kidsDropdown">
@@ -232,11 +257,15 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
             <span *ngIf="product.category === 'Rentals'">
                 <div class="form-floating input-floating">
                     <input class="form-control dropdown" id="subcategoryInput" placeholder="Category" name="subcategory" #subcategories="ngModel" 
-                    [(ngModel)]="product.subCategory" value="{{product.subCategory}}" onclick="rentalsDropdown(event)" required>
+                    [(ngModel)]="product.subCategory" value="{{product.subCategory}}" onclick="rentalsDropdown(event)" 
+                    (ngModelChange)="checkSubcategory(product.subCategory)" required>
                     <label class="floating-label" for="subcategoryInput">Subcategory</label>
                 </div>
                 <div *ngIf="!product.subCategory && subcategories.invalid  && subcategories.dirty">
                     <span *ngIf="subcategories.errors?.required" class="form-text" style="color: red;">Please select a subcategory</span>
+                </div>
+                <div *ngIf="!subCatFound">
+                    <span class="form-text" style="color: red;">Incorrect subcategory. Please select a subcategory from the dropdown.</span>
                 </div>
             </span>
             <div class="dropdown-content-sell" id="rentalsDropdown">
@@ -249,11 +278,15 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
 
             <div class="form-floating input-floating">
                 <input class="form-control dropdown" placeholder="Condition" name="condition" id="conditionInput"
-                #conditions="ngModel" [(ngModel)]="product.condition" value="{{product.condition}}" onclick="conditionFunction(event)" required>
+                #conditions="ngModel" [(ngModel)]="product.condition" value="{{product.condition}}" onclick="conditionFunction(event)" 
+                (ngModelChange)="checkCondition(product.condition)" required>
                 <label class="floating-label" for="conditionInput">Condition</label>
             </div>
             <div *ngIf="!product.condition && conditions.invalid && conditions.dirty">
                 <span *ngIf="conditions.errors?.required" class="form-text" style="color: red;">Please select a condition</span>
+            </div>
+            <div *ngIf="!conditionFound">
+                <span class="form-text" style="color: red;">Incorrect condition. Please select the condition from the dropdown.</span>
             </div>
             <div class="dropdown-content-sell" id="conditionDropdown">
                 <ul class="no-bullets">
@@ -308,7 +341,7 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
                     The quantity can only contain numbers.
                 </span>
             </div>
-            <span class="text-muted" style="font-size: 13px;">How many similar items have you got in stock?</span>
+            <span class="text-muted" style="font-size: 13px;">How many similar items have you got in stock? Ignore if its just 1 item.</span>
             <form class="form-floating input-floating">
                 <input class="form-control" placeholder="Age" id="ageInput" name="age" #ages="ngModel" 
                 [(ngModel)]="product.age" value="{{product.age}}">
@@ -396,6 +429,9 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
                 && towns.valid
                 && cities.valid
                 && prices.valid
+                && catFound
+                && subCatFound
+                && conditionFound
                 && originalPrices.valid; 
                 else invalid" class="d-grid gap-2" style="width: 47%; height: 45px;">
                     <button class="btn btn-dark btn-code" type="button"

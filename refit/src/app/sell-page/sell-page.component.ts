@@ -61,12 +61,19 @@ export class SellPageComponent implements OnInit {
   message: string = '';
   error: any;
 
+  categories: string[] = ["Ladieswear", "Menswear", "Jewelry", "Beauty", "Kids", "Rentals"]
   ladyCats: string[]= ["Dresses", "Tops", "Accessories", "Lingerie", "Shoes", "Skirts", "Pants", "Jackets", "Others"]
   menCats: string[] = ["Jackets", "Shirts", "Pants", "Underwear", "Shoes", "Accessories", "Others"]
   jewelry: string[] = ["Necklaces", "Pins", "Bracelets", "Earrings", "Rings", "Watches", "Others"]
   beauty: string[] = ["Make up", "Fragrance", "Skin care", "Hair", "Other"]
   kids: string[] = ["Girls", "Boys"]
   rentals: string[] = ["Ladies", "Men"]
+
+  conditions: string[] = ["Brand new", "Like new", "Used - Excellent", "Used - Good", "Used - Fair"]
+
+  catFound: boolean = true
+  subCatFound: boolean = true
+  conditionFound: boolean = true
 
   ngOnInit(): void {
     var loggedInUser = localStorage.getItem('LoggedInUserDetails') 
@@ -152,10 +159,12 @@ export class SellPageComponent implements OnInit {
   optionClick(event: any){
     this.product.subCategory = ""
     this.product.category = event.target.innerText
+    this.checkCategory(this.product.category)
   }
 
   subcategoryClick(event: any){
     this.product.subCategory = event.target.innerText
+    this.checkSubcategory(this.product.subCategory)
   }
 
   conditionClick(event: any){
@@ -164,8 +173,9 @@ export class SellPageComponent implements OnInit {
     }
     else{
       this.product.condition = event.childNodes[0].textContent
-      console.log(event.childNodes[0].textContent)
+      //console.log(event.childNodes[0].textContent)
     }
+    this.checkCondition(this.product.condition)
   }
 
   freeDeliveryClicked(){
@@ -182,6 +192,38 @@ export class SellPageComponent implements OnInit {
 
   addButton(){
     location.reload();
+  }
+
+  checkCategory(category: any){
+    if(this.categories.findIndex(c => c === category) < 0){
+      this.catFound = false
+    }
+    else{
+      this.catFound = true
+    }
+  }
+
+  checkSubcategory(subcategory: any){
+    if(this.ladyCats.findIndex(c => c === subcategory) < 0
+      && this.menCats.findIndex(c => c === subcategory) < 0
+      && this.jewelry.findIndex(c => c === subcategory) < 0
+      && this.beauty.findIndex(c => c === subcategory) < 0
+      && this.kids.findIndex(c => c === subcategory) < 0
+      && this.rentals.findIndex(c => c === subcategory) < 0){
+      this.subCatFound = false
+    }
+    else{
+      this.subCatFound = true
+    }
+  }
+
+  checkCondition(condition: any){
+    if(this.conditions.findIndex(c => c === condition) < 0){
+      this.conditionFound = false
+    }
+    else{
+      this.conditionFound = true
+    }
   }
 
   save(){
