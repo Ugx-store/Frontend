@@ -89,10 +89,11 @@ export class SellPageComponent implements OnInit {
 
   processFile(imageInput: any){
     //const file: File = imageInput.files[0];
-    const reader = new FileReader();
+    //const reader = new FileReader();
     var orientation = -1;
 
     if(imageInput.files.length === 1){
+      const reader = new FileReader();
       if(imageInput.files[0]){
         reader.addEventListener('load', (event:any) =>{
           this.imageCompress.compressFile(event.target.result, orientation, 50, 50).then(
@@ -120,6 +121,7 @@ export class SellPageComponent implements OnInit {
           continue
         }
         else{
+          const reader = new FileReader();
           if(imageInput.files[i]){
             reader.addEventListener('load', (event:any) =>{
               this.imageCompress.compressFile(event.target.result, orientation, 50, 50).then(
