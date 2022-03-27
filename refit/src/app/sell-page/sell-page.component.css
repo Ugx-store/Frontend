@@ -74,7 +74,7 @@
 }
 
 img{
-    max-height: 10rem; 
+    height: 10rem; 
     width: 10rem; 
     object-fit: cover;
 }
@@ -278,7 +278,7 @@ option{
         height: 7rem;
     }
     img{
-        max-height: 7rem; 
+        height: 7rem; 
         width: 7rem; 
         object-fit: cover;
     }
