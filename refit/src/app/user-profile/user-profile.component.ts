@@ -99,7 +99,6 @@ export class UserProfileComponent implements OnInit{
               this.loggedInUser = false;
               this.user = res;
               this.LoginStatus = this.getLoggedInUser();
-              console.log(this.LoginStatus)
 
               if(user.email){
                 this.service.getUser(user.email).subscribe(loggedUser =>{
@@ -157,7 +156,6 @@ export class UserProfileComponent implements OnInit{
   followingImages(userFollowMethod: User[]){
     for(let user of userFollowMethod){
       if(user.profilePicture.length){
-        console.log(user.username + this.p++)
         var key = user.username
         this.followerImage[key] = 'data:image/jpg;base64,' + user.profilePicture[0].imageData;
       }

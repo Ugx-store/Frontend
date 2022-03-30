@@ -82,25 +82,41 @@
         var conditionDropdown = document.getElementById("conditionDropdown");
 
         if((myDropdown && myDropdown.classList.contains('show')) 
-        || sellDropdown.classList.contains('show')
-        || ladyDropdown.classList.contains('show')
-        || menDropdown.classList.contains('show')
-        ||jewelryDropdown.classList.contains('show')
-        ||beautyDropdown.classList.contains('show')
-        ||kidsDropdown.classList.contains('show')
-        ||rentalsDropdown.classList.contains('show')
-        ||conditionDropdown.classList.contains('show')){
+        || (sellDropdown && sellDropdown.classList.contains('show'))
+        || (ladyDropdown && ladyDropdown.classList.contains('show'))
+        || (menDropdown && menDropdown.classList.contains('show'))
+        || (jewelryDropdown && jewelryDropdown.classList.contains('show'))
+        || (beautyDropdown && beautyDropdown.classList.contains('show'))
+        || (kidsDropdown && kidsDropdown.classList.contains('show'))
+        || (rentalsDropdown && rentalsDropdown.classList.contains('show'))
+        || (conditionDropdown && conditionDropdown.classList.contains('show'))){
           if(myDropdown){
             myDropdown.classList.remove('show')
           }
-          sellDropdown.classList.remove('show')
-          ladyDropdown.classList.remove('show')
-          menDropdown.classList.remove('show')
-          jewelryDropdown.classList.remove('show')
-          beautyDropdown.classList.remove('show')
-          kidsDropdown.classList.remove('show')
-          rentalsDropdown.classList.remove('show')
-          conditionDropdown.classList.remove('show')
+          if(sellDropdown){
+            sellDropdown.classList.remove('show')
+          }
+          if(ladyDropdown){
+            ladyDropdown.classList.remove('show')
+          }
+          if(menDropdown){
+            menDropdown.classList.remove('show')
+          }
+          if(jewelryDropdown){
+            jewelryDropdown.classList.remove('show')
+          }
+          if(beautyDropdown){
+            beautyDropdown.classList.remove('show')
+          }
+          if(kidsDropdown){
+            kidsDropdown.classList.remove('show')
+          }
+          if(rentalsDropdown){
+            rentalsDropdown.classList.remove('show')
+          }
+          if(conditionDropdown){
+            conditionDropdown.classList.remove('show')
+          }
         }
       }
     }

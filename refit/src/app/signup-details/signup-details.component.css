@@ -59,3 +59,22 @@
 .valid-text{
     color: green;
 }
+
+.btn-label{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    border-radius: 0.2rem;
+    line-height: 1.5;
+    height: 2.4rem;
+}
+
+.success-button{
+    border-radius: 9999px;
+    width: 6rem;
+}

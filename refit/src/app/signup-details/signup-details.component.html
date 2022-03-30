@@ -118,14 +118,14 @@
                                 You cannot use Refit if you do not agree.</span>
                             </div>  
 
-                            <div class="d-grid gap-2" 
-                                *ngIf="f.controls['name']?.valid 
-                                && confirmPassword === user.password
-                                && f.controls['username'].valid
-                                && f.controls['password'].valid
-                                && f.controls['email'].valid
-                                && !(f.controls['promoCode'].errors?.uniqueCodeExists)
-                                && !spinner; else invalid">
+                            <div class="d-grid gap-2"
+                            *ngIf="f.controls['name']?.valid 
+                            && confirmPassword === user.password
+                            && f.controls['username'].valid
+                            && f.controls['password'].valid
+                            && f.controls['email'].valid
+                            && !(f.controls['promoCode'].errors?.uniqueCodeExists)
+                            && !spinner; else invalid">
                                 <button class="btn btn-dark btn-code" type="submit" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Submit</button>
                             </div>
                             <ng-template #invalid>
@@ -154,15 +154,25 @@
     <div class="modal-dialog">
         <div class="modal-content" *ngIf="modalTrigger === 1">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Success</h5>
+                <h5 class="modal-title" id="staticBackdropLabel" style="font-family: 'Public Sans', sans-serif;">Success</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="nextPage()"></button>
             </div>
             <div class="modal-body">
                 Woohoo... Account successfully created.
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="nextPage()">Let's go</button>
+                <button type="button" class="btn btn-label success-button" data-bs-dismiss="modal" (click)="nextPage()">Let's go</button>
             </div>
         </div>
     </div>
 </div>
+
+<!-- *ngIf="modalTrigger === 1" -->
+
+<!-- *ngIf="f.controls['name']?.valid 
+&& confirmPassword === user.password
+&& f.controls['username'].valid
+&& f.controls['password'].valid
+&& f.controls['email'].valid
+&& !(f.controls['promoCode'].errors?.uniqueCodeExists)
+&& !spinner; else invalid" -->

@@ -180,7 +180,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="imageModalLabel">Caution</h5>
+            <h5 class="modal-title" id="imageModalLabel" style="font-family: 'Public Sans', sans-serif;">Caution</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -188,8 +188,7 @@
             Would you like to continue?
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <label type="button" class="btn-label" data-bs-dismiss="modal">
+            <label type="button" class="btn-label caution-buttons" data-bs-dismiss="modal">
                 <span>Continue</span>
                 <input #imageInput
                     appImgCompressor 
@@ -198,6 +197,7 @@
                     (change)="processFile(imageInput)"
                     style="display: none;">
             </label>
+            <button type="button" class="btn btn-light caution-buttons" data-bs-dismiss="modal">Cancel</button>
         </div>
         </div>
     </div>
@@ -219,26 +219,26 @@
             <ng-template #notLoading>
                 <span *ngIf="error; else noError">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="successMessageLabel">Error</h5>
+                        <h5 class="modal-title" id="successMessageLabel" style="font-family: 'Public Sans', sans-serif;">Error</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         {{message}}
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-dark btn-code" data-bs-dismiss="modal">Continue</button>
+                        <button type="button" class="btn btn-label caution-buttons" data-bs-dismiss="modal">Continue</button>
                     </div>
                 </span>
                 <ng-template #noError>
                     <div class="modal-header">
-                        <h5 class="modal-title" id="successMessageLabel">Success</h5>
+                        <h5 class="modal-title" id="successMessageLabel" style="font-family: 'Public Sans', sans-serif;">Success</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="nextPage()"></button>
                     </div>
                     <div class="modal-body">
                         You Genius... you did it. Your information has been updated.
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="nextPage()">Continue</button>
+                        <button type="button" class="btn btn-label caution-buttons" data-bs-dismiss="modal" (click)="nextPage()">Continue</button>
                     </div>
                 </ng-template>
             </ng-template>
@@ -246,14 +246,14 @@
         <ng-template #notChanged>
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="successMessageLabel">Alert</h5>
+                    <h5 class="modal-title" id="successMessageLabel" style="font-family: 'Public Sans', sans-serif;">Alert</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     {{message}}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-dark btn-code" data-bs-dismiss="modal">Continue</button>
+                    <button type="button" class="btn btn-label caution-buttons" data-bs-dismiss="modal">Continue</button>
                 </div>
             </div>
         </ng-template>
@@ -264,14 +264,14 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="cancelMessageLabel">Caution</h5>
+                <h5 class="modal-title" id="cancelMessageLabel" style="font-family: 'Public Sans', sans-serif;">Caution</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 Please note that by continuing, your changes will not be saved!
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-dark btn-code" (click)="cancel()" data-bs-dismiss="modal">Continue</button>
+                <button type="button" class="btn btn-label caution-buttons" (click)="cancel()" data-bs-dismiss="modal">Continue</button>
             </div>
         </div>
     </div>

@@ -26,7 +26,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
   selectedFile!: ImageSnippet;
   auth: any = getAuth(app);
-  authLoader: boolean = false
 
   profilePic: ProfilePictures = {
     id: 0,
@@ -38,6 +37,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   modalTrigger: number = 0;
   message: string = '';
   error: any;
+  authLoader: boolean = false
 
   user: User = {
     id: 0,
@@ -108,24 +108,10 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   }
 
   save(){
-    if(this.imgResultAfterCompress){
-      this.modalTrigger = 1;
-      this.profilePic.username = this.user.username
-      this.profilePic.imageData = this.imgResultAfterCompress.split(',')[1]
-
-      this.service.postProfilePicture(this.profilePic).subscribe(res =>{
-        console.log(res)
-      },
-      (err) => {
-        this.error = err
-        this.message = "Sorry we failed to update your information. Please try again!"
-        console.log(err)
-      }
-      )
-    }
-    else{
-      this.message = "You did not update your information. Click continue to update some of your information."
-    }
+    this.modalTrigger = 0;
+    this.message = '';
+    this.error = '';
+    this.authLoader = false;
 
     var userBeforeEdit = localStorage.getItem('UserBeforeEdit')
     if(userBeforeEdit){
@@ -136,7 +122,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         || this.user.bio !== anotherUser.bio
         || this.user.facebookLink !== anotherUser.facebookLink
         || this.user.twitterLink !== anotherUser.twitterLink
-        || this.user.instagramLink !== anotherUser.instagramLink){
+        || this.user.instagramLink !== anotherUser.instagramLink
+        || this.imgResultAfterCompress){
           
         this.modalTrigger = 1;
         this.user.followings = []
@@ -168,9 +155,32 @@ export class EditProfileComponent implements OnInit, OnDestroy {
           err =>{
             this.error = err
             this.message = "Sorry we failed to update your information. Please try again!"
-        })
+          })
         }
+
+        if(this.imgResultAfterCompress){
+          this.modalTrigger = 1;
+          this.profilePic.username = this.user.username
+          this.profilePic.imageData = this.imgResultAfterCompress.split(',')[1]
+    
+          this.service.postProfilePicture(this.profilePic).subscribe(res =>{
+            console.log(res)
+          },
+          (err) => {
+            this.error = err
+            this.message = "Sorry we failed to update your information. Please try again!"
+            console.log(err)
+          }
+          )
+        }
+        
       }
+      else{
+        this.message = "You did not update your information. Click continue to update some of your information."
+      }
+    }
+    else{
+      this.message = "Please login and try again"
     }
     
   }
