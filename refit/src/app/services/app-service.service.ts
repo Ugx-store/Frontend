@@ -19,7 +19,7 @@ export class AppServiceService {
   private follow_url: string = "https://users-db.azurewebsites.net/api/Following"
   private profile_pic: string = "https://users-db.azurewebsites.net/api/ProfilePic"
   private product_url: string = "https://products-db.azurewebsites.net/api/Products"
-  private product_image: string = "https://products-db.azurewebsites.net/api//ProductImages"
+  private product_image: string = "https://products-db.azurewebsites.net/api/ProductImages"
 
   constructor(private http: HttpClient) { }
 
@@ -108,6 +108,10 @@ export class AppServiceService {
 
   addProductImages(image: ProductImage[]){
     return this.http.post(this.product_image, image, {responseType: "text"})
+  }
+
+  getUserProducts(username: string): Observable<Product[]>{
+    return this.http.get<Product[]>(this.product_url + "/user-products/" + username)
   }
 
 }

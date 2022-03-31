@@ -1,3 +1,5 @@
+import { ProductImage } from "./productImage";
+
 export interface Product{
     id: number;
     description: string;
@@ -16,4 +18,5 @@ export interface Product{
     quantity: number;
     freeDelivery: boolean;
     dateTimeAdded: Date;
+    productImages: ProductImage[]
 }

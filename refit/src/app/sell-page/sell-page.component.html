@@ -9,7 +9,7 @@
             <div class="all-photos">
                 <div>
                     <span *ngIf="compressedImages[0]; else noImage" class="product-div">
-                        <img src="{{compressedImages[0]}}" alt="Profile pic" max-width="100%">
+                        <img src="{{compressedImages[0]}}" alt="Profile pic" draggable="false">
                     </span>
                     <span *ngIf="compressedImages[0]" class="optional-edit">
                         <label type="button" class="btn-label">
@@ -41,7 +41,7 @@
                     <span *ngIf="!compressedImages[0]; else ImageOne" class="empty-image-span"></span>
                     <ng-template #ImageOne>
                         <span *ngIf="compressedImages[1]; else noImageTwo" class="product-div">
-                            <img src="{{compressedImages[1]}}" alt="Profile pic" max-width="100%">
+                            <img src="{{compressedImages[1]}}" alt="Profile pic" draggable="false">
                         </span>
                         <span *ngIf="compressedImages[1]" class="optional-edit">
                             <label type="button" class="btn-label">

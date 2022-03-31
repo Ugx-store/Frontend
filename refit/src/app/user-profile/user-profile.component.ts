@@ -8,6 +8,7 @@ import { AppServiceService } from '../services/app-service.service';
 import { LoaderService } from '../Loader';
 import { DomSanitizer} from '@angular/platform-browser';
 import { LooseObject, ProfilePictures } from '../models/profilepic';
+import { Product } from '../models/product';
 
 @Component({
   selector: 'app-user-profile',
@@ -45,6 +46,8 @@ export class UserProfileComponent implements OnInit{
     followings: [],
     profilePicture: []
   }
+
+  products: Product[] = []
 
   follow: Follow = {
     id: 0,
@@ -88,9 +91,22 @@ export class UserProfileComponent implements OnInit{
           this.profilePic = 'data:image/jpg;base64,' + res.profilePicture[0].imageData
         }
 
+        this.service.getUserProducts(res.username).subscribe(prod =>{
+          this.products = prod
+          console.log(this.products)
+          if(this.products){
+            for(let product of this.products){
+              if(product.productImages.length){
+                for(let image of product.productImages){
+                  image.imageData = 'data:image/jpg;base64,' + image.imageData
+                }
+              }
+            }
+          }
+        })
+
         onAuthStateChanged(this.auth, (user) =>{
           if (user && this.authFlag) {
-            console.log("Logged in user")
             if(user.phoneNumber === res.phoneNumber){
               this.loggedInUser = true;
               this.user = res;

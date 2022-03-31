@@ -33,7 +33,8 @@ export class SellPageComponent implements OnInit {
     city: '',
     size: '',
     freeDelivery: false,
-    dateTimeAdded: new Date(0)
+    dateTimeAdded: new Date(0),
+    productImages: []
   }
 
   productImage: ProductImage = {
@@ -95,15 +96,21 @@ export class SellPageComponent implements OnInit {
     for(let i=0; i<imageInput.files.length; i++){
       const reader = new FileReader();
       if(imageInput.files[i]){
-        reader.addEventListener('load', (event:any) =>{
-          this.imageCompress.compressFile(event.target.result, orientation, 50, 50).then(
-            result => {
-              var img = result
-              this.compressedImages.push(img)
-            }
-          )
-  
-        })
+        if((imageInput.files[i].size)/1024 > 2000){
+          reader.addEventListener('load', (event:any) =>{
+            this.imageCompress.compressFile(event.target.result, orientation, 50, 50).then(
+              result => {
+                this.compressedImages.push(result)
+              }
+            )
+    
+          })
+        }
+        else{
+          reader.addEventListener('load', (event:any) =>{
+            this.compressedImages.push(event.target.result)
+          })
+        }
   
         reader.readAsDataURL(imageInput.files[i])
       }

@@ -404,6 +404,31 @@
     border-style: none;
 }
 
+.product-images{
+    width: 13rem;
+    height: 13rem;
+    background-color: rgb(222, 222, 222);
+    margin-left: 2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-div{
+    width: 13rem;
+    height: 13rem;
+    margin-left: 2rem;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.product-div img{
+    width: 13rem;
+    height: 13rem; 
+    object-fit: cover;
+}
+
 .modal-title{
     font-family: 'Public Sans', sans-serif;
 }

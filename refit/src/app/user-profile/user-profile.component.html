@@ -298,7 +298,14 @@
     </div> 
 </div>
 <div class="row row-five" *ngIf="(buttonValue === 1); else bodyOne">
-    <p>@{{user.username}} does not have anything yet. Please check back later.</p>
+    <!-- <p>@{{user.username}} does not have anything yet. Please check back later.</p>  -->
+    <!-- <span class="product-images"></span> -->
+    <!-- <div  style="display: flex; align-items: center; background-color: green;"> -->
+        <span *ngFor="let product of products" class="product-div">
+            <img src="{{product.productImages[0].imageData}}" alt="Profile pic" draggable="false">
+        </span>
+    <!-- </div> -->
+    
 </div>
 <ng-template #bodyOne>
     <div class="row row-five" *ngIf="(buttonValue === 2); else bodyTwo">
