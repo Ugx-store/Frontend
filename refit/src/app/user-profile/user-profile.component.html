@@ -297,14 +297,11 @@
         <button class="btn btn-light" [className]="buttonValue === 3 ? 'activated' : 'inactivated'" (click)="soldButton()">Sold</button>
     </div> 
 </div>
-<div class="row row-five" *ngIf="(buttonValue === 1); else bodyOne">
+<div class="row row-five row-cols-2 row-cols-sm-3 row-cols-md-5" *ngIf="(buttonValue === 1); else bodyOne">
     <!-- <p>@{{user.username}} does not have anything yet. Please check back later.</p>  -->
-    <!-- <span class="product-images"></span> -->
-    <!-- <div  style="display: flex; align-items: center; background-color: green;"> -->
-        <span *ngFor="let product of products" class="product-div">
-            <img src="{{product.productImages[0].imageData}}" alt="Profile pic" draggable="false">
-        </span>
-    <!-- </div> -->
+    <span *ngFor="let product of products" class="product-images col">
+        <img src="{{product.productImages[0].imageData}}" alt="Product pic" draggable="false">
+    </span>
     
 </div>
 <ng-template #bodyOne>
