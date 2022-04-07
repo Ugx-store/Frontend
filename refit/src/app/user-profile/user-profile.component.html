@@ -61,7 +61,7 @@
                 </button>
             </div>
             <ng-template #LoggedOut>
-                <button class="btn btn-primary follow-button" (click)="toggleModal(user.name)" data-bs-toggle="modal" data-bs-target="#LoginModal">
+                <button class="btn btn-primary follow-button" (click)="toggleModal(user.name)" data-bs-toggle="modal" data-bs-target="#LoginFollowModal">
                     Follow
                 </button>
             </ng-template>
@@ -131,7 +131,7 @@
                                                                 </button>
                                                             </div>
                                                             <ng-template #LoggedOut>
-                                                                <button class="btn btn-primary modal-follow-button" (click)="toggleModal(follower.name)" data-bs-toggle="modal" data-bs-target="#LoginModal">
+                                                                <button class="btn btn-primary modal-follow-button" (click)="toggleModal(follower.name)" data-bs-toggle="modal" data-bs-target="#LoginFollowModal">
                                                                     Follow
                                                                 </button>
                                                             </ng-template>
@@ -203,7 +203,7 @@
                                                                 </button>
                                                             </div>
                                                             <ng-template #LoggedOut>
-                                                                <button class="btn btn-primary modal-follow-button" (click)="toggleModal(follower.name)" data-bs-toggle="modal" data-bs-target="#LoginModal">
+                                                                <button class="btn btn-primary modal-follow-button" (click)="toggleModal(follower.name)" data-bs-toggle="modal" data-bs-target="#LoginFollowModal">
                                                                     Follow
                                                                 </button>
                                                             </ng-template>
@@ -251,7 +251,7 @@
                     </button>
                 </div>
                 <ng-template #LoggedOut>
-                    <button class="btn btn-primary btn-follow-md" (click)="toggleModal(user.name)" data-bs-toggle="modal" data-bs-target="#LoginModal">
+                    <button class="btn btn-primary btn-follow-md" (click)="toggleModal(user.name)" data-bs-toggle="modal" data-bs-target="#LoginFollowModal">
                         Follow
                     </button>
                 </ng-template>
@@ -297,11 +297,34 @@
         <button class="btn btn-light" [className]="buttonValue === 3 ? 'activated' : 'inactivated'" (click)="soldButton()">Sold</button>
     </div> 
 </div>
-<div class="row row-five row-cols-2 row-cols-sm-3 row-cols-md-5" *ngIf="(buttonValue === 1); else bodyOne">
-    <!-- <p>@{{user.username}} does not have anything yet. Please check back later.</p>  -->
-    <span *ngFor="let product of products" class="product-images col">
-        <img src="{{product.productImages[0].imageData}}" alt="Product pic" draggable="false">
+<div class="row "
+    [ngClass]="{
+        'row-cols-2': products,
+        'row-cols-sm-3': products,
+        'row-cols-md-5': products
+    }"
+    *ngIf="(buttonValue === 1); else bodyOne">
+    <span *ngIf="(loaderService.isLoading | async); else bodyNotLoading" class="col mx-auto pdts-img-loader">
+        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
     </span>
+    <ng-template #bodyNotLoading>
+        <span *ngIf="!products; else Products" class="no-pdts-span">
+            @{{user.username}} does not have anything yet. Please check back later.
+        </span>
+        <ng-template #Products>
+            <span *ngFor="let product of products" class="product-images col">
+                <img src="{{product.productImages[0].imageData}}" alt="Product pic" draggable="false">
+                <span class="pdt-info">
+                    <span style="font-family: 'Public Sans', sans-serif; font-size: 15px;">Ugx {{product.itemPrice}}</span>
+                    <span class="pdt-likes">
+                        <span class="material-icons-outlined">favorite_border</span> 0
+                    </span>
+                </span>
+            </span>
+        </ng-template>
+        <!-- <p>@{{user.username}} does not have anything yet. Please check back later.</p>  -->
+        
+    </ng-template>
     
 </div>
 <ng-template #bodyOne>
@@ -316,7 +339,7 @@
 </ng-template>
 
 <!-- Login Modal -->
-<div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="LoginModalLabel" aria-hidden="true">
+<div class="modal fade" id="LoginFollowModal" tabindex="-1" aria-labelledby="LoginFollowModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -327,7 +350,7 @@
                     <span class="material-icons-outlined" style="font-size: 48px; color: rgb(29, 155, 240);">person_add_alt</span>
                 </div>
                 <div class="login-modal-body mx-auto login-modal-body-text" style="width: 90%;">
-                    <p style="width: 100%;">Login to follow {{modalUserName}} and see what they are selling on Refit</p>
+                    <p style="width: 100%; text-align: center;">Login to follow {{modalUserName}} and see what they are selling on Refit</p>
                 </div>
                 <div class="login-modal-body mx-auto modal-login-button">
                     <button class="btn btn-primary w-75" type="button" (click)="goToLogin()"
