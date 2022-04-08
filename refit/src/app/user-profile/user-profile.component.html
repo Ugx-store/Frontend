@@ -312,18 +312,27 @@
             @{{user.username}} does not have anything yet. Please check back later.
         </span>
         <ng-template #Products>
-            <span *ngFor="let product of products" class="product-images col">
-                <img src="{{product.productImages[0].imageData}}" alt="Product pic" draggable="false">
-                <span class="pdt-info">
-                    <span style="font-family: 'Public Sans', sans-serif; font-size: 15px;">Ugx {{product.itemPrice}}</span>
-                    <span class="pdt-likes">
-                        <span class="material-icons-outlined">favorite_border</span> 0
+            <span *ngFor="let product of products" class="product-images col" 
+            [ngClass]="{
+                'margin-bottom-class1': loggedInUser,
+                'margin-bottom-class2': !loggedInUser
+            }">
+                <span>
+                    <img src="{{product.productImages[0].imageData}}" alt="Product pic" draggable="false">
+                    <span class="pdt-info">
+                        <span style="font-family: 'Public Sans', sans-serif; font-size: 15px;">Ugx {{product.itemPrice}}</span>
+                        <span class="pdt-likes">
+                            <span class="material-icons-outlined">favorite_border</span> 0
+                        </span>
                     </span>
                 </span>
+                <div *ngIf="loggedInUser" class="boost-button">
+                    <button class="btn">
+                        Boost <span class="material-icons-outlined">bolt</span>
+                    </button>
+                </div>
             </span>
         </ng-template>
-        <!-- <p>@{{user.username}} does not have anything yet. Please check back later.</p>  -->
-        
     </ng-template>
     
 </div>

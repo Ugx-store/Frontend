@@ -461,6 +461,34 @@
     align-content: center;
 }
 
+.margin-bottom-class1{
+    margin-bottom: 5rem;
+}
+
+.margin-bottom-class2{
+    margin-bottom: 2.5rem;
+}
+
+.boost-button{
+    display: flex;
+    justify-content: center; 
+    align-content: center;
+}
+
+.boost-button button{
+    display: flex;
+    justify-content: center; 
+    align-content: center;
+    text-align: center;
+    color: #fff;
+    font-size: 15px;
+    box-sizing: border-box;
+    background: #0000FF;
+    background-size: 400%;
+    border-radius: 9999px;
+    z-index: 1;
+}
+
 .modal-title{
     font-family: 'Public Sans', sans-serif;
 }
