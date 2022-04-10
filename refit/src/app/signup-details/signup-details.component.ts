@@ -50,49 +50,50 @@ export class SignupDetailsComponent implements OnInit {
   }
 
   OnSubmit(f: NgForm){
-    // this.spinner = true
+    this.spinner = true
 
-    // this.user.dateTimeJoined = new Date();
+    this.user.dateTimeJoined = new Date();
 
-    // this.credential = EmailAuthProvider.credential(this.user.email, this.user.password);
+    this.credential = EmailAuthProvider.credential(this.user.email, this.user.password);
 
-    // linkWithCredential(this.auth.currentUser, this.credential)
-    // .then(userCred => {
-    //   const user = userCred.user;
-    //   localStorage.setItem('LoggedInUserDetails', JSON.stringify(userCred.user))
-    //   localStorage.removeItem('verificationId');
-    //   localStorage.removeItem('refit_phoneNumber');
+    linkWithCredential(this.auth.currentUser, this.credential)
+    .then(userCred => {
+      const user = userCred.user;
+      localStorage.setItem('LoggedInUserDetails', JSON.stringify(userCred.user))
+      localStorage.removeItem('verificationId');
+      localStorage.removeItem('refit_phoneNumber');
 
-    //   this.service.addUser(this.user).then(res =>{
-    //     this.modalTrigger = 1;
-    //     this.spinner = false
-    //   })
-    // }).catch(error => {
-    //   switch(error.message){
-    //     case "Firebase: Error (auth/provider-already-linked).":
-    //       alert("The account already exists. Please login or use another phone number to create a new account.")
-    //       break
-    //     case "Firebase: Error (auth/code-expired).": 
-    //       alert("This code has expired. Please re-enter your phone number for a new code.")
-    //       break
-    //     case "Firebase: Error (auth/internal-error).":
-    //       alert("An error has occurred. Please refresh your page and try again.")
-    //       break
-    //     case "Firebase: Error (auth/invalid-email).":
-    //       alert("Please provide a valid email address.")
-    //       break
-    //     case "Firebase: Error (auth/requires-recent-login).":
-    //       alert("Please provide your phone number and a verification code before you can sign up")
-    //       break
-    //     default:
-    //       alert(error.message)
-    //       break
-    //   }
+      this.service.addUser(this.user).then(res =>{
+        this.modalTrigger = 1;
+        this.spinner = false
+        localStorage.setItem('loggedInUser', this.user.username)
+      })
+    }).catch(error => {
+      switch(error.message){
+        case "Firebase: Error (auth/provider-already-linked).":
+          alert("The account already exists. Please login or use another phone number to create a new account.")
+          break
+        case "Firebase: Error (auth/code-expired).": 
+          alert("This code has expired. Please re-enter your phone number for a new code.")
+          break
+        case "Firebase: Error (auth/internal-error).":
+          alert("An error has occurred. Please refresh your page and try again.")
+          break
+        case "Firebase: Error (auth/invalid-email).":
+          alert("Please provide a valid email address.")
+          break
+        case "Firebase: Error (auth/requires-recent-login).":
+          alert("Please provide your phone number and a verification code before you can sign up")
+          break
+        default:
+          alert(error.message)
+          break
+      }
 
-    //   this.spinner = false;
+      this.spinner = false;
 
-    //   window.location.reload();  
-    // })
+      window.location.reload();  
+    })
   }
 
   nextPage(){

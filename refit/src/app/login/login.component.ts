@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
           // Signed in 
           this.spinner = false;
           localStorage.setItem('LoggedInUserDetails', JSON.stringify(userCredential.user))
+          localStorage.setItem('loggedInUser', loggedUser.username)
           this.route.navigate(['/homepage'])
         })
         .catch((error) => {

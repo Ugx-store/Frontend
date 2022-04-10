@@ -94,6 +94,7 @@ export class GeneralNavbarComponent implements OnInit {
     signOut(this.auth).then(() => {
       this.authStatus = false;
       localStorage.removeItem('LoggedInUserDetails')
+      localStorage.removeItem('loggedInUser')
     }).catch((error) => {
       alert(error.message);
     });

@@ -96,7 +96,6 @@ export class UserProfileComponent implements OnInit{
 
     this.activatedRoute.params.subscribe((param) => {
       this.service.getUser(param.username).subscribe(res =>{
-        this.loggedInUsername = res.username
         if(res.profilePicture.length){
           this.profilePic = 'data:image/jpg;base64,' + res.profilePicture[0].imageData
         }
@@ -112,7 +111,7 @@ export class UserProfileComponent implements OnInit{
                 }
               }
 
-              this.checkLikeStatus(res.username, product)
+              this.checkLikeStatus(product)
             }
           }
         })
@@ -208,15 +207,19 @@ export class UserProfileComponent implements OnInit{
     }
   }
 
-  checkLikeStatus(username: string, product: Product){
-    if(product.like){
-      if(product.like.findIndex(like => like.likerName === username) >= 0){
-        this.isProductLiked[product.id] = true
-      }
-      else{
-        this.isProductLiked[product.id] = false
+  checkLikeStatus(product: Product){
+    let username = localStorage.getItem('loggedInUser' || '{}');
+    if(username){
+      if(product.like){
+        if(product.like.findIndex(like => like.likerName === username) >= 0){
+          this.isProductLiked[product.id] = true
+        }
+        else{
+          this.isProductLiked[product.id] = false
+        }
       }
     }
+    
   }
 
   cleanseProduct(product: Product){
@@ -297,31 +300,28 @@ export class UserProfileComponent implements OnInit{
   }
 
   likeUser(product: Product){
-    let user = this.getLoggedInUser();
-    if(user){
-      if(user.email){
-        if(!this.isProductLiked[product.id]){
-          this.like.productId = product.id
-          this.like.likerName = this.loggedInUsername
-          this.service.likeAProduct(this.like).subscribe(res =>{
-            this.isProductLiked[product.id] = true
+    let username = localStorage.getItem('loggedInUser' || '{}');
+    if(username){
+      if(!this.isProductLiked[product.id]){
+        this.like.productId = product.id
+        this.like.likerName = username
+        this.service.likeAProduct(this.like).subscribe(res =>{
+          this.isProductLiked[product.id] = true
 
-            this.cleanseProduct(product)
-          })
-        }
-        else{
-          for(let like of product.like){
-            if(like.likerName === this.loggedInUsername){
-              this.service.unLikeAProduct(like.id).subscribe(res =>{
-                this.isProductLiked[product.id] = false
+          this.cleanseProduct(product)
+        })
+      }
+      else{
+        for(let like of product.like){
+          if(like.likerName === username){
+            this.service.unLikeAProduct(like.id).subscribe(res =>{
+              this.isProductLiked[product.id] = false
 
-                this.cleanseProduct(product)
-              })
-              break
-            }
+              this.cleanseProduct(product)
+            })
+            break
           }
         }
-        
       }
     }
   }
