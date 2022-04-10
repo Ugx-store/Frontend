@@ -1,4 +1,5 @@
 import { ProductImage } from "./productImage";
+import { Like } from "./like";
 
 export interface Product{
     id: number;
@@ -19,4 +20,9 @@ export interface Product{
     freeDelivery: boolean;
     dateTimeAdded: Date;
     productImages: ProductImage[]
+    like: Like[]
+}
+
+export interface LikesChecker {
+    [key: number]: any
 }

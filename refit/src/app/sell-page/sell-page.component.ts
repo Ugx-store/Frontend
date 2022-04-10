@@ -34,7 +34,8 @@ export class SellPageComponent implements OnInit {
     size: '',
     freeDelivery: false,
     dateTimeAdded: new Date(0),
-    productImages: []
+    productImages: [],
+    like: []
   }
 
   productImage: ProductImage = {

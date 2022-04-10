@@ -7,6 +7,7 @@ import { Follow } from '../models/follow';
 import {  ProfilePictures } from '../models/profilepic';
 import { Product } from '../models/product';
 import { ProductImage } from '../models/productImage';
+import { Like } from '../models/like';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class AppServiceService {
   private profile_pic: string = "https://users-db.azurewebsites.net/api/ProfilePic"
   private product_url: string = "https://products-db.azurewebsites.net/api/Products"
   private product_image: string = "https://products-db.azurewebsites.net/api/ProductImages"
+  private like_url: string = "https://products-db.azurewebsites.net/api/Likes"
 
   constructor(private http: HttpClient) { }
 
@@ -112,6 +114,18 @@ export class AppServiceService {
 
   getUserProducts(username: string): Observable<Product[]>{
     return this.http.get<Product[]>(this.product_url + "/user-products/" + username)
+  }
+
+  getOneProduct(id: number): Observable<Product>{
+    return this.http.get<Product>(this.product_url + "/" + id)
+  }
+
+  likeAProduct(like: Like): Observable<Like>{
+    return this.http.post<Like>(this.like_url, like)
+  }
+
+  unLikeAProduct(id: number): Observable<Like>{
+    return this.http.delete<Like>(this.like_url + "/" + id)
   }
 
 }

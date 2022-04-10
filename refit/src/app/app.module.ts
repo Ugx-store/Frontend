@@ -38,6 +38,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { CacheInterceptorService } from './cache-interceptor/cache-interceptor.service';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { SellPageComponent } from './sell-page/sell-page.component';
+import { LikeButtonComponent } from './like-button/like-button.component';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { SellPageComponent } from './sell-page/sell-page.component';
     GeneralFooterComponent,
     UserProfileComponent,
     EditProfileComponent,
-    SellPageComponent
+    SellPageComponent,
+    LikeButtonComponent
   ],
   imports: [
     BrowserModule,

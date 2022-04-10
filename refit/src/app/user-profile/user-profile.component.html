@@ -321,9 +321,21 @@
                     <img src="{{product.productImages[0].imageData}}" alt="Product pic" draggable="false">
                     <span class="pdt-info">
                         <span style="font-family: 'Public Sans', sans-serif; font-size: 15px;">Ugx {{product.itemPrice}}</span>
-                        <span class="pdt-likes">
+                        <!-- <span class="pdt-likes">
                             <span class="material-icons-outlined">favorite_border</span> 0
+                        </span> -->
+                        <span *ngIf="isProductLiked[product.id]; else notLiked" class="pdt-likes">
+                            <span class="material-icons-outlined" (click)="likeUser(product)" style="color: rgb(29, 155, 240);">
+                                favorite
+                            </span> {{product.like ? product.like.length : 0}}
                         </span>
+                        <ng-template #notLiked>
+                            <span class="pdt-likes">
+                                <span class="material-icons-outlined" (click)="likeUser(product)" style="color: rgb(29, 155, 240);">
+                                    favorite_border
+                                </span> {{product.like ? product.like.length : 0}}
+                            </span>
+                        </ng-template>
                     </span>
                 </span>
                 <div *ngIf="loggedInUser" class="boost-button">
@@ -334,7 +346,6 @@
             </span>
         </ng-template>
     </ng-template>
-    
 </div>
 <ng-template #bodyOne>
     <div class="row row-five" *ngIf="(buttonValue === 2); else bodyTwo">

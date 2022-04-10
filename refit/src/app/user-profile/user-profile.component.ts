@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import { AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { app } from '../models/firebaseapp';
@@ -8,7 +8,8 @@ import { AppServiceService } from '../services/app-service.service';
 import { LoaderService } from '../Loader';
 import { DomSanitizer} from '@angular/platform-browser';
 import { LooseObject, ProfilePictures } from '../models/profilepic';
-import { Product } from '../models/product';
+import { LikesChecker, Product } from '../models/product';
+import { Like } from '../models/like';
 
 @Component({
   selector: 'app-user-profile',
@@ -49,6 +50,12 @@ export class UserProfileComponent implements OnInit{
 
   products: Product[] = []
 
+  like: Like = {
+    id: 0,
+    productId: 0,
+    likerName: ''
+  }
+
   follow: Follow = {
     id: 0,
     followerUserId: 0,
@@ -78,6 +85,8 @@ export class UserProfileComponent implements OnInit{
   isUserFollowedObject: LooseObject = {}
   followerImage: LooseObject = {}
 
+  isProductLiked: LikesChecker = {}
+
   followedAUserOrNot: boolean = false //Used to check if logged in user has followed someone on the modal
 
   @ViewChild('content') content: any;
@@ -87,6 +96,7 @@ export class UserProfileComponent implements OnInit{
 
     this.activatedRoute.params.subscribe((param) => {
       this.service.getUser(param.username).subscribe(res =>{
+        this.loggedInUsername = res.username
         if(res.profilePicture.length){
           this.profilePic = 'data:image/jpg;base64,' + res.profilePicture[0].imageData
         }
@@ -101,6 +111,8 @@ export class UserProfileComponent implements OnInit{
                   image.imageData = 'data:image/jpg;base64,' + image.imageData
                 }
               }
+
+              this.checkLikeStatus(res.username, product)
             }
           }
         })
@@ -144,6 +156,9 @@ export class UserProfileComponent implements OnInit{
     })
   }
 
+  // ngAfterViewChecked(): void {
+  //   this.cd.detectChanges();
+  // }
 
   allButton(){
     this.buttonValue = 1
@@ -191,6 +206,29 @@ export class UserProfileComponent implements OnInit{
         this.isUserFollowedObject[key] = value 
       }
     }
+  }
+
+  checkLikeStatus(username: string, product: Product){
+    if(product.like){
+      if(product.like.findIndex(like => like.likerName === username) >= 0){
+        this.isProductLiked[product.id] = true
+      }
+      else{
+        this.isProductLiked[product.id] = false
+      }
+    }
+  }
+
+  cleanseProduct(product: Product){
+    this.service.getOneProduct(product.id).subscribe(prod =>{
+      for(let image of prod.productImages){
+        image.imageData = 'data:image/jpg;base64,' + image.imageData
+      }
+      const i = this.products.indexOf(product);
+      if(i >= 0){
+          this.products.splice(i, 1, prod);
+      }
+    })
   }
 
   followers(){
@@ -258,14 +296,42 @@ export class UserProfileComponent implements OnInit{
 
   }
 
+  likeUser(product: Product){
+    let user = this.getLoggedInUser();
+    if(user){
+      if(user.email){
+        if(!this.isProductLiked[product.id]){
+          this.like.productId = product.id
+          this.like.likerName = this.loggedInUsername
+          this.service.likeAProduct(this.like).subscribe(res =>{
+            this.isProductLiked[product.id] = true
+
+            this.cleanseProduct(product)
+          })
+        }
+        else{
+          for(let like of product.like){
+            if(like.likerName === this.loggedInUsername){
+              this.service.unLikeAProduct(like.id).subscribe(res =>{
+                this.isProductLiked[product.id] = false
+
+                this.cleanseProduct(product)
+              })
+              break
+            }
+          }
+        }
+        
+      }
+    }
+  }
+
 
   followUser(event:Event, followedUser: User){
     this.currentLoggedInUser = this.getLoggedInUser();
     if (this.currentLoggedInUser) {
-      console.log(this.currentLoggedInUser)
       if(this.currentLoggedInUser.email){
         this.service.getUser(this.currentLoggedInUser.email).subscribe(res =>{
-          console.log(followedUser.username)
           this.follow.followedUserId = followedUser.id
           this.follow.followerUserId = res.id
           this.follow.followerName = res.username
