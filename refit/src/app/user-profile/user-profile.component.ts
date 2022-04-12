@@ -71,10 +71,10 @@ export class UserProfileComponent implements OnInit{
   profilePic: string = '';
   modalUserName: string = '';
   
+  globalUsername: any;
 
   isUserFollowed: boolean= false;
   loggedInUser: boolean = true;
-  authFlag: boolean = true;
   showModalBox: boolean = false;
 
   userFollows: User[] = [];
@@ -89,11 +89,9 @@ export class UserProfileComponent implements OnInit{
 
   followedAUserOrNot: boolean = false //Used to check if logged in user has followed someone on the modal
 
-  @ViewChild('content') content: any;
-
   ngOnInit(): void {
     this.buttonValue = 1
-
+    
     this.activatedRoute.params.subscribe((param) => {
       this.service.getUser(param.username).subscribe(res =>{
         if(res.profilePicture.length){
@@ -117,7 +115,8 @@ export class UserProfileComponent implements OnInit{
         })
 
         onAuthStateChanged(this.auth, (user) =>{
-          if (user && this.authFlag) {
+          if (user) {
+            this.globalUsername = localStorage.getItem('loggedInUser' || '{}');
             if(user.phoneNumber === res.phoneNumber){
               this.loggedInUser = true;
               this.user = res;
@@ -141,6 +140,7 @@ export class UserProfileComponent implements OnInit{
             }
           } 
           else {
+            this.globalUsername = null;
             this.loggedInUser = false;
             this.isUserFollowed = false
             this.user = res;
@@ -300,11 +300,10 @@ export class UserProfileComponent implements OnInit{
   }
 
   likeUser(product: Product){
-    let username = localStorage.getItem('loggedInUser' || '{}');
-    if(username){
+    if(this.globalUsername){
       if(!this.isProductLiked[product.id]){
         this.like.productId = product.id
-        this.like.likerName = username
+        this.like.likerName = this.globalUsername
         this.service.likeAProduct(this.like).subscribe(res =>{
           this.isProductLiked[product.id] = true
 
@@ -313,7 +312,7 @@ export class UserProfileComponent implements OnInit{
       }
       else{
         for(let like of product.like){
-          if(like.likerName === username){
+          if(like.likerName === this.globalUsername){
             this.service.unLikeAProduct(like.id).subscribe(res =>{
               this.isProductLiked[product.id] = false
 

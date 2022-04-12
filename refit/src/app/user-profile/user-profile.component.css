@@ -326,6 +326,10 @@
     .dropdown-content {
         width: 7rem;
     }
+    .each-pricing-categories{
+        width: 2rem;
+        height: 2rem;
+    }
 }
 
 @media (min-width: 992px) {
@@ -564,6 +568,67 @@
     font-family: 'Public Sans', sans-serif;
     font-size: 20px;
 }
+
+.modal-icons{
+    font-size: 48px; 
+    color: rgb(29, 155, 240);
+}
+
+.bolt-modal-icon{
+    font-size: 72px; 
+    color: rgb(255, 0, 0);
+}
+
+.boost-modal{
+    /* Created with https://www.css-gradient.com */
+    background: #6949C5;
+    background: -webkit-linear-gradient(top left, #6949C5, #3019A3);
+    background: -moz-linear-gradient(top left, #6949C5, #3019A3);
+    background: linear-gradient(to bottom right, #6949C5, #3019A3);
+}
+
+.boost-modal-text{
+    width: 100%; 
+    text-align: center;
+    color: #fff;
+}
+
+.boost-modal-sub-text{
+    font-size: 15px; 
+    color: #fff; 
+    text-align: center; 
+    display: flex; 
+    align-content: center; 
+    justify-content: center;
+}
+
+.pricing-categories{
+    display: flex;
+    align-content: center; 
+    justify-content: center;
+    margin-top: 1rem;
+    /*height: 13rem; */
+}
+
+.each-pricing-categories{
+    width: 10rem;
+    height: 10rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+}
+
+@media(max-width: 768px) {
+    .each-pricing-categories{
+        width: 6rem;
+        height: 6rem;
+    }
+}
+
+
 
 
 

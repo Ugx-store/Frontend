@@ -321,17 +321,25 @@
                     <img src="{{product.productImages[0].imageData}}" alt="Product pic" draggable="false">
                     <span class="pdt-info">
                         <span style="font-family: 'Public Sans', sans-serif; font-size: 15px;">Ugx {{product.itemPrice}}</span>
-                        <!-- <span class="pdt-likes">
-                            <span class="material-icons-outlined">favorite_border</span> 0
-                        </span> -->
-                        <span *ngIf="isProductLiked[product.id]; else notLiked" class="pdt-likes">
-                            <span class="material-icons-outlined" (click)="likeUser(product)" style="color: rgb(29, 155, 240);">
-                                favorite
-                            </span> {{product.like ? product.like.length : 0}}
+                        
+                        <span *ngIf="globalUsername; else LikerLoggedOut">
+                            <span *ngIf="isProductLiked[product.id]; else notLiked" class="pdt-likes">
+                                <span class="material-icons-outlined" (click)="likeUser(product)" style="color: #007bff;">
+                                    favorite
+                                </span> {{product.like ? product.like.length : 0}}
+                            </span>
+                            <ng-template #notLiked>
+                                <span class="pdt-likes">
+                                    <span class="material-icons-outlined" (click)="likeUser(product)" style="color: #007bff;">
+                                        favorite_border
+                                    </span> {{product.like ? product.like.length : 0}}
+                                </span>
+                            </ng-template>
                         </span>
-                        <ng-template #notLiked>
+                        <ng-template #LikerLoggedOut>
                             <span class="pdt-likes">
-                                <span class="material-icons-outlined" (click)="likeUser(product)" style="color: rgb(29, 155, 240);">
+                                <span class="material-icons-outlined" style="color: #007bff;"
+                                data-bs-toggle="modal" data-bs-target="#LoginLikeModal">
                                     favorite_border
                                 </span> {{product.like ? product.like.length : 0}}
                             </span>
@@ -339,7 +347,7 @@
                     </span>
                 </span>
                 <div *ngIf="loggedInUser" class="boost-button">
-                    <button class="btn">
+                    <button class="btn" data-bs-toggle="modal" data-bs-target="#BoostModal">
                         Boost <span class="material-icons-outlined">bolt</span>
                     </button>
                 </div>
@@ -367,11 +375,82 @@
             </div>
             <div class="modal-body mx-auto">
                 <div class="login-modal-body">
-                    <span class="material-icons-outlined" style="font-size: 48px; color: rgb(29, 155, 240);">person_add_alt</span>
+                    <span class="material-icons-outlined modal-icons">person_add_alt</span>
                 </div>
                 <div class="login-modal-body mx-auto login-modal-body-text" style="width: 90%;">
                     <p style="width: 100%; text-align: center;">Login to follow {{modalUserName}} and see what they are selling on Refit</p>
                 </div>
+                <div class="login-modal-body mx-auto modal-login-button">
+                    <button class="btn btn-primary w-75" type="button" (click)="goToLogin()"
+                    data-bs-dismiss="modal" aria-label="close">
+                        Log in
+                    </button>
+                </div>
+                <div class="login-modal-body mx-auto modal-signup-button" (click)="goToSignup()">
+                    <button class="btn w-75" type="button"
+                    data-bs-dismiss="modal" aria-label="close">
+                        Sign up
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Liker Logged out Modal -->
+<div class="modal fade" id="LoginLikeModal" tabindex="-1" aria-labelledby="LoginLikeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body mx-auto">
+                <div class="login-modal-body">
+                    <span class="material-icons-outlined modal-icons">favorite_border</span>
+                </div>
+                <div class="login-modal-body mx-auto login-modal-body-text" style="width: 90%;">
+                    <p style="width: 100%; text-align: center;">Login to like this product and several others on Refit</p>
+                </div>
+                <div class="login-modal-body mx-auto modal-login-button">
+                    <button class="btn btn-primary w-75" type="button" (click)="goToLogin()"
+                    data-bs-dismiss="modal" aria-label="close">
+                        Log in
+                    </button>
+                </div>
+                <div class="login-modal-body mx-auto modal-signup-button" (click)="goToSignup()">
+                    <button class="btn w-75" type="button"
+                    data-bs-dismiss="modal" aria-label="close">
+                        Sign up
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Boost Modal -->
+<div class="modal fade" id="BoostModal" tabindex="-1" aria-labelledby="BoostModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-md-down modal-lg modal-dialog-scrollable">
+        <div class="modal-content boost-modal">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body mx-auto">
+                <div class="login-modal-body">
+                    <span class="material-icons-outlined bolt-modal-icon">bolt</span> 
+                </div>
+                <div class="login-modal-body mx-auto login-modal-body-text" style="width: 100%;">
+                    <p class="boost-modal-text">Enhance Product Visibility</p>
+                </div>
+                <span class="boost-modal-sub-text">
+                    Boost your products to been seen first in their respective categories, sub-categories and on users' homepages! 
+                </span>
+                <div class="pricing-categories">
+                    <span class="each-pricing-categories"></span>
+                    <span class="each-pricing-categories"></span>
+                    <span class="each-pricing-categories"></span>
+                </div>
+
                 <div class="login-modal-body mx-auto modal-login-button">
                     <button class="btn btn-primary w-75" type="button" (click)="goToLogin()"
                     data-bs-dismiss="modal" aria-label="close">
