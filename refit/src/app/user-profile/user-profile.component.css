@@ -611,7 +611,6 @@
 }
 
 .each-pricing-categories{
-    width: 10rem;
     height: 10rem;
     margin-right: 1rem;
     cursor: pointer;
@@ -621,6 +620,12 @@
     border-radius: 10px;
     /* background:  */
     background-color: #fff;
+}
+
+.each-pricing-categories:hover, .each-pricing-categories:active{
+    border-style: solid;
+    border-color: rgb(255, 0, 0);
+    border-width: 0.2rem;
 }
 
 .duration-figures{
@@ -642,29 +647,33 @@
 }
 
 .boost-price{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #3019A3;
     font-size: 15px;
     font-family: 'Public Sans', sans-serif;
+    text-align: center;
 }
 
 @media(max-width: 768px) {
     .each-pricing-categories{
         width: 7rem;
-        height: 7rem;
+        height: 9rem;
     }
 
     .duration-figures{
         font-size: 40px;
-        height: 3.3rem;
+        height: 2.3rem;
     }
     
     .duration-words{
-        font-size: 15px;
-        padding-bottom: 0.5rem;
+        font-size: 12px;
+        padding-bottom: 1rem;
     }
     
     .boost-price{
-        font-size: 15px;
+        font-size: 12px;
     }
 }
 
