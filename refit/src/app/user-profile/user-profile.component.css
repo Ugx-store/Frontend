@@ -618,13 +618,53 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: white;
+    border-radius: 10px;
+    /* background:  */
+    background-color: #fff;
+}
+
+.duration-figures{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3019A3;
+    font-size: 60px;
+    height: 3.3rem;
+}
+
+.duration-words{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3019A3;
+    font-size: 15px;
+    padding-bottom: 1rem;
+}
+
+.boost-price{
+    color: #3019A3;
+    font-size: 15px;
+    font-family: 'Public Sans', sans-serif;
 }
 
 @media(max-width: 768px) {
     .each-pricing-categories{
         width: 7rem;
         height: 7rem;
+    }
+
+    .duration-figures{
+        font-size: 40px;
+        height: 3.3rem;
+    }
+    
+    .duration-words{
+        font-size: 15px;
+        padding-bottom: 0.5rem;
+    }
+    
+    .boost-price{
+        font-size: 15px;
     }
 }
 
