@@ -89,6 +89,9 @@ export class UserProfileComponent implements OnInit{
 
   followedAUserOrNot: boolean = false //Used to check if logged in user has followed someone on the modal
 
+  boostPriceClicked: boolean = false
+  boostPriceId: number = 0
+  
   ngOnInit(): void {
     this.buttonValue = 1
     
@@ -158,6 +161,15 @@ export class UserProfileComponent implements OnInit{
   // ngAfterViewChecked(): void {
   //   this.cd.detectChanges();
   // }
+
+  boostPriceClick(id: number){
+    this.boostPriceClicked = false
+    this.boostPriceClicked = true
+
+    if(id ===1) this.boostPriceId = 1
+    if(id ===2) this.boostPriceId = 2
+    if(id ===3) this.boostPriceId = 3
+  }
 
   allButton(){
     this.buttonValue = 1
