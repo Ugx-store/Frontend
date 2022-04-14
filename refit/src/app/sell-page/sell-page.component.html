@@ -6,8 +6,8 @@
             <span class="text-muted photos-subheading">
                 Add upto 3 photos (We recommend you add at least one picture of yourself or someone else displaying the item)
             </span>
-            <div class="all-photos">
-                <div>
+            <div class="all-photos" style="width: 100%;">
+                <div style="width: 33.3%;">
                     <span *ngIf="compressedImages[0]; else noImage" class="product-div">
                         <img src="{{compressedImages[0]}}" alt="Profile pic" draggable="false">
                     </span>
@@ -37,7 +37,7 @@
                         </span>
                     </ng-template>
                 </div>
-                <div style="margin-bottom: 5rem">
+                <div style="margin-bottom: 5rem; width: 33.3%;">
                     <span *ngIf="!compressedImages[0]; else ImageOne" class="empty-image-span"></span>
                     <ng-template #ImageOne>
                         <span *ngIf="compressedImages[1]; else noImageTwo" class="product-div">
@@ -70,7 +70,7 @@
                         </ng-template>
                     </ng-template>
                 </div>
-                <div>
+                <div style="width: 33.3%;">
                     <span *ngIf="!compressedImages[1]; else ImageTwo" class="empty-image-span"></span>
                     <ng-template #ImageTwo>
                         <span *ngIf="compressedImages[2]; else noImageThree" class="product-div">

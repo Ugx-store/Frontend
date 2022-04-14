@@ -266,20 +266,20 @@ option{
         width: 100%;
     }
     .photo-div{
-        width: 7rem;
-        height: 7rem;
+        width: 90%;
+        height: 8rem;
     }
     .product-div{
-        width: 7rem;
-        height: 7rem;
+        width: 90%;
+        height: 8rem;
     }
     .empty-image-span{
-        width: 7rem;
-        height: 7rem;
+        width: 90%;
+        height: 8rem;
     }
-    img{
-        height: 7rem; 
-        width: 7rem; 
+    img{ 
+        width: 90%; 
+        height: 8rem;
         object-fit: cover;
     }
     .optional-edit{
