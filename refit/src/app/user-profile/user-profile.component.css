@@ -330,6 +330,13 @@
         width: 2rem;
         height: 2rem;
     }
+
+    .button-width{
+        width: 75%;
+        background-color: #2a2a72;
+        background-color: #FF0800;
+        border-color: #FF0800;
+    }
 }
 
 @media (min-width: 992px) {
@@ -357,6 +364,19 @@
     .dropdown-content {
         width: 6.9rem;
     }
+
+    .button-width{
+        width: 60%;
+        background-color: #2a2a72;
+        background-color: #FF0800;
+        border-color: #FF0800;
+    }
+}
+
+.button-width:not(:disabled):not(.disabled):active{
+    color: #fff;
+    background-color: #FF0800;
+    border-color: #FF0800;
 }
 
 .dropdown-content {
