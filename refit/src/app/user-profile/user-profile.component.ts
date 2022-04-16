@@ -10,6 +10,9 @@ import { DomSanitizer} from '@angular/platform-browser';
 import { LooseObject, ProfilePictures } from '../models/profilepic';
 import { LikesChecker, Product } from '../models/product';
 import { Like } from '../models/like';
+import { interval, Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
+import { Counter } from '../models/counter';
 
 @Component({
   selector: 'app-user-profile',
@@ -91,9 +94,17 @@ export class UserProfileComponent implements OnInit{
 
   boostPriceClicked: boolean = false
   boostPriceId: number = 0
+
+  timeLeft$: Observable<Counter> = new Observable()
+  endTime: Date = new Date()
+  minutesBoosted: number = 0;
   
   ngOnInit(): void {
     this.buttonValue = 1
+
+    let time = new Date();
+    time.setMinutes(time.getMinutes() + 20)
+    console.log(time)
     
     this.activatedRoute.params.subscribe((param) => {
       this.service.getUser(param.username).subscribe(res =>{
@@ -539,6 +550,20 @@ export class UserProfileComponent implements OnInit{
 
   toggleModal(name: string){
     this.modalUserName = name;
+  }
+
+  setMinutesBoosted(mins: number){
+    this.minutesBoosted = mins
+  }
+
+  counterMethod(mins: number){
+    this.endTime = new Date()
+    this.endTime.setMinutes(this.endTime.getMinutes() + mins)
+
+    this.timeLeft$ = interval(1000).pipe(
+      map(x => this.service.timeDiff(this.endTime, this.minutesBoosted)),
+      shareReplay(1)
+    );
   }
 
 }

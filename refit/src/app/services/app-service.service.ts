@@ -128,4 +128,27 @@ export class AppServiceService {
     return this.http.delete<Like>(this.like_url + "/" + id)
   }
 
+  //Method for the counter
+  timeDiff(timeDiff: Date, minsBoosted: number){
+    const timeDifference = timeDiff.getTime() - new Date().getTime()
+
+    if(timeDifference === 0){
+      minsBoosted = 0
+    }
+
+    const hours = Math.floor(
+      (timeDifference / 3600000)
+    )
+
+    const minutes = Math.floor(
+      (timeDifference / 60000)
+    )
+
+    const seconds = Math.floor(
+      (timeDifference / 1000) 
+    )
+
+    return {seconds, minutes, hours}
+  } 
+
 }

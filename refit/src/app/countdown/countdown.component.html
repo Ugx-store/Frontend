@@ -1,0 +1,9 @@
+<div class="timer" *ngIf="(timeLeft$ | async) as t; else sorry">
+	<h4> Count down timer </h4>
+	<span id="hours"> {{t.hours}} </span>Hrs
+	<span id="minutes"> {{t.minutes}} </span>Min
+</div>
+
+<ng-template #sorry>
+	Sorry, something went wrong...
+</ng-template>

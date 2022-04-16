@@ -39,6 +39,7 @@ import { CacheInterceptorService } from './cache-interceptor/cache-interceptor.s
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { SellPageComponent } from './sell-page/sell-page.component';
 import { LikeButtonComponent } from './like-button/like-button.component';
+import { CountdownComponent } from './countdown/countdown.component';
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import { LikeButtonComponent } from './like-button/like-button.component';
     UserProfileComponent,
     EditProfileComponent,
     SellPageComponent,
-    LikeButtonComponent
+    LikeButtonComponent,
+    CountdownComponent
   ],
   imports: [
     BrowserModule,

@@ -347,9 +347,16 @@
                     </span>
                 </span>
                 <div *ngIf="loggedInUser" class="boost-button">
-                    <button class="btn" data-bs-toggle="modal" data-bs-target="#BoostModal">
-                        Boost <span class="material-icons-outlined">bolt</span>
-                    </button>
+                    <span *ngIf="(timeLeft$ | async) as t; else noCounter">
+                        <button class="btn counter-button not-counter-button" data-bs-toggle="modal" data-bs-target="#BoostModal">
+                            {{t.hours >= 1 ? '0'+t.hours : '0'+0}} : {{t.minutes < 10 ? '0'+t.minutes:t.minutes}}
+                        </button>
+                    </span>
+                    <ng-template #noCounter>
+                        <button class="btn not-counter-button" data-bs-toggle="modal" data-bs-target="#BoostModal">
+                            Boost <span class="material-icons-outlined">bolt</span>
+                        </button>
+                    </ng-template>
                 </div>
             </span>
         </ng-template>
@@ -447,50 +454,54 @@
                 </span>
                 <div class="pricing-categories row row-cols-4 row-cols-sm-4 row-cols-md-5">
                     <span class="each-pricing-categories col" (click)="boostPriceClick(1)"
-                    [class.each-pricing-categories-clicked]="boostPriceClicked && boostPriceId === 1">
+                    [class.each-pricing-categories-clicked]="boostPriceClicked && boostPriceId === 1" 
+                    (click)="setMinutesBoosted(6)">
                         <span>
                             <span class="duration-figures" 
                             [class.duration-figures-clicked]="boostPriceClicked && boostPriceId === 1">
                                 30
                             </span>
                             <span class="duration-words">Minutes</span>
-                            <span class="boost-price">Ugx 3,000</span>
+                            <span class="boost-price">Ugx 500</span>
                         </span>
                     </span>
 
                     <span class="each-pricing-categories col" (click)="boostPriceClick(2)"
-                    [class.each-pricing-categories-clicked]="boostPriceClicked && boostPriceId === 2">
+                    [class.each-pricing-categories-clicked]="boostPriceClicked && boostPriceId === 2" 
+                    (click)="setMinutesBoosted(61)">
                         <span>
                             <span class="duration-figures" 
                             [class.duration-figures-clicked]="boostPriceClicked && boostPriceId === 2">
                                 1
                             </span>
                             <span class="duration-words">Hour</span>
-                            <span class="boost-price">Ugx 5,000</span>
+                            <span class="boost-price">Ugx 900</span>
                         </span>
                     </span>
                     
                     <span class="each-pricing-categories col" (click)="boostPriceClick(3)"
-                    [class.each-pricing-categories-clicked]="boostPriceClicked && boostPriceId === 3">
+                    [class.each-pricing-categories-clicked]="boostPriceClicked && boostPriceId === 3" 
+                    (click)="setMinutesBoosted(121)">
                         <span>
                             <span class="duration-figures" 
                             [class.duration-figures-clicked]="boostPriceClicked && boostPriceId === 3">
                                 2
                             </span>
                             <span class="duration-words">Hours</span>
-                            <span class="boost-price">Ugx 9,000</span>
+                            <span class="boost-price">Ugx 1,600</span>
                         </span>
                     </span>
                 </div>
                 <span class="pricing-categories row row-cols-4 row-cols-sm-4 row-cols-md-5" 
                 style="margin-top: 0;">
                     <span class="savings-span"></span>
-                    <span class="savings-span">Save 17%</span>
-                    <span class="savings-span">Save 25%</span>
+                    <span class="savings-span">Save 10%</span>
+                    <span class="savings-span">Save 20%</span>
                 </span>
 
                 <div class="login-modal-body mx-auto modal-login-button" style="margin-top: 2rem;">
-                    <button class="btn btn-primary button-width" type="button" data-bs-dismiss="modal" aria-label="close">
+                    <button class="btn btn-primary button-width" type="button" data-bs-dismiss="modal"
+                    aria-label="close" (click)="counterMethod(minutesBoosted)">
                         Continue
                     </button>
                 </div>
