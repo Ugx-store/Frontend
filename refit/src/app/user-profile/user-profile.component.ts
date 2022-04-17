@@ -11,7 +11,7 @@ import { LooseObject, ProfilePictures } from '../models/profilepic';
 import { LikesChecker, Product } from '../models/product';
 import { Like } from '../models/like';
 import { interval, Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { map, shareReplay, takeWhile } from 'rxjs/operators';
 import { Counter } from '../models/counter';
 
 @Component({
@@ -562,8 +562,9 @@ export class UserProfileComponent implements OnInit{
 
     this.timeLeft$ = interval(1000).pipe(
       map(x => this.service.timeDiff(this.endTime, this.minutesBoosted)),
+      takeWhile(v => v.seconds > 0 || v.hours > 0 || v.minutes > 0),
       shareReplay(1)
-    );
+    )
   }
 
 }

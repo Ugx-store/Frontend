@@ -8,6 +8,7 @@ import {  ProfilePictures } from '../models/profilepic';
 import { Product } from '../models/product';
 import { ProductImage } from '../models/productImage';
 import { Like } from '../models/like';
+import { Counter } from '../models/counter';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,12 @@ export class AppServiceService {
   private product_url: string = "https://products-db.azurewebsites.net/api/Products"
   private product_image: string = "https://products-db.azurewebsites.net/api/ProductImages"
   private like_url: string = "https://products-db.azurewebsites.net/api/Likes"
+
+  counter: Counter = {
+    seconds: 0,
+    minutes: 0,
+    hours: 0
+  }
 
   constructor(private http: HttpClient) { }
 
@@ -132,23 +139,16 @@ export class AppServiceService {
   timeDiff(timeDiff: Date, minsBoosted: number){
     const timeDifference = timeDiff.getTime() - new Date().getTime()
 
-    if(timeDifference === 0){
-      minsBoosted = 0
-    }
+      const counter = Math.floor(timeDifference / 1000)
+      const counter1 = Math.floor(timeDifference / 60000)
 
-    const hours = Math.floor(
-      (timeDifference / 3600000)
-    )
+      this.counter.hours = Math.floor(counter1 / 60)
 
-    const minutes = Math.floor(
-      (timeDifference / 60000)
-    )
+      this.counter.minutes = (counter1 % 60)
 
-    const seconds = Math.floor(
-      (timeDifference / 1000) 
-    )
+      this.counter.seconds = (counter % 60)
 
-    return {seconds, minutes, hours}
+    return this.counter
   } 
 
 }

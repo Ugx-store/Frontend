@@ -348,9 +348,11 @@
                 </span>
                 <div *ngIf="loggedInUser" class="boost-button">
                     <span *ngIf="(timeLeft$ | async) as t; else noCounter">
-                        <button class="btn counter-button not-counter-button" data-bs-toggle="modal" data-bs-target="#BoostModal">
-                            {{t.hours >= 1 ? '0'+t.hours : '0'+0}} : {{t.minutes < 10 ? '0'+t.minutes:t.minutes}}
-                        </button>
+                        <span *ngIf="t.hours > 0 || t.minutes > 0 || t.seconds > 0; else noCounter">
+                            <button class="btn counter-button not-counter-button" data-bs-toggle="modal" data-bs-target="#BoostModal">
+                                {{t.hours >= 1 ? '0'+t.hours : '0'+0}} : {{t.minutes < 10 ? '0'+t.minutes:t.minutes}} : {{t.seconds < 10 ? '0'+t.seconds:t.seconds}}
+                            </button>
+                        </span>
                     </span>
                     <ng-template #noCounter>
                         <button class="btn not-counter-button" data-bs-toggle="modal" data-bs-target="#BoostModal">
@@ -455,7 +457,7 @@
                 <div class="pricing-categories row row-cols-4 row-cols-sm-4 row-cols-md-5">
                     <span class="each-pricing-categories col" (click)="boostPriceClick(1)"
                     [class.each-pricing-categories-clicked]="boostPriceClicked && boostPriceId === 1" 
-                    (click)="setMinutesBoosted(6)">
+                    (click)="setMinutesBoosted(1)">
                         <span>
                             <span class="duration-figures" 
                             [class.duration-figures-clicked]="boostPriceClicked && boostPriceId === 1">
