@@ -14,7 +14,6 @@ import { interval, Observable, Subscription } from 'rxjs';
 import { finalize, map, shareReplay, takeWhile, tap } from 'rxjs/operators';
 import { BoostChecker, Counter } from '../models/counter';
 import { Boost } from '../models/boost';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-user-profile',
