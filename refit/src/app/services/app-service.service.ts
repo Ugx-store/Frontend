@@ -9,6 +9,7 @@ import { Product } from '../models/product';
 import { ProductImage } from '../models/productImage';
 import { Like } from '../models/like';
 import { Counter } from '../models/counter';
+import { Boost } from '../models/boost';
 
 @Injectable({
   providedIn: 'root'
@@ -23,12 +24,7 @@ export class AppServiceService {
   private product_url: string = "https://products-db.azurewebsites.net/api/Products"
   private product_image: string = "https://products-db.azurewebsites.net/api/ProductImages"
   private like_url: string = "https://products-db.azurewebsites.net/api/Likes"
-
-  counter: Counter = {
-    seconds: 0,
-    minutes: 0,
-    hours: 0
-  }
+  private boost_url: string = "https://products-db.azurewebsites.net/api/Boost"
 
   constructor(private http: HttpClient) { }
 
@@ -135,20 +131,30 @@ export class AppServiceService {
     return this.http.delete<Like>(this.like_url + "/" + id)
   }
 
+  boostAProduct(boost: Boost): Observable<Boost>{
+    return this.http.post<Boost>(this.boost_url, boost)
+  }
+
+  endBoost(boost: Boost): Observable<Boost>{
+    return this.http.put<Boost>(this.boost_url, boost)
+  }
+
+  getAllBoosts(): Observable<Boost>{
+    return this.http.get<Boost>(this.boost_url)
+  }
+
   //Method for the counter
-  timeDiff(timeDiff: Date, minsBoosted: number){
-    const timeDifference = timeDiff.getTime() - new Date().getTime()
+  timeDiff(endTime: Date, count: Counter, offSetTime: number){
+    const timeDifference = endTime.getTime() - (Date.now() + offSetTime)
 
       const counter = Math.floor(timeDifference / 1000)
       const counter1 = Math.floor(timeDifference / 60000)
 
-      this.counter.hours = Math.floor(counter1 / 60)
+      count.hours = Math.floor(counter1 / 60)
 
-      this.counter.minutes = (counter1 % 60)
+      count.minutes = (counter1 % 60)
 
-      this.counter.seconds = (counter % 60)
-
-    return this.counter
+      count.seconds = (counter % 60)
   } 
 
 }

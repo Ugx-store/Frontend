@@ -1,5 +1,6 @@
 import { ProductImage } from "./productImage";
 import { Like } from "./like";
+import { Boost } from "./boost";
 
 export interface Product{
     id: number;
@@ -20,7 +21,8 @@ export interface Product{
     freeDelivery: boolean;
     dateTimeAdded: Date;
     productImages: ProductImage[]
-    like: Like[]
+    like: Like[],
+    boost: Boost[]
 }
 
 export interface LikesChecker {

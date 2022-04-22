@@ -10,9 +10,11 @@ import { DomSanitizer} from '@angular/platform-browser';
 import { LooseObject, ProfilePictures } from '../models/profilepic';
 import { LikesChecker, Product } from '../models/product';
 import { Like } from '../models/like';
-import { interval, Observable } from 'rxjs';
-import { map, shareReplay, takeWhile } from 'rxjs/operators';
-import { Counter } from '../models/counter';
+import { interval, Observable, Subscription } from 'rxjs';
+import { finalize, map, shareReplay, takeWhile, tap } from 'rxjs/operators';
+import { BoostChecker, Counter } from '../models/counter';
+import { Boost } from '../models/boost';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-user-profile',
@@ -21,7 +23,7 @@ import { Counter } from '../models/counter';
   //changeDetection : ChangeDetectionStrategy.OnPush
 })
 
-export class UserProfileComponent implements OnInit{
+export class UserProfileComponent implements OnInit, OnDestroy{
 
   constructor(private activatedRoute: ActivatedRoute, private service: AppServiceService, 
     private route: Router, public loaderService: LoaderService, private sanitizer: DomSanitizer,
@@ -95,16 +97,27 @@ export class UserProfileComponent implements OnInit{
   boostPriceClicked: boolean = false
   boostPriceId: number = 0
 
-  timeLeft$: Observable<Counter> = new Observable()
+  //timeLeft$: Observable<Counter> = new Observable();
+
+  subscriptions: Subscription[] = [];
+
   endTime: Date = new Date()
   minutesBoosted: number = 0;
+
+  boost: Boost = {
+    id: 0,
+    productId: 0,
+    username: '',
+    boosted: false,
+    boostPrice: 0,
+    boostStartTime: new Date(0),
+    boostEndTime: new Date(0)
+  }
+
+  productBoost: BoostChecker = {}
   
   ngOnInit(): void {
     this.buttonValue = 1
-
-    let time = new Date();
-    time.setMinutes(time.getMinutes() + 20)
-    console.log(time)
     
     this.activatedRoute.params.subscribe((param) => {
       this.service.getUser(param.username).subscribe(res =>{
@@ -114,12 +127,38 @@ export class UserProfileComponent implements OnInit{
 
         this.service.getUserProducts(res.username).subscribe(prod =>{
           this.products = prod
-          console.log(this.products)
           if(this.products){
             for(let product of this.products){
               if(product.productImages.length){
                 for(let image of product.productImages){
                   image.imageData = 'data:image/jpg;base64,' + image.imageData
+                }
+              }
+
+              if(product.boost[0]?.boosted){
+                this.boost = product.boost[0];
+
+                var endDate = new Date(product.boost[0].boostEndTime)
+                var offSetTime = (endDate.getTimezoneOffset()) * 60000;
+
+                var now = new Date()
+                now.setMinutes(now.getMinutes() + (endDate.getTimezoneOffset()))
+                
+                if(now > endDate){
+                  this.boost.boosted = false;
+                  this.service.endBoost(this.boost).subscribe(b =>{
+                    this.ngOnInit()
+                  })
+                }
+                else{
+                  let counter: Counter = {
+                    seconds: 0,
+                    minutes: 0,
+                    hours: 0
+                  }
+                  this.productBoost[product.id] = counter
+                  this.productBoost[product.id]
+                  this.boostTimer(endDate, this.productBoost[product.id], offSetTime, this.boost)
                 }
               }
 
@@ -173,13 +212,34 @@ export class UserProfileComponent implements OnInit{
   //   this.cd.detectChanges();
   // }
 
-  boostPriceClick(id: number){
+  ngOnDestroy(): void {
+    for(let subscription of this.subscriptions){
+      subscription.unsubscribe();
+    }
+  }
+
+  boostPriceClick(id: number, minutes: number){
     this.boostPriceClicked = false
     this.boostPriceClicked = true
 
-    if(id ===1) this.boostPriceId = 1
-    if(id ===2) this.boostPriceId = 2
-    if(id ===3) this.boostPriceId = 3
+    this.minutesBoosted = minutes
+
+    if(id ===1){
+      this.boostPriceId = 1
+      this.boost.boostPrice = 1000
+    } 
+    if(id ===2){
+      this.boostPriceId = 2
+      this.boost.boostPrice = 1500
+    } 
+    if(id ===3){
+      this.boostPriceId = 3
+      this.boost.boostPrice = 2500
+    } 
+  }
+
+  getProductId(id: number){
+    this.boost.productId = id
   }
 
   allButton(){
@@ -245,6 +305,25 @@ export class UserProfileComponent implements OnInit{
     
   }
 
+  boostTimer(endTime:Date, counter: Counter, offSetTime: number, boost: Boost){
+    let subscription = interval(1000).pipe(
+      takeWhile(v => counter.seconds > -1),
+      finalize(() =>{ 
+        if(counter.seconds === -1){
+          boost.boosted = false;
+          this.service.endBoost(boost).subscribe(b =>{
+          console.log("Finished")
+        })
+        }
+      })
+    ).subscribe(x => {
+      this.service.timeDiff(endTime, counter, offSetTime)
+      console.log("Hello")
+    })
+
+    this.subscriptions.push(subscription)
+  }
+
   cleanseProduct(product: Product){
     this.service.getOneProduct(product.id).subscribe(prod =>{
       for(let image of prod.productImages){
@@ -281,7 +360,6 @@ export class UserProfileComponent implements OnInit{
             this.loggedInUsername = loggedUser.username
             this.service.getUserFollows(loggedUser.username).subscribe(res =>{
               this.LoggedInUserFollows = res;
-              console.log(this.LoggedInUserFollows)
 
               this.checkFollowStatus(this.LoggedInUserFollows, this.userFollowersProfiles)
             })
@@ -552,19 +630,27 @@ export class UserProfileComponent implements OnInit{
     this.modalUserName = name;
   }
 
-  setMinutesBoosted(mins: number){
-    this.minutesBoosted = mins
-  }
-
   counterMethod(mins: number){
     this.endTime = new Date()
     this.endTime.setMinutes(this.endTime.getMinutes() + mins)
 
-    this.timeLeft$ = interval(1000).pipe(
-      map(x => this.service.timeDiff(this.endTime, this.minutesBoosted)),
-      takeWhile(v => v.seconds > 0 || v.hours > 0 || v.minutes > 0),
-      shareReplay(1)
-    )
+    let username = localStorage.getItem('loggedInUser' || '{}');
+    if(username){
+      this.boost.id = 0
+      this.boost.username = username
+      this.boost.boosted = true
+      this.boost.boostStartTime = new Date()
+      this.boost.boostEndTime = this.endTime
+
+      console.log(this.boost)
+
+      this.service.boostAProduct(this.boost).subscribe(
+        b => {
+          this.ngOnInit()
+        },
+        err =>  console.log(err)
+      )
+    }
   }
 
 }

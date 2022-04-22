@@ -34,7 +34,8 @@ export class LikeButtonComponent implements OnInit, OnChanges {
     freeDelivery: false,
     dateTimeAdded: new Date(0),
     productImages: [],
-    like: []
+    like: [],
+    boost: []
   }
   @Output() toggle = new EventEmitter<boolean>();
 
