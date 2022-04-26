@@ -13,7 +13,7 @@
 }
 
 .social-media{
-    margin-top: 1.5rem;
+    margin-top: 1rem;
 }
 
 .social-icon{
@@ -276,6 +276,10 @@
         margin-left: 1rem;
         width: 95%;
         text-align: center;
+    }
+
+    .social-media{
+        margin-left: 0.2rem;
     }
 
     .social-icon{
