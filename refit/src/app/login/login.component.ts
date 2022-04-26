@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
     bio: '',
     password: '',
     phoneNumber: '',
+    profileVisits: 0,
     receiveEmailConsent: false,
     promoCode: '',
     facebookLink: '',

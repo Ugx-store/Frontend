@@ -47,6 +47,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     password: '',
     bio: '',
     phoneNumber: '',
+    profileVisits: 0,
     receiveEmailConsent: false,
     promoCode: '',
     facebookLink: '',

@@ -30,6 +30,7 @@ export class SignupDetailsComponent implements OnInit {
     bio: '',
     password: '',
     phoneNumber: localStorage.getItem('refit_phoneNumber') as string,
+    profileVisits: 0,
     receiveEmailConsent: false,
     promoCode: '',
     facebookLink: '',

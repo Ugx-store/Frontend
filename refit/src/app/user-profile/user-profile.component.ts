@@ -42,6 +42,7 @@ export class UserProfileComponent implements OnInit, OnDestroy{
     password: '',
     bio: '',
     phoneNumber: '',
+    profileVisits: 0,
     receiveEmailConsent: false,
     promoCode: '',
     facebookLink: '',
@@ -176,6 +177,7 @@ export class UserProfileComponent implements OnInit, OnDestroy{
             else{
               this.loggedInUser = false;
               this.user = res;
+              this.user.profileVisits++;
               this.LoginStatus = this.getLoggedInUser();
 
               if(user.email){
@@ -186,8 +188,12 @@ export class UserProfileComponent implements OnInit, OnDestroy{
                       break
                     }
                   }
+
+
                 })
               }
+
+              this.service.updateUser(this.user);
 
             }
           } 
@@ -305,22 +311,24 @@ export class UserProfileComponent implements OnInit, OnDestroy{
   }
 
   boostTimer(endTime:Date, counter: Counter, offSetTime: number, boost: Boost){
-    let subscription = interval(1000).pipe(
-      takeWhile(v => counter.seconds > -1),
-      finalize(() =>{ 
-        if(counter.seconds === -1){
-          boost.boosted = false;
-          this.service.endBoost(boost).subscribe(b =>{
-          console.log("Finished")
+    if(this.loggedInUser){
+      let subscription = interval(1000).pipe(
+        takeWhile(v => counter.seconds > -1),
+        finalize(() =>{ 
+          if(counter.seconds === -1){
+            boost.boosted = false;
+            this.service.endBoost(boost).subscribe(b =>{
+            console.log("Finished")
+          })
+          }
         })
-        }
+      ).subscribe(x => {
+        this.service.timeDiff(endTime, counter, offSetTime)
+        console.log("Hello")
       })
-    ).subscribe(x => {
-      this.service.timeDiff(endTime, counter, offSetTime)
-      console.log("Hello")
-    })
-
-    this.subscriptions.push(subscription)
+  
+      this.subscriptions.push(subscription)
+    }
   }
 
   cleanseProduct(product: Product){

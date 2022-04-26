@@ -9,6 +9,7 @@ export interface User{
     email: string;
     bio: string,
     phoneNumber: string;
+    profileVisits: number;
     receiveEmailConsent: boolean;
     promoCode: string;
     facebookLink: string;

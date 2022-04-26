@@ -324,24 +324,34 @@
                         
                         <span *ngIf="globalUsername; else LikerLoggedOut">
                             <span *ngIf="isProductLiked[product.id]; else notLiked" class="pdt-likes">
-                                <span class="material-icons-outlined" (click)="likeUser(product)" style="color: #007bff;">
-                                    favorite
+                                <span class="material-symbols-sharp" (click)="likeUser(product)" style="color: #e25822;">
+                                    local_fire_department
                                 </span> {{product.like ? product.like.length : 0}}
+                                <!-- <span class="material-icons-outlined" (click)="likeUser(product)" style="color: #e25822;">
+                                    favorite
+                                </span> {{product.like ? product.like.length : 0}} -->
                             </span>
                             <ng-template #notLiked>
                                 <span class="pdt-likes">
-                                    <span class="material-icons-outlined" (click)="likeUser(product)" style="color: #007bff;">
-                                        favorite_border
+                                    <span class="material-symbols-outlined" (click)="likeUser(product)" style="color: #e25822;">
+                                        local_fire_department
                                     </span> {{product.like ? product.like.length : 0}}
+                                    <!-- <span class="material-icons-outlined" (click)="likeUser(product)" style="color: #007bff;">
+                                        favorite_border
+                                    </span> {{product.like ? product.like.length : 0}} -->
                                 </span>
                             </ng-template>
                         </span>
                         <ng-template #LikerLoggedOut>
                             <span class="pdt-likes">
-                                <span class="material-icons-outlined" style="color: #007bff;"
+                                <span class="material-symbols-outlined" style="color: #e25822;" data-bs-toggle="modal" 
+                                data-bs-target="#LoginLikeModal">
+                                    local_fire_department
+                                </span> {{product.like ? product.like.length : 0}}
+                                <!-- <span class="material-icons-outlined" style="color: #007bff;"
                                 data-bs-toggle="modal" data-bs-target="#LoginLikeModal">
                                     favorite_border
-                                </span> {{product.like ? product.like.length : 0}}
+                                </span> {{product.like ? product.like.length : 0}} -->
                             </span>
                         </ng-template>
                     </span>

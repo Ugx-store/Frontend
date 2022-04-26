@@ -32,6 +32,7 @@ export class CodeComponent implements OnInit {
     email: '',
     bio: '',
     phoneNumber: '',
+    profileVisits: 0,
     receiveEmailConsent: false,
     promoCode: '',
     facebookLink: '',

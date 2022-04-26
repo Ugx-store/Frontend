@@ -34,6 +34,7 @@ export class GeneralNavbarComponent implements OnInit {
     password: '',
     bio: '',
     phoneNumber: '',
+    profileVisits: 0,
     receiveEmailConsent: false,
     promoCode: '',
     facebookLink: '',
