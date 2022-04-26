@@ -638,26 +638,32 @@ export class UserProfileComponent implements OnInit, OnDestroy{
   }
 
   counterMethod(mins: number){
-    this.endTime = new Date()
-    this.endTime.setMinutes(this.endTime.getMinutes() + mins)
-
-    let username = localStorage.getItem('loggedInUser' || '{}');
-    if(username){
-      this.boost.id = 0
-      this.boost.username = username
-      this.boost.boosted = true
-      this.boost.boostStartTime = new Date()
-      this.boost.boostEndTime = this.endTime
-
-      console.log(this.boost)
-
-      this.service.boostAProduct(this.boost).subscribe(
-        b => {
-          this.ngOnInit()
-        },
-        err =>  console.log(err)
-      )
+    if(this.boost.boostPrice === 0){
+      alert("Please select the time duration for the Boost")
     }
+    else{
+      this.endTime = new Date()
+      this.endTime.setMinutes(this.endTime.getMinutes() + mins)
+
+      let username = localStorage.getItem('loggedInUser' || '{}');
+      if(username){
+        this.boost.id = 0
+        this.boost.username = username
+        this.boost.boosted = true
+        this.boost.boostStartTime = new Date()
+        this.boost.boostEndTime = this.endTime
+
+        console.log(this.boost)
+
+        this.service.boostAProduct(this.boost).subscribe(
+          b => {
+            this.ngOnInit()
+          },
+          err =>  console.log(err)
+        )
+      }
+    }
+    
   }
 
 }
