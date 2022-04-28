@@ -89,10 +89,10 @@
                                 <div class="text-muted password-visibility">
                                     <input type="checkbox" onclick="togglePasswordVisibility2()"> Show Password
                                 </div><br>
-                                <div *ngIf="f.controls['confirmPassword']?.invalid && f.controls['confirmPassword'].touched">
-                                    <span *ngIf="f.controls['confirmPassword'].errors?.required" class="form-text">Please confirm your Password</span>
+                                <div *ngIf="passwordConfirm.invalid && passwordConfirm.touched">
+                                    <span *ngIf="passwordConfirm.errors?.required" class="form-text">Please confirm your Password</span>
                                 </div>
-                                <div *ngIf="passwordConfirm.dirty && (confirmPassword !== user.password)">
+                                <div *ngIf="passwordConfirm.dirty && (confirmPassword !== user.password) && (confirmPassword !== '')">
                                     <span class="form-text">Passwords are not equal</span>
                                 </div>
                             </div>
