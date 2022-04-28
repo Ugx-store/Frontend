@@ -24,6 +24,26 @@
 <body>
   <app-root></app-root>
   <script>
+    function togglePasswordVisibility(){
+      var x = document.getElementById('passwordInput')
+      if(x.type === "password"){
+        x.type = "text"
+      }
+      else{
+        x.type = "password"
+      }
+    }
+
+    function togglePasswordVisibility2(){
+      var x = document.getElementById('passwordInput2')
+      if(x.type === "password"){
+        x.type = "text"
+      }
+      else{
+        x.type = "password"
+      }
+    }
+
     function myFunction(event){
       document.getElementById("profileDropdown").classList.toggle("show")
       event.stopPropagation();

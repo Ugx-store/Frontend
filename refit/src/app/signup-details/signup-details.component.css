@@ -7,6 +7,21 @@
     overflow: auto;
 }
 
+.photo{
+    background: url(../../assets/charles-deluvio-_4K7BwaHUGc-unsplash.jpg) center / cover no-repeat;
+    left: 0px;
+    top: 0px;
+    width: 100px;
+    height: 100px;
+    position: -webkit-sticky;
+    position: sticky;
+}
+
+.not-scrollable{
+    position: -webkit-sticky;
+    position: sticky;
+}
+
 @media(max-width: 768px){
     .photo{
         display: none;
@@ -28,21 +43,6 @@
         width: 70%;
         height: 100%;
     }
-}
-
-.photo{
-    background: url(../../assets/charles-deluvio-_4K7BwaHUGc-unsplash.jpg) center / cover no-repeat;
-    left: 0px;
-    top: 0px;
-    width: 100px;
-    height: 100px;
-    position: -webkit-sticky;
-    position: sticky;
-}
-
-.not-scrollable{
-    position: -webkit-sticky;
-    position: sticky;
 }
 
 .btn-code{
@@ -77,4 +77,10 @@
 .success-button{
     border-radius: 9999px;
     width: 6rem;
+}
+
+.password-visibility{
+    float: right;
+    font-size: smaller;
+    margin-top: 5px;
 }

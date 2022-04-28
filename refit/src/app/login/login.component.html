@@ -15,7 +15,10 @@
 
                     <div class="form-group" style="margin-bottom: 1rem;">
                         <input class="form-control" type="password" name="password" #password="ngModel" [(ngModel)]="user.password" 
-                        placeholder="Password" password required>
+                        placeholder="Password" id="passwordInput" password required>
+                        <span class="text-muted password-visibility">
+                            <input type="checkbox" onclick="togglePasswordVisibility()"> Show Password
+                        </span>
                         <div *ngIf="f.controls['password']?.invalid && f.controls['password'].touched">
                             <span *ngIf="f.controls['password'].errors?.required" class="form-text">Password is required</span>
                         </div>
