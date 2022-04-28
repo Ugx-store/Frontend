@@ -31,5 +31,12 @@ ngx-intl-tel-input input{
     
 }
 
+@media (max-width: 768px) {
+	body{
+		padding-left: 0.2rem;
+		padding-right: 0.2rem;
+	}
+}
+
 /* html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */ 

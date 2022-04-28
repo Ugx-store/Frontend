@@ -55,7 +55,7 @@
 .profile-pic-div{
     height: 8rem; 
     width: 6rem; 
-    margin-left: 1rem; 
+    margin-left: 1.5rem; 
     float: left;
 }
 
@@ -96,7 +96,7 @@
 
 .name-div{
     float: right; 
-    margin-left: 1rem; 
+    margin-left: 0.5rem; 
     width: 60%; 
     padding-left: 0;
     padding-top: 0.5rem;
