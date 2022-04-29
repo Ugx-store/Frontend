@@ -320,25 +320,19 @@
                 <span>
                     <img src="{{product.productImages[0].imageData}}" alt="Product pic" draggable="false">
                     <span class="pdt-info">
-                        <span style="font-family: 'Public Sans', sans-serif; font-size: 15px;">Ugx {{product.itemPrice}}</span>
+                        <span style="font-weight: 900; font-size: 15px;">Ugx {{product.itemPrice | number}}</span>
                         
                         <span *ngIf="globalUsername; else LikerLoggedOut">
                             <span *ngIf="isProductLiked[product.id]; else notLiked" class="pdt-likes">
                                 <span class="material-symbols-sharp" (click)="likeUser(product)" style="color: #e25822;">
                                     local_fire_department
                                 </span> {{product.like ? product.like.length : 0}}
-                                <!-- <span class="material-icons-outlined" (click)="likeUser(product)" style="color: #e25822;">
-                                    favorite
-                                </span> {{product.like ? product.like.length : 0}} -->
                             </span>
                             <ng-template #notLiked>
                                 <span class="pdt-likes">
                                     <span class="material-symbols-outlined" (click)="likeUser(product)" style="color: #e25822;">
                                         local_fire_department
                                     </span> {{product.like ? product.like.length : 0}}
-                                    <!-- <span class="material-icons-outlined" (click)="likeUser(product)" style="color: #007bff;">
-                                        favorite_border
-                                    </span> {{product.like ? product.like.length : 0}} -->
                                 </span>
                             </ng-template>
                         </span>
@@ -348,10 +342,6 @@
                                 data-bs-target="#LoginLikeModal">
                                     local_fire_department
                                 </span> {{product.like ? product.like.length : 0}}
-                                <!-- <span class="material-icons-outlined" style="color: #007bff;"
-                                data-bs-toggle="modal" data-bs-target="#LoginLikeModal">
-                                    favorite_border
-                                </span> {{product.like ? product.like.length : 0}} -->
                             </span>
                         </ng-template>
                     </span>
@@ -477,7 +467,7 @@
                                 30
                             </span>
                             <span class="duration-words">Minutes</span>
-                            <span class="boost-price">Ugx 1000</span>
+                            <span class="boost-price">Ugx 1,000</span>
                         </span>
                     </span>
 
