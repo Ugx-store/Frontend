@@ -31,7 +31,7 @@ const routes: Routes = [
       {path: 'passwordResetInput', component: PasswordResetInputComponent},
       {path: 'user-profile/:username', component: UserProfileComponent},
       {path: 'edit-profile/:username', component: EditProfileComponent},
-      {path: 'sell', component: SellPageComponent},
+      {path: 'sell/:mode', component: SellPageComponent},
       {path: 'counter', component: CountdownComponent}
     ]
   },

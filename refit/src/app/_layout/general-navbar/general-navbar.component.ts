@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { app } from 'src/app/models/firebaseapp';
 import { User } from 'src/app/models/newUser';
@@ -12,7 +12,7 @@ import { AppServiceService } from 'src/app/services/app-service.service';
 })
 export class GeneralNavbarComponent implements OnInit {
 
-  constructor(private route: Router, private service: AppServiceService) { }
+  constructor(private route: Router, private currRoute: ActivatedRoute, private service: AppServiceService) { }
 
   ladyCats: string[]= ["Dresses", "Tops", "Accessories", "Lingerie", "Shoes", "Skirts", "Pants", "Jackets", "Others"]
   menCats: string[] = ["Jackets", "Shirts", "Pants", "Underwear", "Shoes", "Accessories", "Others"]
@@ -88,7 +88,7 @@ export class GeneralNavbarComponent implements OnInit {
     this.route.navigateByUrl(`user-profile/${username}`) 
   }
   goToSell(){
-    this.route.navigate(["/sell"])
+    this.route.navigate(['sell', 'create']) 
   }
 
   signOut(){

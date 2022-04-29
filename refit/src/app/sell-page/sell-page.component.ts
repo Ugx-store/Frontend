@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { LoaderService } from '../Loader';
@@ -12,7 +12,7 @@ import { AppServiceService } from '../services/app-service.service';
   templateUrl: './sell-page.component.html',
   styleUrls: ['./sell-page.component.css']
 })
-export class SellPageComponent implements OnInit {
+export class SellPageComponent implements OnInit, OnDestroy{
 
   constructor(private imageCompress: NgxImageCompressService, private route: Router, private service: AppServiceService,
     public loaderService: LoaderService) { }
@@ -87,6 +87,12 @@ export class SellPageComponent implements OnInit {
         this.service.getUser(user.email).subscribe(res =>{
           this.user = res
         })}
+    }
+  }
+
+  ngOnDestroy(): void {
+    if(localStorage.getItem('product-edit')){
+      localStorage.removeItem('product-edit')
     }
   }
 

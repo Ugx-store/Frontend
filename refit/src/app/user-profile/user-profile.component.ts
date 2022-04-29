@@ -666,4 +666,9 @@ export class UserProfileComponent implements OnInit, OnDestroy{
     
   }
 
+  editProduct(product: Product){
+    localStorage.setItem('product-edit', JSON.stringify(product))
+    this.route.navigate(['sell', 'edit'])
+  }
+
 }

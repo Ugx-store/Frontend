@@ -94,6 +94,18 @@ textarea{
     margin-top: 0.5rem;
 }
 
+::-webkit-input-placeholder{/* Edge */
+    font-weight: 300;
+}
+
+::placeholder{
+    font-weight: 300;
+}
+
+:-ms-input-placeholder { /* Internet Explorer */
+    color: red;
+}
+
 .form-select{
     border-width: 0; 
     border-radius: 0; 

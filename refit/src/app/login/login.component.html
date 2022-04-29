@@ -2,7 +2,7 @@
     <div class="row d-flex align-items-center justify-content-center">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title" style="font-weight: 900;">Login to continue</h5>
+                <h5 class="card-title" style="font-weight: 500;">Login to continue</h5>
                 <span *ngIf="wrongCredentials === true" class="form-text" style="color: red;">Wrong email or password. Please try again!</span>
                 <form #f="ngForm" (ngSubmit)="OnSubmit(f)" style="margin-top: 15px;">
                     <div class="form-group">
@@ -45,7 +45,7 @@
                             Logging in...
                         </button>
                     </div>
-                    <h5 class="card-title" style="font-weight: 900; text-align: center; margin-top: 20px;">Got no Account?</h5>
+                    <h5 class="card-title" style="font-weight: 500; text-align: center; margin-top: 20px;">Got no Account?</h5>
                     <div class="d-grid gap-2" style="margin-bottom: 1rem;">
                         <button class="btn btn-dark btn-code" (click)='gotoSignup()'>Sign up</button>
                     </div>

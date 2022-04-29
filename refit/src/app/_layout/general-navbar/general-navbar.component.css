@@ -523,4 +523,16 @@
     font-size: 20px;
 }
 
+::placeholder{
+    font-weight: 300;
+}
+
+::-webkit-input-placeholder{
+    font-weight: 300;
+}
+
+:-ms-input-placeholder { /* Internet Explorer */
+    font-weight: 300;
+}
+
 

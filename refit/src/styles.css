@@ -6,6 +6,22 @@ body{
 	font-weight: 300;
 }
 
+input{
+	font-weight: 300;
+}
+
+::-webkit-input-placeholder{/* Edge */
+    font-weight: 300;
+}
+
+::placeholder{
+    font-weight: 300;
+}
+
+:-ms-input-placeholder { /* Internet Explorer */
+    font-weight: 300;
+}
+
 h1, h2, h3{
 	font-family: 'Public Sans', sans-serif;
 }
