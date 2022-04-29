@@ -703,6 +703,12 @@
     font-size: 20px;
 }
 
+.edit-product-button{
+    position: absolute;
+    right: 1rem;
+    color: #fff;
+}
+
 @media(max-width: 768px) {
     .each-pricing-categories{
         width: 7rem;

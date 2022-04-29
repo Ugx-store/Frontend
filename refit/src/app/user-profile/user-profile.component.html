@@ -315,24 +315,23 @@
             <span *ngFor="let product of products" class="product-images col" 
             [ngClass]="{
                 'margin-bottom-class1': loggedInUser,
-                'margin-bottom-class2': !loggedInUser
-            }">
+                'margin-bottom-class2': !loggedInUser}">
                 <span>
                     <img src="{{product.productImages[0].imageData}}" alt="Product pic" draggable="false">
+                    <span *ngIf="loggedInUser" class="material-icons edit-product-button">edit</span>
                     <span class="pdt-info">
                         <span style="font-weight: 900; font-size: 15px;">Ugx {{product.itemPrice | number}}</span>
-                        
                         <span *ngIf="globalUsername; else LikerLoggedOut">
                             <span *ngIf="isProductLiked[product.id]; else notLiked" class="pdt-likes">
                                 <span class="material-symbols-sharp" (click)="likeUser(product)" style="color: #e25822;">
                                     local_fire_department
-                                </span> {{product.like ? product.like.length : 0}}
+                                </span> {{product.like.length !== 0 ? product.like.length : ''}}
                             </span>
                             <ng-template #notLiked>
                                 <span class="pdt-likes">
                                     <span class="material-symbols-outlined" (click)="likeUser(product)" style="color: #e25822;">
                                         local_fire_department
-                                    </span> {{product.like ? product.like.length : 0}}
+                                    </span> {{product.like.length !== 0 ? product.like.length : ''}}
                                 </span>
                             </ng-template>
                         </span>
@@ -341,7 +340,7 @@
                                 <span class="material-symbols-outlined" style="color: #e25822;" data-bs-toggle="modal" 
                                 data-bs-target="#LoginLikeModal">
                                     local_fire_department
-                                </span> {{product.like ? product.like.length : 0}}
+                                </span> {{product.like.length !== 0 ? product.like.length : ''}}
                             </span>
                         </ng-template>
                     </span>
