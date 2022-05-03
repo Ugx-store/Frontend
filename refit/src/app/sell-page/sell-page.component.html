@@ -8,10 +8,10 @@
             </span>
             <div class="all-photos" style="width: 100%;">
                 <div style="width: 33.3%;">
-                    <span *ngIf="compressedImages[0]; else noImage" class="product-div">
-                        <img src="{{compressedImages[0]}}" alt="Profile pic" draggable="false">
+                    <span *ngIf="compressedImages[0] || product.productImages[0]; else noImage" class="product-div">
+                        <img src="{{product.productImages[0] ? product.productImages[0].imageData : compressedImages[0]}}" alt="Profile pic" draggable="false">
                     </span>
-                    <span *ngIf="compressedImages[0]" class="optional-edit">
+                    <span *ngIf="compressedImages[0] || product.productImages[0]" class="optional-edit">
                         <label type="button" class="btn-label">
                             <span class="material-icons edit-button">edit</span>
                             <input #imageInput
@@ -38,12 +38,12 @@
                     </ng-template>
                 </div>
                 <div style="margin-bottom: 5rem; width: 33.3%;">
-                    <span *ngIf="!compressedImages[0]; else ImageOne" class="empty-image-span"></span>
+                    <span *ngIf="!compressedImages[0] && !product.productImages[0]; else ImageOne" class="empty-image-span"></span>
                     <ng-template #ImageOne>
-                        <span *ngIf="compressedImages[1]; else noImageTwo" class="product-div">
-                            <img src="{{compressedImages[1]}}" alt="Profile pic" draggable="false">
+                        <span *ngIf="compressedImages[1] || product.productImages[1]; else noImageTwo" class="product-div">
+                            <img src="{{product.productImages[1] ? product.productImages[1].imageData : compressedImages[1]}}" alt="Profile pic" draggable="false">
                         </span>
-                        <span *ngIf="compressedImages[1]" class="optional-edit">
+                        <span *ngIf="compressedImages[1] || product.productImages[1]" class="optional-edit">
                             <label type="button" class="btn-label">
                                 <span class="material-icons edit-button">edit</span>
                                 <input #imageInput
@@ -71,12 +71,12 @@
                     </ng-template>
                 </div>
                 <div style="width: 33.3%;">
-                    <span *ngIf="!compressedImages[1]; else ImageTwo" class="empty-image-span"></span>
+                    <span *ngIf="!compressedImages[1] && !product.productImages[1]; else ImageTwo" class="empty-image-span"></span>
                     <ng-template #ImageTwo>
-                        <span *ngIf="compressedImages[2]; else noImageThree" class="product-div">
-                            <img src="{{compressedImages[2]}}" alt="Profile pic" draggable="false">
+                        <span *ngIf="compressedImages[2] || product.productImages[2]; else noImageThree" class="product-div">
+                            <img src="{{product.productImages[2] ? product.productImages[2].imageData : compressedImages[2]}}" alt="Profile pic" draggable="false">
                         </span>
-                        <span *ngIf="compressedImages[2]" class="optional-edit">
+                        <span *ngIf="compressedImages[2] || product.productImages[2]" class="optional-edit">
                             <label type="button" class="btn-label">
                                 <span class="material-icons edit-button">edit</span>
                                 <input #imageInput
@@ -390,7 +390,7 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
                     Ugx
                 </span>
                 <input type="text" class="form-control" placeholder="Item price" aria-label="Price" 
-                aria-describedby="item-price" name="price" #prices="ngModel" [(ngModel)]="itemPrice" 
+                aria-describedby="item-price" name="price" #prices="ngModel" [(ngModel)]="product.itemPrice === 0 ? itemPrice :  product.itemPrice" 
                 value="{{product.itemPrice}}" pattern="[0-9]{1,}" required>
             </div>
             <div *ngIf="prices.invalid && (prices.touched || prices.dirty)">
@@ -407,7 +407,7 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
                     Ugx
                 </span>
                 <input type="text" class="form-control" placeholder="Original price" aria-label="Price" 
-                aria-describedby="original-price" name="originalPrice" #originalPrices="ngModel" [(ngModel)]="originalPrice" 
+                aria-describedby="original-price" name="originalPrice" #originalPrices="ngModel" [(ngModel)]="product.originalPrice === 0 ? originalPrice : product.originalPrice" 
                 value="{{product.originalPrice}}" pattern="[0-9.]{1,}">
                 <div *ngIf="originalPrices.invalid && (originalPrices.touched || originalPrices.dirty)">
                     <span *ngIf="originalPrices.errors?.['pattern']" class="form-text" 

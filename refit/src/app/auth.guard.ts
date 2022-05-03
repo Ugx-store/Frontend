@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
     if(this.authService.isLoggedIn !== true){
-      alert("Not allowed")
+      alert("You need to submit your phone number before you can access this page")
       this.route.navigate(['/phone'])
     }
     

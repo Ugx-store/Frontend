@@ -317,7 +317,7 @@
                 'margin-bottom-class1': loggedInUser,
                 'margin-bottom-class2': !loggedInUser}">
                 <span>
-                    <img src="{{product.productImages[0].imageData}}" alt="Product pic" draggable="false">
+                    <img src="{{product.productImages[0]?.imageData}}" alt="Product pic" draggable="false">
                     <span *ngIf="loggedInUser" class="material-icons edit-product-button" (click)="editProduct(product)">edit</span>
                     <span class="pdt-info">
                         <span style="font-weight: 900; font-size: 15px;">Ugx {{product.itemPrice | number}}</span>

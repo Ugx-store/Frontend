@@ -127,6 +127,7 @@ export class UserProfileComponent implements OnInit, OnDestroy{
 
         this.service.getUserProducts(res.username).subscribe(prod =>{
           this.products = prod
+          console.log(this.products)
           if(this.products){
             for(let product of this.products){
               if(product.productImages.length){

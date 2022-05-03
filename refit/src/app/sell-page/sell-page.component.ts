@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { LoaderService } from '../Loader';
 import { Product } from '../models/product';
@@ -15,7 +15,7 @@ import { AppServiceService } from '../services/app-service.service';
 export class SellPageComponent implements OnInit, OnDestroy{
 
   constructor(private imageCompress: NgxImageCompressService, private route: Router, private service: AppServiceService,
-    public loaderService: LoaderService) { }
+    public loaderService: LoaderService, private activatedRoute: ActivatedRoute) { }
   product: Product = {
     id: 0,
     description: '',
@@ -88,6 +88,15 @@ export class SellPageComponent implements OnInit, OnDestroy{
           this.user = res
         })}
     }
+
+    this.activatedRoute.params.subscribe((param) => {
+      if(param.mode === 'edit'){
+        var pdt = localStorage.getItem('product-edit')
+        if(pdt){
+          this.product = JSON.parse(pdt)
+        }
+      }
+    })
   }
 
   ngOnDestroy(): void {
@@ -264,14 +273,18 @@ export class SellPageComponent implements OnInit, OnDestroy{
     if(this.product.ownerName){
       this.service.addProduct(this.product).then(res =>{
         for(let i=0; i<this.compressedImages.length; i++){
+          var pdtImage: ProductImage = {
+            id: 0,
+            productId: 0,
+            imageData: ''
+          }
           if(this.compressedImages[i]){
-            this.productImage.productId = res.id
-            this.productImage.imageData = this.compressedImages[i].split(',')[1]
-  
-            this.imagesToUpload.push(this.productImage)
+            pdtImage.productId = res.id
+            pdtImage.imageData = this.compressedImages[i].split(',')[1]
+            this.imagesToUpload.push(pdtImage)
           }
         }
-  
+
         this.service.addProductImages(this.imagesToUpload).subscribe(img =>{
           this.message = "Product saved! Press 'Add' to add another product or 'Continue' to return to the homepage."
           console.log(img)
