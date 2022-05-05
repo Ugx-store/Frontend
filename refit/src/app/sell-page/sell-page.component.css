@@ -303,7 +303,6 @@ option{
         display: flex;
         align-content: center;
         margin-top: 0.5rem;
-        margin-left: 30%;
     }
     textarea{
         height: 130px; 
