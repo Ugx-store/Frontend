@@ -302,6 +302,7 @@ option{
     .optional-edit{
         display: flex;
         align-content: center;
+        justify-content: center;
         margin-top: 0.5rem;
     }
     textarea{
