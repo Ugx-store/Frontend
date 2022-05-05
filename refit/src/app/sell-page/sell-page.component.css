@@ -103,7 +103,7 @@ textarea{
 }
 
 :-ms-input-placeholder { /* Internet Explorer */
-    color: red;
+    font-weight: 300;
 }
 
 .form-select{
@@ -264,6 +264,11 @@ option{
     width: 6rem;
 }
 
+.other-buttons{
+    border-radius: 9999px;
+    width: 6rem;
+}
+
 .btn-light{
     border-style: solid;
     border-width: 0.0625rem;
@@ -297,7 +302,8 @@ option{
     .optional-edit{
         display: flex;
         align-content: center;
-        margin-top: 1rem;
+        margin-top: 0.5rem;
+        margin-left: 30%;
     }
     textarea{
         height: 130px; 
@@ -308,7 +314,7 @@ option{
     .optional-edit{
         display: flex;
         align-content: center;
-        justify-content: center;
-        margin-top: 1rem;
+        margin-top: 0.5rem;
+        margin-left: 30%;
     }
 }

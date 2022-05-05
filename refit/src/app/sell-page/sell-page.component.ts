@@ -46,10 +46,14 @@ export class SellPageComponent implements OnInit, OnDestroy{
   }
 
   imagesToUpload: ProductImage[] = []
+  imagesToDelete: ProductImage[] = []
+  imagesToEdit: ProductImage[] = []
 
   category: string = "";
   subcategory: string = "";
   condition: string = "";
+
+  mode: string = ""
 
   itemPrice: any
   originalPrice: any
@@ -90,10 +94,15 @@ export class SellPageComponent implements OnInit, OnDestroy{
     }
 
     this.activatedRoute.params.subscribe((param) => {
+      this.mode = param.mode
       if(param.mode === 'edit'){
         var pdt = localStorage.getItem('product-edit')
         if(pdt){
           this.product = JSON.parse(pdt)
+          this.itemPrice = this.product.itemPrice
+          if(this.product.originalPrice !== 0){
+            this.originalPrice = this.product.originalPrice
+          }
         }
       }
     })
@@ -117,7 +126,21 @@ export class SellPageComponent implements OnInit, OnDestroy{
           reader.addEventListener('load', (event:any) =>{
             this.imageCompress.compressFile(event.target.result, orientation, 50, 50).then(
               result => {
-                this.compressedImages.push(result)
+                if(this.product.productImages.length !== 0){
+                  var pdtImage: ProductImage = {
+                    id: 0,
+                    productId: 0,
+                    imageData: ''
+                  }
+                  pdtImage.productId = this.product.id
+                  pdtImage.imageData = result
+
+                  this.product.productImages.push(pdtImage)
+                  this.imagesToUpload.push(pdtImage)
+                }
+                else{
+                  this.compressedImages.push(result)
+                }
               }
             )
     
@@ -125,7 +148,21 @@ export class SellPageComponent implements OnInit, OnDestroy{
         }
         else{
           reader.addEventListener('load', (event:any) =>{
-            this.compressedImages.push(event.target.result)
+            if(this.product.productImages.length !== 0){
+              var pdtImage: ProductImage = {
+                id: 0,
+                productId: 0,
+                imageData: ''
+              }
+              pdtImage.productId = this.product.id
+              pdtImage.imageData = event.target.result
+
+              this.product.productImages.push(pdtImage)
+              this.imagesToUpload.push(pdtImage)
+            }
+            else{
+              this.compressedImages.push(event.target.result)
+            }
           })
         }
   
@@ -139,56 +176,110 @@ export class SellPageComponent implements OnInit, OnDestroy{
     const reader = new FileReader();
     var orientation = -1;
 
-    if(file){
-      reader.addEventListener('load', (event:any) =>{
-        this.imageCompress.compressFile(event.target.result, orientation, 50, 50).then(
-          result => {
-            if(this.compressedImages[0] === image){
-              this.compressedImages[0] = result
+    if(imageInput.files[0]){
+      if((imageInput.files[0].size)/1024 > 2000){
+        reader.addEventListener('load', (event:any) =>{
+          this.imageCompress.compressFile(event.target.result, orientation, 50, 50).then(
+            result => {
+              if(this.compressedImages[0] === image || this.product?.productImages[0]?.imageData === image){
+                if(this.compressedImages[0] === image){
+                  this.compressedImages[0] = result
+                }
+                else{
+                  this.product.productImages[0].imageData = result
+                  this.imagesToEdit.push(this.product.productImages[0])
+                } 
+              }
+              else if(this.compressedImages[1] === image || this.product?.productImages[1]?.imageData  === image){
+                if(this.compressedImages[1] === image){
+                  this.compressedImages[1] = result
+                }
+                else{
+                  this.product.productImages[1].imageData = result
+                  this.imagesToEdit.push(this.product.productImages[1])
+                }
+              }
+              else{
+                if(this.compressedImages[2] === image){
+                  this.compressedImages[2] = result
+                }
+                else{
+                  this.product.productImages[2].imageData = result
+                  this.imagesToEdit.push(this.product.productImages[2])
+                }
+              }
             }
-            else if(this.compressedImages[1] === image){
-              this.compressedImages[1] = result
-            }
-            else{
-              this.compressedImages[2] = result
-            }
-          }
-        )
+          )
+  
+        })
+      }
+      else{
+        reader.addEventListener('load', (event:any) =>{
+              if(this.compressedImages[0] === image || this.product?.productImages[0]?.imageData === image){
+                if(this.compressedImages[0] === image){
+                  this.compressedImages[0] = event.target.result
+                }
+                else{
+                  this.product.productImages[0].imageData = event.target.result
+                  this.imagesToEdit.push(this.product.productImages[0])
+                } 
+              }
+              else if(this.compressedImages[1] === image || this.product?.productImages[1]?.imageData === image){
+                if(this.compressedImages[1] === image){
+                  this.compressedImages[1] = event.target.result
+                }
+                else{
+                  this.product.productImages[1].imageData = event.target.result
+                  this.imagesToEdit.push(this.product.productImages[1])
+                } 
+              }
+              else{
+                if(this.compressedImages[2] === image){
+                  this.compressedImages[2] = event.target.result
+                }
+                else{
+                  this.product.productImages[2].imageData = event.target.result
+                  this.imagesToEdit.push(this.product.productImages[2])
+                } 
+              }
+        })
+      }
 
-      })
-
-      reader.readAsDataURL(file)
+      reader.readAsDataURL(imageInput.files[0])
     }
+    
   }
 
-  // processFileThree(imageInput: any){
-  //   const file: File = imageInput.files[0];
-  //   const reader = new FileReader();
-  //   var orientation = -1;
-
-  //   if(file){
-  //     reader.addEventListener('load', (event:any) =>{
-  //       this.imageCompress.compressFile(event.target.result, orientation, 50, 50).then(
-  //         result => {
-  //           this.imageResultAfterCompressThree = result
-  //         }
-  //       )
-
-  //     })
-
-  //     reader.readAsDataURL(file)
-  //   }
-  // }
-
   deletePic(image: any){
-    if(image === this.compressedImages[0]){
-      this.compressedImages.splice(0, 1)
+    if(image === this.compressedImages[0] || this.product?.productImages[0]?.imageData === image){
+      if(this.compressedImages[0] === image){
+        this.compressedImages.splice(0, 1)
+      }
+      else{
+        let imageId = this.product.productImages[0].id
+        this.product.productImages.splice(0, 1)
+        this.imagesToDelete.push(this.product.productImages[0])
+      }
     }
-    else if(image === this.compressedImages[1]){
-      this.compressedImages.splice(1, 1);
+    else if(image === this.compressedImages[1] || this.product?.productImages[1]?.imageData === image){
+      if(this.compressedImages[1] === image){
+        this.compressedImages.splice(1, 1)
+      }
+      else{
+        let imageId = this.product.productImages[1].id
+        this.product.productImages.splice(1, 1)
+        this.imagesToDelete.push(this.product.productImages[1])
+      }
     }
     else{
-      this.compressedImages.splice(2, 1)
+      if(this.compressedImages[2] === image){
+        this.compressedImages.splice(2, 1)
+      }
+      else{
+        let imageId = this.product.productImages[2].id
+        this.product.productImages.splice(2, 1)
+        this.imagesToDelete.push(this.product.productImages[2])
+      }
     }
   }
 
@@ -263,44 +354,46 @@ export class SellPageComponent implements OnInit, OnDestroy{
   }
 
   save(){
-    if(this.originalPrice) {this.product.originalPrice = this.originalPrice}
-    if(this.quantity){this.product.quantity = this.quantity}
+    // if(this.originalPrice) {this.product.originalPrice = this.originalPrice}
+    // if(this.quantity){this.product.quantity = this.quantity}
 
-    this.product.itemPrice = this.itemPrice
-    this.product.ownerName = this.user.username
-    this.product.dateTimeAdded = new Date();
+    // this.product.itemPrice = this.itemPrice
+    // this.product.ownerName = this.user.username
+    // this.product.dateTimeAdded = new Date();
 
-    if(this.product.ownerName){
-      this.service.addProduct(this.product).then(res =>{
-        for(let i=0; i<this.compressedImages.length; i++){
-          var pdtImage: ProductImage = {
-            id: 0,
-            productId: 0,
-            imageData: ''
-          }
-          if(this.compressedImages[i]){
-            pdtImage.productId = res.id
-            pdtImage.imageData = this.compressedImages[i].split(',')[1]
-            this.imagesToUpload.push(pdtImage)
-          }
-        }
+    // if(this.product.ownerName){
+    //   this.service.addProduct(this.product).then(res =>{
+    //     for(let i=0; i<this.compressedImages.length; i++){
+    //       var pdtImage: ProductImage = {
+    //         id: 0,
+    //         productId: 0,
+    //         imageData: ''
+    //       }
+    //       if(this.compressedImages[i]){
+    //         pdtImage.productId = res.id
+    //         pdtImage.imageData = this.compressedImages[i].split(',')[1]
+    //         this.imagesToUpload.push(pdtImage)
+    //       }
+    //     }
 
-        this.service.addProductImages(this.imagesToUpload).subscribe(img =>{
-          this.message = "Product saved! Press 'Add' to add another product or 'Continue' to return to the homepage."
-          console.log(img)
-        },
-        err => {
-          console.log(err)
-          this.error = err
-          this.message = "Sorry we failed to upload the product images. Please try again!"
-        })
-      },
-      err =>{
-        console.log(err)
-        this.error = err
-        this.message = "Sorry we failed to upload the product information. Please try again!"
-      })
-    }
+    //     this.service.addProductImages(this.imagesToUpload).subscribe(img =>{
+    //       this.message = "Product saved! Press 'Add' to add another product or 'Continue' to return to the homepage."
+    //       console.log(img)
+    //     },
+    //     err => {
+    //       console.log(err)
+    //       this.error = err
+    //       this.message = "Sorry we failed to upload the product images. Please try again!"
+    //     })
+    //   },
+    //   err =>{
+    //     console.log(err)
+    //     this.error = err
+    //     this.message = "Sorry we failed to upload the product information. Please try again!"
+    //   })
+    // }
+
+    console.log(this.mode)
   }
 
 }

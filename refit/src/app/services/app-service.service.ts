@@ -115,6 +115,10 @@ export class AppServiceService {
     return this.http.post(this.product_image, image, {responseType: "text"})
   }
 
+  deleteProductImage(imageId: number){
+    return this.http.delete(this.product_image + "/" + imageId)
+  }
+
   getUserProducts(username: string): Observable<Product[]>{
     return this.http.get<Product[]>(this.product_url + "/user-products/" + username)
   }

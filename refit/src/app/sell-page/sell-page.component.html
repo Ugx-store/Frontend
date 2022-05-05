@@ -17,11 +17,11 @@
                             <input #imageInput
                                 type="file" 
                                 accept="image/jpeg, image/png"
-                                (change)="editFile(imageInput, compressedImages[0])"
+                                (change)="editFile(imageInput, product.productImages[0] ? product.productImages[0].imageData : compressedImages[0])"
                                 style="display: none;" 
                                 multiple>
                         </label>
-                        <span class="material-icons" (click)="deletePic(compressedImages[0])" style="color: red; cursor: pointer;">delete</span>
+                        <span class="material-icons" (click)="deletePic(product.productImages[0] ? product.productImages[0].imageData : compressedImages[0])" style="color: red; cursor: pointer;">delete</span>
                     </span>
                     <ng-template #noImage>
                         <span class="photo-div">
@@ -49,11 +49,11 @@
                                 <input #imageInput
                                     type="file" 
                                     accept="image/jpeg, image/png"
-                                    (change)="editFile(imageInput, compressedImages[1])"
+                                    (change)="editFile(imageInput, product.productImages[1] ? product.productImages[1].imageData : compressedImages[1])"
                                     style="display: none;" 
                                     multiple>
                             </label>
-                            <span class="material-icons" (click)="deletePic(compressedImages[1])" style="color: red; cursor: pointer;">delete</span>
+                            <span class="material-icons" (click)="deletePic(product.productImages[1] ? product.productImages[1].imageData : compressedImages[1])" style="color: red; cursor: pointer;">delete</span>
                         </span>
                         <ng-template #noImageTwo>
                             <span class="photo-div">
@@ -82,15 +82,15 @@
                                 <input #imageInput
                                     type="file" 
                                     accept="image/jpeg, image/png"
-                                    (change)="editFile(imageInput, compressedImages[2])"
+                                    (change)="editFile(imageInput, product.productImages[2] ? product.productImages[2].imageData : compressedImages[2])"
                                     style="display: none;" 
                                     multiple>
                             </label>
-                            <span class="material-icons" (click)="deletePic(compressedImages[2])" style="color: red; cursor: pointer;">delete</span>
+                            <span class="material-icons" (click)="deletePic(product.productImages[2] ? product.productImages[2].imageData : compressedImages[2])" style="color: red; cursor: pointer;">delete</span>
                         </span>
                         <ng-template #noImageThree>
                             <span class="photo-div">
-                                <label type="button" class="btn-label" data-bs-dismiss="modal">
+                                <label type="button" class="btn-label">
                                     <span class="material-icons-outlined">add_a_photo</span>
                                     <input #imageInput
                                         type="file" 
@@ -390,7 +390,7 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
                     Ugx
                 </span>
                 <input type="text" class="form-control" placeholder="Item price" aria-label="Price" 
-                aria-describedby="item-price" name="price" #prices="ngModel" [(ngModel)]="product.itemPrice === 0 ? itemPrice :  product.itemPrice" 
+                aria-describedby="item-price" name="price" #prices="ngModel" [(ngModel)]="itemPrice" 
                 value="{{product.itemPrice}}" pattern="[0-9]{1,}" required>
             </div>
             <div *ngIf="prices.invalid && (prices.touched || prices.dirty)">
@@ -407,7 +407,7 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
                     Ugx
                 </span>
                 <input type="text" class="form-control" placeholder="Original price" aria-label="Price" 
-                aria-describedby="original-price" name="originalPrice" #originalPrices="ngModel" [(ngModel)]="product.originalPrice === 0 ? originalPrice : product.originalPrice" 
+                aria-describedby="original-price" name="originalPrice" #originalPrices="ngModel" [(ngModel)]="originalPrice" 
                 value="{{product.originalPrice}}" pattern="[0-9.]{1,}">
                 <div *ngIf="originalPrices.invalid && (originalPrices.touched || originalPrices.dirty)">
                     <span *ngIf="originalPrices.errors?.['pattern']" class="form-text" 
@@ -434,7 +434,8 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
                 *ngIf="description.valid
                 && categories.valid
                 && (compressedImages[0] || compressedImages[1]
-                || compressedImages[2])
+                || compressedImages[2] || product.productImages[0]
+                || product.productImages[1] || product.productImages[2])
                 && product.subCategory
                 && conditions.valid
                 && towns.valid
@@ -475,7 +476,7 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
                 Please note that by continuing, your changes will not be saved!
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-dark btn-code" (click)="cancel()" data-bs-dismiss="modal">Continue</button>
+                <button type="button" class="btn btn-dark other-buttons" (click)="cancel()" data-bs-dismiss="modal">Continue</button>
             </div>
         </div>
     </div>
@@ -504,7 +505,7 @@ Be accurate to the point." maxlength="1000" name="description" #description="ngM
                         {{message}}
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-dark btn-code" data-bs-dismiss="modal">Continue</button>
+                        <button type="button" class="btn btn-dark other-buttons" data-bs-dismiss="modal">Continue</button>
                     </div>
                 </span>
                 <ng-template #noError>
