@@ -300,10 +300,12 @@ option{
         object-fit: cover;
     }
     .optional-edit{
-        display: flex;
+        /* display: flex;
         align-content: center;
         justify-content: center;
+        margin-top: 0.5rem; */
         margin-top: 0.5rem;
+        margin-left: 30%;
     }
     textarea{
         height: 130px; 
