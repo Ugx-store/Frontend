@@ -111,6 +111,10 @@ export class AppServiceService {
     return this.http.post<Product>(this.product_url, newProduct).toPromise();
   }
 
+  updateProduct(product: Product): Promise<Product>{
+    return this.http.put<Product>(this.product_url, product).toPromise();
+  }
+
   addProductImages(image: ProductImage[]){
     return this.http.post(this.product_image, image, {responseType: "text"})
   }
