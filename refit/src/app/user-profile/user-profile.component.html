@@ -345,6 +345,18 @@
                         </ng-template>
                     </span>
                 </span>
+                <div>
+                    <span *ngIf="product.originalPrice" style="font-size: 13px; display: flex; align-items: center;">
+                        <span class="material-icons" style="font-size: 13px; margin-right: 5px;"
+                        data-bs-toggle="tooltip" data-bs-placement="right" title="Original price of the item">
+                            info
+                        </span>
+                        <span><i><s>Ugx {{product.originalPrice | number}}</s></i></span>
+                        <span style="font-size: 13px; margin-left: 8px; color: red; font-weight: 500;">
+                            -{{((product.originalPrice - product.itemPrice)/product.originalPrice)*100 | number : '1.1-1'}}%
+                        </span>
+                    </span>
+                </div>
                 <div *ngIf="loggedInUser" class="boost-button">
                     <span *ngIf="product.boost[0]?.boosted; else noCounter">
                         <span *ngIf="productBoost[product.id].hours > 0 

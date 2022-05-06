@@ -15,6 +15,8 @@ import { finalize, map, shareReplay, takeWhile, tap } from 'rxjs/operators';
 import { BoostChecker, Counter } from '../models/counter';
 import { Boost } from '../models/boost';
 
+declare var bootstrap: any;
+
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -117,6 +119,11 @@ export class UserProfileComponent implements OnInit, OnDestroy{
   productBoost: BoostChecker = {}
   
   ngOnInit(): void {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+
     this.buttonValue = 1
     
     this.activatedRoute.params.subscribe((param) => {
