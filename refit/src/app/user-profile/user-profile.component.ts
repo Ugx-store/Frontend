@@ -129,10 +129,6 @@ export class UserProfileComponent implements OnInit, OnDestroy{
       return new bootstrap.Popover(popoverTriggerEl)
     })
 
-    // var popover = new bootstrap.Popover(document.querySelector('.example-popover'), {
-    //   container: 'body'
-    // })
-
     this.buttonValue = 1
     
     this.activatedRoute.params.subscribe((param) => {
