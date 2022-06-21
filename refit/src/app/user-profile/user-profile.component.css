@@ -709,6 +709,12 @@
     color: #fff;
 }
 
+.delete-product-button{
+    position: absolute;
+    color: #fff;
+    left: 1rem;
+}
+
 .original-price-span{
     font-size: 13px; 
     display: flex; 
