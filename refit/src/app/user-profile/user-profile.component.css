@@ -709,6 +709,29 @@
     color: #fff;
 }
 
+.original-price-span{
+    font-size: 13px; 
+    display: flex; 
+    align-items: center;
+}
+
+/* .info-icon{
+    font-size: 13px; 
+    margin-right: 5px;
+} */
+
+.info-icon {
+    font-size: 13px; 
+    margin-right: 5px;
+}
+
+.price-deduction{
+    font-size: 13px; 
+    margin-left: 8px; 
+    color: red; 
+    font-weight: 500;
+}
+
 @media(max-width: 768px) {
     .each-pricing-categories{
         width: 7rem;

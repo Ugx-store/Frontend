@@ -20,7 +20,7 @@
         </ng-template>
         <p class="ratings">
             <span class="sold-items">
-                <span class="material-icons" style="color: blue;">storefront</span>
+                <span class="material-icons" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Right popover" style="color: blue;">storefront</span>
                 <span style="margin-left: 0.2rem;">10 sold</span>
             </span>
             <span class="rating-stars">
@@ -297,6 +297,7 @@
         <button class="btn btn-light" [className]="buttonValue === 3 ? 'activated' : 'inactivated'" (click)="soldButton()">Sold</button>
     </div> 
 </div>
+
 <div class="row "
     [ngClass]="{
         'row-cols-2': products,
@@ -346,13 +347,13 @@
                     </span>
                 </span>
                 <div>
-                    <span *ngIf="product.originalPrice" style="font-size: 13px; display: flex; align-items: center;">
-                        <span class="material-icons info-icon" style="font-size: 13px; margin-right: 5px;"
-                        data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Right popover">
+                    <span [hidden]="!product.originalPrice" class="original-price-span">
+                        <span placement="right" ngbPopover="Price at which seller bought the item." 
+                            popoverClass="popover-class" class="material-icons info-icon">
                             info
                         </span>
                         <span><i><s>Ugx {{product.originalPrice | number}}</s></i></span>
-                        <span style="font-size: 13px; margin-left: 8px; color: red; font-weight: 500;">
+                        <span class="price-deduction">
                             -{{((product.originalPrice - product.itemPrice)/product.originalPrice)*100 | number : '1.1-1'}}%
                         </span>
                     </span>

@@ -40,6 +40,7 @@ import { NgxImageCompressService } from 'ngx-image-compress';
 import { SellPageComponent } from './sell-page/sell-page.component';
 import { LikeButtonComponent } from './like-button/like-button.component';
 import { CountdownComponent } from './countdown/countdown.component';
+import {NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -81,6 +82,7 @@ import { CountdownComponent } from './countdown/countdown.component';
     NgxIntlTelInputModule,
     BrowserAnimationsModule,
     LoadingModule,
+    NgbPopoverModule
   ],
   providers: [
     AuthGuard,

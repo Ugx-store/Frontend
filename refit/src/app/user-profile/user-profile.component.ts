@@ -1,4 +1,4 @@
-import { AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { app } from '../models/firebaseapp';
@@ -21,10 +21,16 @@ declare var bootstrap: any;
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css'],
+  encapsulation: ViewEncapsulation.None,
+  styles: [`
+    .popover-class{
+      width: 10rem;
+    }
+  `],
   //changeDetection : ChangeDetectionStrategy.OnPush
 })
 
-export class UserProfileComponent implements OnInit, OnDestroy{
+export class UserProfileComponent implements OnInit, OnDestroy, AfterViewInit{
 
   constructor(private activatedRoute: ActivatedRoute, private service: AppServiceService, 
     private route: Router, public loaderService: LoaderService, private sanitizer: DomSanitizer,
@@ -119,16 +125,6 @@ export class UserProfileComponent implements OnInit, OnDestroy{
   productBoost: BoostChecker = {}
   
   ngOnInit(): void {
-    // var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    // var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    //   return new bootstrap.Tooltip(tooltipTriggerEl)
-    // })
-
-    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-      return new bootstrap.Popover(popoverTriggerEl)
-    })
-
     this.buttonValue = 1
     
     this.activatedRoute.params.subscribe((param) => {
@@ -224,6 +220,18 @@ export class UserProfileComponent implements OnInit, OnDestroy{
       })
     })
   }
+
+  ngAfterViewInit() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+      return new bootstrap.Popover(popoverTriggerEl)
+    })
+}
 
   // ngAfterViewChecked(): void {
   //   this.cd.detectChanges();
