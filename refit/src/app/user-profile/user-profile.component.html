@@ -320,7 +320,9 @@
                 <span>
                     <img src="{{product.productImages[0]?.imageData}}" alt="Product pic" draggable="false">
                     <span *ngIf="loggedInUser" class="material-icons edit-product-button" (click)="editProduct(product)">edit</span>
-                    <span *ngIf="loggedInUser" class="material-icons delete-product-button">delete</span>
+                    <span *ngIf="loggedInUser" class="material-icons delete-product-button" (click)="getProductId(product.id)" data-bs-toggle="modal" data-bs-target="#DeleteProductModal">
+                        delete
+                    </span>
                     <span class="pdt-info">
                         <span style="font-weight: 900; font-size: 15px;">Ugx {{product.itemPrice | number}}</span>
                         <span *ngIf="globalUsername; else LikerLoggedOut">
@@ -531,4 +533,51 @@
     </div>
 </div>
 
-
+<!-- Delete Product Modal -->
+<div class="modal fade" id="DeleteProductModal" tabindex="-1" aria-labelledby="DeleteProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body mx-auto">
+                <span class="login-modal-body mx-auto delete-loader" *ngIf="loaderService.isLoading | async; else notDeleting">
+                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                </span>
+                <ng-template #notDeleting>
+                    <span *ngIf="deletePdtMessage; else noDeleteMessage">
+                        <div class="login-modal-body">
+                            <span class="material-icons modal-icons">done</span>
+                        </div>
+                        <div class="login-modal-body mx-auto login-modal-body-text" style="width: 90%;">
+                            <p style="width: 100%; text-align: center;">{{deletePdtMessage}}</p>
+                        </div>
+                        <div class="login-modal-body mx-auto modal-continue-button">
+                            <button class="btn btn-primary w-75" type="button" data-bs-dismiss="modal" aria-label="close">
+                                Continue
+                            </button>
+                        </div>
+                    </span>
+                    <ng-template #noDeleteMessage>
+                        <div class="login-modal-body">
+                            <span class="material-icons modal-icons" style="color: red;">delete</span>
+                        </div>
+                        <div class="login-modal-body mx-auto login-modal-body-text" style="width: 90%;">
+                            <p style="width: 100%; text-align: center;">This action cannot be reversed. Are you sure you want to delete this product?</p>
+                        </div>
+                        <div class="login-modal-body mx-auto modal-login-button">
+                            <button class="btn btn-danger w-75" style="background: red;" type="button" (click)="deleteProduct(deletePdtId)">
+                                Continue
+                            </button>
+                        </div>
+                        <div class="login-modal-body mx-auto modal-signup-button">
+                            <button class="btn w-75" type="button" data-bs-dismiss="modal" aria-label="close">
+                                Cancel
+                            </button>
+                        </div>
+                    </ng-template>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

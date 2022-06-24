@@ -111,6 +111,10 @@ export class AppServiceService {
     return this.http.post<Product>(this.product_url, newProduct).toPromise();
   }
 
+  deleteProduct(productId: number): Promise<Product>{
+    return this.http.delete<Product>(this.product_url + "/" + productId).toPromise()
+  }
+
   updateProduct(product: Product): Promise<Product>{
     return this.http.put<Product>(this.product_url, product).toPromise();
   }
@@ -121,6 +125,10 @@ export class AppServiceService {
 
   deleteProductImage(imageId: number){
     return this.http.delete(this.product_image + "/" + imageId)
+  }
+
+  deleteProductImages(productId: number): Observable<ProductImage>{
+    return this.http.delete<ProductImage>(this.product_image + "/deleteImages/" + productId);
   }
 
   getUserProducts(username: string): Observable<Product[]>{
@@ -137,6 +145,10 @@ export class AppServiceService {
 
   unLikeAProduct(id: number): Observable<Like>{
     return this.http.delete<Like>(this.like_url + "/" + id)
+  }
+
+  deleteProductLikes(productId: number): Observable<Like>{
+    return this.http.delete<Like>(this.like_url + "/deleteLikes/" + productId)
   }
 
   boostAProduct(boost: Boost): Observable<Boost>{

@@ -30,7 +30,7 @@ declare var bootstrap: any;
   //changeDetection : ChangeDetectionStrategy.OnPush
 })
 
-export class UserProfileComponent implements OnInit, OnDestroy, AfterViewInit{
+export class UserProfileComponent implements OnInit, OnDestroy{
 
   constructor(private activatedRoute: ActivatedRoute, private service: AppServiceService, 
     private route: Router, public loaderService: LoaderService, private sanitizer: DomSanitizer,
@@ -104,6 +104,9 @@ export class UserProfileComponent implements OnInit, OnDestroy, AfterViewInit{
 
   boostPriceClicked: boolean = false
   boostPriceId: number = 0
+
+  deletePdtMessage: string = ''
+  deletePdtId: number = 0
 
   //timeLeft$: Observable<Counter> = new Observable();
 
@@ -221,18 +224,6 @@ export class UserProfileComponent implements OnInit, OnDestroy, AfterViewInit{
     })
   }
 
-  ngAfterViewInit() {
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-      return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
-
-    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-      return new bootstrap.Popover(popoverTriggerEl)
-    })
-}
-
   // ngAfterViewChecked(): void {
   //   this.cd.detectChanges();
   // }
@@ -265,6 +256,8 @@ export class UserProfileComponent implements OnInit, OnDestroy, AfterViewInit{
 
   getProductId(id: number){
     this.boost.productId = id
+    this.deletePdtId = id
+    this.deletePdtMessage = ""
   }
 
   allButton(){
@@ -689,6 +682,26 @@ export class UserProfileComponent implements OnInit, OnDestroy, AfterViewInit{
   editProduct(product: Product){
     localStorage.setItem('product-edit', JSON.stringify(product))
     this.route.navigate(['sell', 'edit'])
+  }
+
+  deleteProduct(productId: number){
+    this.service.deleteProductImages(productId).subscribe(res =>{
+      this.service.deleteProductLikes(productId).subscribe(resL =>{
+        this.service.deleteProduct(productId).then(resP =>{
+          this.deletePdtMessage = "Product has been deleted successfully!"
+          this.ngOnInit();
+        },
+        errP =>{
+          this.deletePdtMessage = "Something went wrong. Please look for the product and try again"
+        })
+      },
+      errL =>{
+        this.deletePdtMessage = "Something went wrong. Please look for the product and try again"
+      })
+    },
+    err => {
+      this.deletePdtMessage = "Something went wrong. Please look for the product and try again"
+    })
   }
 
 }

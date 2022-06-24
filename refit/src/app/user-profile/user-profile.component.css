@@ -598,6 +598,21 @@
     font-size: 20px;
 }
 
+.modal-continue-button button{
+    margin-bottom: 3rem;
+    height: 3.5rem; 
+    border-radius: 9999px; 
+    color: #fff;
+    border-color: rgb(207, 217, 222);
+    border-width: 1px;
+    font-family: 'Public Sans', sans-serif;
+    font-size: 20px;
+}
+
+.delete-loader{
+    margin-bottom: 3rem;
+}
+
 .modal-icons{
     font-size: 48px; 
     color: rgb(29, 155, 240);
@@ -711,7 +726,7 @@
 
 .delete-product-button{
     position: absolute;
-    color: #fff;
+    color: red;
     left: 1rem;
 }
 
